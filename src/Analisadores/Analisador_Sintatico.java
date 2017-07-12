@@ -32,9 +32,8 @@ public class Analisador_Sintatico extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\011\000\002\002\004\000\002\002\003\000\002\003" +
-    "\005\000\002\003\005\000\002\003\005\000\002\003\005" +
-    "\000\002\004\002\000\002\003\006\000\002\003\003" });
+    "\000\005\000\002\002\004\000\002\002\005\000\002\062" +
+    "\005\000\002\062\002\000\002\017\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -42,21 +41,8 @@ public class Analisador_Sintatico extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\021\000\006\010\004\012\005\001\002\000\006\010" +
-    "\004\012\005\001\002\000\016\002\ufff9\004\ufff9\005\ufff9" +
-    "\006\ufff9\007\ufff9\011\ufff9\001\002\000\014\002\000\004" +
-    "\012\005\011\006\013\007\014\001\002\000\004\002\010" +
-    "\001\002\000\004\002\001\001\002\000\006\010\004\012" +
-    "\005\001\002\000\006\010\004\012\005\001\002\000\006" +
-    "\010\004\012\005\001\002\000\006\010\004\012\005\001" +
-    "\002\000\016\002\ufffc\004\ufffc\005\ufffc\006\ufffc\007\ufffc" +
-    "\011\ufffc\001\002\000\016\002\ufffd\004\ufffd\005\ufffd\006" +
-    "\ufffd\007\ufffd\011\ufffd\001\002\000\016\002\uffff\004\uffff" +
-    "\005\uffff\006\013\007\014\011\uffff\001\002\000\016\002" +
-    "\ufffe\004\ufffe\005\ufffe\006\013\007\014\011\ufffe\001\002" +
-    "\000\014\004\012\005\011\006\013\007\014\011\ufffb\001" +
-    "\002\000\004\011\023\001\002\000\016\002\ufffa\004\ufffa" +
-    "\005\ufffa\006\ufffa\007\ufffa\011\ufffa\001\002" });
+    "\000\003\000\002\001\002\000\004\002\005\001\002\000" +
+    "\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -64,13 +50,8 @@ public class Analisador_Sintatico extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\021\000\006\002\006\003\005\001\001\000\004\003" +
-    "\020\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\003\017\001\001\000" +
-    "\004\003\016\001\001\000\004\003\015\001\001\000\004" +
-    "\003\014\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\004\021\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\000\003\000\004\010\003\001\001\000\002\001\001\000" +
+    "\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -151,8 +132,6 @@ public class Analisador_Sintatico extends java_cup.runtime.lr_parser {
 class CUP$Analisador_Sintatico$actions {
 
 
-    
-
   private final Analisador_Sintatico parser;
 
   /** Constructor */
@@ -175,12 +154,12 @@ class CUP$Analisador_Sintatico$actions {
       switch (CUP$Analisador_Sintatico$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 0: // $START ::= INICIO EOF 
+          case 0: // $START ::= compilation_unit EOF 
             {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)).left;
 		int start_valright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)).right;
-		String start_val = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)).value;
+		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)).value;
 		RESULT = start_val;
               CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
             }
@@ -189,128 +168,38 @@ class CUP$Analisador_Sintatico$actions {
           return CUP$Analisador_Sintatico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INICIO ::= E 
+          case 1: // arglist ::= expression comma expression 
             {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 resultado=a; 
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
+              Object RESULT =null;
+
+              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("arglist",0, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
             }
           return CUP$Analisador_Sintatico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // E ::= E mais E 
+          case 2: // comma_expression_loop ::= comma expression comma_expression_loop 
             {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).value;
-		int bleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int bright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String b = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 int val1 = Integer.parseInt(a);
-                     int val2 = Integer.parseInt(b);
-                     int r = val1+val2;
-                     RESULT = String.valueOf(r);
-                   
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
+              Object RESULT =null;
+
+              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("comma_expression_loop",48, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
             }
           return CUP$Analisador_Sintatico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // E ::= E menos E 
+          case 3: // comma_expression_loop ::= 
             {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).value;
-		int bleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int bright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String b = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 int val1 = Integer.parseInt(a);
-                     int val2 = Integer.parseInt(b);
-                     int r = val1-val2;
-                     RESULT = String.valueOf(r);
-                   
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
+              Object RESULT =null;
+
+              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("comma_expression_loop",48, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
             }
           return CUP$Analisador_Sintatico$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // E ::= E mult E 
+          case 4: // expression ::= id 
             {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).value;
-		int bleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int bright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String b = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 int val1 = Integer.parseInt(a);
-                     int val2 = Integer.parseInt(b);
-                     int r = val1*val2;
-                     RESULT = String.valueOf(r);
-                   
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
-            }
-          return CUP$Analisador_Sintatico$result;
+              Object RESULT =null;
 
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // E ::= E div E 
-            {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).value;
-		int bleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int bright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String b = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 int val1 = Integer.parseInt(a);
-                     int val2 = Integer.parseInt(b);
-                     int r = val1/val2;
-                     RESULT = String.valueOf(r);
-                   
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
-            }
-          return CUP$Analisador_Sintatico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // NT$0 ::= 
-            {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
- RESULT = a; 
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("NT$0",2, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
-            }
-          return CUP$Analisador_Sintatico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // E ::= par_abre E NT$0 par_fecha 
-            {
-              String RESULT =null;
-              // propagate RESULT from NT$0
-                RESULT = (String) ((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-2)).value;
-
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.elementAt(CUP$Analisador_Sintatico$top-3)), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
-            }
-          return CUP$Analisador_Sintatico$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // E ::= num 
-            {
-              String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()).right;
-		String a = (String)((java_cup.runtime.Symbol) CUP$Analisador_Sintatico$stack.peek()).value;
-		 RESULT = a; 
-              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("E",1, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
+              CUP$Analisador_Sintatico$result = parser.getSymbolFactory().newSymbol("expression",13, ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Analisador_Sintatico$stack.peek()), RESULT);
             }
           return CUP$Analisador_Sintatico$result;
 

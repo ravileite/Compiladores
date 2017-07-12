@@ -8,25 +8,203 @@ package Analisadores;
 /** CUP generated class containing symbol constants. */
 public class Simbolos {
   /* terminals */
-  public static final int div = 5;
-  public static final int mais = 2;
-  public static final int par_abre = 6;
-  public static final int mult = 4;
-  public static final int num = 8;
+  public static final int comments2 = 93;
+  public static final int comments1 = 92;
+  public static final int switch = 43;
+  public static final int return = 39;
+  public static final int dlthen = 57;
+  public static final int break = 4;
+  public static final int public = 38;
+  public static final int mod = 64;
+  public static final int else = 16;
+  public static final int importstar = 94;
+  public static final int minusequ = 71;
+  public static final int null = 34;
+  public static final int interface = 29;
+  public static final int this = 45;
+  public static final int packag = 35;
+  public static final int abstract = 2;
+  public static final int boolean = 3;
+  public static final int for = 23;
+  public static final int do = 13;
+  public static final int try = 50;
+  public static final int dot = 89;
+  public static final int int = 28;
+  public static final int colon = 90;
+  public static final int openkeys = 85;
+  public static final int dec_digits = 96;
+  public static final int closekeys = 86;
+  public static final int quest = 82;
+  public static final int instanceof = 27;
+  public static final int strg = 91;
+  public static final int bthen = 60;
+  public static final int int_literal = 97;
+  public static final int case = 6;
+  public static final int closepar = 66;
+  public static final int multequ = 72;
+  public static final int x = 52;
+  public static final int or = 55;
+  public static final int equequ = 59;
+  public static final int byte = 5;
+  public static final int static = 41;
+  public static final int if = 24;
+  public static final int id = 95;
+  public static final int threadsafe = 46;
+  public static final int l = 30;
+  public static final int tbthen = 63;
+  public static final int bequ = 61;
+  public static final int default = 12;
+  public static final int finally = 21;
+  public static final int lthen = 56;
+  public static final int minusminus = 80;
+  public static final int short = 40;
+  public static final int f = 18;
+  public static final int e = 15;
+  public static final int plusplus = 79;
+  public static final int d = 11;
+  public static final int continue = 10;
+  public static final int new = 33;
+  public static final int modequ = 74;
+  public static final int and = 53;
+  public static final int openbrac = 83;
+  public static final int double = 14;
+  public static final int implements = 25;
+  public static final int synchronized = 44;
+  public static final int ne = 78;
+  public static final int xor = 54;
+  public static final int extend = 17;
+  public static final int comma = 87;
+  public static final int catch = 7;
+  public static final int supe = 42;
+  public static final int openpar = 65;
+  public static final int throw = 47;
   public static final int EOF = 0;
-  public static final int menos = 3;
+  public static final int closebrac = 84;
+  public static final int xorequ = 68;
+  public static final int lequ = 58;
+  public static final int plusequ = 70;
+  public static final int false = 19;
+  public static final int private = 36;
   public static final int error = 1;
-  public static final int par_fecha = 7;
+  public static final int final = 20;
+  public static final int divequ = 73;
+  public static final int float = 22;
+  public static final int neequ = 77;
+  public static final int clas = 9;
+  public static final int transient = 48;
+  public static final int equ = 67;
+  public static final int andequ = 69;
+  public static final int sorequ = 75;
+  public static final int dbthen = 62;
+  public static final int impor = 26;
+  public static final int orequ = 76;
+  public static final int while = 51;
+  public static final int true = 49;
+  public static final int native = 32;
+  public static final int long = 31;
+  public static final int binneg = 81;
+  public static final int semic = 88;
+  public static final int char = 8;
+  public static final int protected = 37;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "mais",
-  "menos",
-  "mult",
-  "div",
-  "par_abre",
-  "par_fecha",
-  "num"
+  "abstract",
+  "boolean",
+  "break",
+  "byte",
+  "case",
+  "catch",
+  "char",
+  "clas",
+  "continue",
+  "d",
+  "default",
+  "do",
+  "double",
+  "e",
+  "else",
+  "extend",
+  "f",
+  "false",
+  "final",
+  "finally",
+  "float",
+  "for",
+  "if",
+  "implements",
+  "impor",
+  "instanceof",
+  "int",
+  "interface",
+  "l",
+  "long",
+  "native",
+  "new",
+  "null",
+  "packag",
+  "private",
+  "protected",
+  "public",
+  "return",
+  "short",
+  "static",
+  "supe",
+  "switch",
+  "synchronized",
+  "this",
+  "threadsafe",
+  "throw",
+  "transient",
+  "true",
+  "try",
+  "while",
+  "x",
+  "and",
+  "xor",
+  "or",
+  "lthen",
+  "dlthen",
+  "lequ",
+  "equequ",
+  "bthen",
+  "bequ",
+  "dbthen",
+  "tbthen",
+  "mod",
+  "openpar",
+  "closepar",
+  "equ",
+  "xorequ",
+  "andequ",
+  "plusequ",
+  "minusequ",
+  "multequ",
+  "divequ",
+  "modequ",
+  "sorequ",
+  "orequ",
+  "neequ",
+  "ne",
+  "plusplus",
+  "minusminus",
+  "binneg",
+  "quest",
+  "openbrac",
+  "closebrac",
+  "openkeys",
+  "closekeys",
+  "comma",
+  "semic",
+  "dot",
+  "colon",
+  "strg",
+  "comments1",
+  "comments2",
+  "importstar",
+  "id",
+  "dec_digits",
+  "int_literal"
   };
 }
 

@@ -49,52 +49,70 @@ parser code
 action code {::}
 
 
-/* Declarações */
+/* Declaracoes */
 
     //Terminais
         //Palavras chave
     
-terminal abstract;
+terminal abstract, ampersand;
 terminal boolean, break, byte;
-terminal case, catch, char, class, continue;
+terminal case, catch, char, clas, continue;
 terminal d, default, do, double;
-terminal e, else, extends;
+terminal e, else, extend;
 terminal f, false, final, finally, float, for;
-terminal if, implements, import, instanceof, int, interface;
+terminal if, implements, impor, instanceof, int, interface;
 terminal l, long;
 terminal native, new, null;
-terminal package, private, protected, public;
+terminal packag, private, protected, public;
 terminal return;
-terminal short, static, super, switch, synchronized;
+terminal short, static, supe, switch, synchronized;
 terminal this, threadsafe, throw, transient, true, try;
 terminal while;
 terminal x;
 
-        //Simbolos           
-            
-terminal ecom, xor, sor, lthen, dlthen, lequ, equequ, bthen, bequ, dbthen, tbthen;
-terminal plusop, minusop, multop, divop, modop;
+terminal and, xor, or, lthen, dlthen, lequ, equequ, bthen, bequ, dbthen, tbthen, mod, plus, minus;
 terminal openpar, closepar;
-terminal xorequ, equ, plusequ, minusequ, multequ, divequ, modequ, sorequ, orequ, neequ;
-terminal ne, plusplus, minusminus;
-terminal quest, openbrac, closebrac, openkeys, closekeys, conma, semic;
+terminal equ, xorequ, andequ, plusequ, minusequ, multequ, div, divequ, modequ, sorequ, orequ, neequ;
+terminal ne, plusplus, minusminus, binneg;
+terminal quest, openbrac, closebrac, openkeys, closekeys, comma, semic, dot, colon;
 terminal strg;
 terminal comments1, comments2;
 terminal importstar;
+terminal id, dec_digits, int_literal, text;
 
-    //Não Terminais
 
-non terminal compilation_unit; //1
-non terminal package_statement, import_statement, type_declaration; //2
-non terminal package_name, class_name, interface_name, doc_comment, class_declaration, interface_declaration; //3
-non terminal identifier, modifier, field_declaration; //4
-non terminal mothod_declaration, constructor_declaration, variable_declaration, static_initializer;//5 
-non terminal type, parameter_list, statement_block, variable_declarator; //6
-non terminal type_specifier, parameter, statement, variable_initializer; //7
-non terminal expression, if_statement, do_statement, while_statement, for_statement, try_statement, switch_statement; //8
-non terminal numeric_expression, testing_expression, logical_expression, string_expression, bit_expression, casting_expression,
-             creating_expression, literal_expression, arglist; //9
-non terminal ;
+    //Nao Terminais
+
+non terminal arglist, bit_expression, casting_expression, character, class_declaration, class_name;
+non terminal compilation_unit, constructor_declaration, creating_expression, decimal_digits, doc_comment, do_statement;
+non terminal exponent_part, expression, field_declaration, float_literal, float_type_suffix, for_statement;
+non terminal identifier, if_statement, import_statement, integer_literal, interface_declaration, interface_name;
+non terminal literal_expression, logical_expression, method_declaration, modifier, numeric_expression, package_name;
+non terminal package_statement, parameter, parameter_list, statement, statement_block, static_initializer;
+non terminal string, string_expression, switch_statement, testing_expression, try_statement, type;
+non terminal type_declaration, type_specifier, variable_declaration, variable_declarator, variable_initializer, while_statement;
+
+//Auxiliares
+
+non terminal comma_expression_loop;
+non terminal modifier_loop, extends_classname_optional, implements_interface_optional, interface_comma_loop, field_declaration_loop;
+non terminal package_statement_op, import_statement_loop, type_declaration_loop;
+non terminal parameter_list_optional;
+non terminal arglist_optional, expression_optional_brac, colchetes_loop;
+non terminal doc_comment_optional;
+non terminal decimal_digits_optional, exponent_part_optional, float_type_suffix_optional;
+non terminal expression_optional;
+non terminal else_statement_optional;
+non terminal comma_parameter_loop;
+non terminal identifier_optional;
+non terminal statement_loop;
+non terminal character_loop;
+non terminal case_expression_default_statement_loop;
+non terminal catch_parameter_statement_loop, finally_statement_optional;
+non terminal comma_variable_declarator_loop;
+non terminal equ_variable_initializer_optional;
+non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
+non terminal modifier_optional;
 
 start with compilation_unit;
 
@@ -103,44 +121,177 @@ start with compilation_unit;
 
 //1
 
-compilation_unit ::=  package_statement import_statement type_declaration;
+//compilation_unit ::=  package_statement import_statement type_declaration;
+					
+arglist ::= expression comma_expression_loop ;
 
-//2
+comma_expression_loop ::= comma expression comma_expression_loop
+						| /* vazio*/ ;
+						
+bit_expression ::= binneg expression
+				| expression bequ expression
+				| expression dlthen expression
+				| expression dbthen expression
+				| expression tbthen expression;
+				
+casting_expression ::= openpar type closepar expression;
 
-package_statement ::= package package_name semic;
-                    
-import_statement ::=  import package_name dot starimport semic
-                   | import class_name semic
-                   | import interface_name semic;
+character ::= id;
 
-type_declaration ::= doc_comment class_declaration semic
-                   | interface declaration semic
+class_declaration ::= modifier_loop clas identifier extends_classname_optional implements_interface_optional openkeys field_declaration_loop closekeys;
 
-//3
+modifier_loop ::= modifier modifier_loop
+				| /* vazio */ ; 
+				
+extends_classname_optional ::= extend class_name
+							| /* vazio */ ;
 
-package_name ::= identifier 
-               | package_name dot identifier
-
+implements_interface_optional ::= implements interface_name interface_comma_loop
+								| /* vazio */ ;
+								
+interface_comma_loop ::= comma interface_name interface_comma_loop
+						| /* vazio */ ;
+							
+field_declaration_loop ::= field_declaration field_declaration_loop 
+						| /* vazio */ ;
+						
 class_name ::= identifier
-             | package_name dot identifier
+			| package_name dot identifier;
+			
+compilation_unit ::= package_statement_op import_statement_loop type_declaration_loop;
 
+package_statement_op ::= package_statement
+						| /* vazio */;
+						
+import_statement_loop ::= import_statement import_statement_loop
+						| /* vazio */ ;
+						
+type_declaration_loop ::= type_declaration type_declaration_loop
+						| /* vazio */ ;
+						
+constructor_declaration ::= modifier_loop identifier openpar parameter_list_optional closepar;
+
+parameter_list_optional ::= parameter_list
+						| /* vazio */ ;
+						
+creating_expression ::= new class_name openpar arglist_optional closepar
+					| new type_specifier expression_optional_brac colchetes_loop
+					| new openpar expression closepar;
+					
+arglist_optional ::= arglist
+					| /* vazio */ ;
+					
+expression_optional_brac ::= openbrac expression closebrac
+					| /* vazio */;
+					
+colchetes_loop ::= openbrac closebrac colchetes_loop
+					| /* vazio */ ;
+					
+decimal_digits ::= dec_digits;
+
+doc_comment ::= comments2 text comments1;
+
+do_statement ::= do statement while openpar expression closepar semic;
+
+exponent_part ::= e decimal_digits
+				| e plus decimal_digits
+				| e minus decimal_digits;
+				
+expression ::= numeric_expression
+             | testing_expression
+             | logical_expression
+             | string_expression
+             | bit_expression
+             | casting_expression
+             | creating_expression 
+             | literal_expression 
+             | null
+             | supe
+             | this 
+             | identifier 
+             | openpar expression closepar
+             | expression openpar arglist_optional closepar
+             | expression openbrac expression closebrac
+             | expression dot expression
+             | expression comma expression
+             | expression instanceof class_name
+             | expression instanceof interface_name;
+             
+field_declaration ::= doc_comment_optional method_declaration
+					| doc_comment_optional constructor_declaration
+					| doc_comment_optional variable_declaration
+					| static_initializer
+					| semic;
+					
+					
+doc_comment_optional ::= doc_comment
+					| /* vazio */;
+					
+float_literal ::= decimal_digits dot decimal_digits_optional exponent_part_optional float_type_suffix_optional
+				| dot decimal_digits exponent_part_optional float_type_suffix_optional
+				| decimal_digits exponent_part_optional float_type_suffix_optional;
+					
+decimal_digits_optional ::= decimal_digits
+						| /* vazio */;
+						
+exponent_part_optional ::= exponent_part
+						| /* vazio */;
+						
+float_type_suffix_optional ::= float_type_suffix
+							| /* vazio */;
+							
+float_type_suffix ::= d
+					| f;
+					
+for_statement ::= openpar variable_declaration expression_optional semic expression_optional semic closepar statement
+				| openpar expression semic expression_optional semic expression_optional semic closepar statement
+				| openpar semic expression_optional semic expression_optional semic closepar statement;
+
+expression_optional ::= expression
+					| /* vazio */;
+					
+identifier ::= id;
+
+if_statement ::= if openpar expression closepar statement else_statement_optional;
+
+else_statement_optional ::= else statement
+							| /* vazio */ ;
+							
+import_statement ::= impor package_name dot importstar semic semic
+					| impor class_name semic
+					| impor interface_name semic;
+					
+integer_literal ::= int_literal;
+
+interface_declaration ::= modifier_loop interface identifier openkeys field_declaration_loop closekeys
+						| modifier_loop interface identifier extend interface_name interface_comma_loop openkeys field_declaration_loop closekeys;
+						
 interface_name ::= identifier
-                 | package_name dot identifier
-
-doc_comment ::= comment2 /*alguma coisa aqui*/ comment1
-
-class_declaration ::= modifier class identifier 
-                      extends class_name implements interface_name  semic interface_name
-                      openkeys field_declaration close_keys
-
-interface_declaration :: = modifier interface identifier 
-                         extendes interface_name semic interface_name
-                         field_declaration;
-
-//4
-
-identifier ::= ;
-
+				| package_name dot identifier;
+				
+literal_expression ::= integer_literal
+					| float_literal
+					| string
+					| character;
+					
+logical_expression ::= ne expression
+					| expression ampersand expression
+					| expression ampersand equ expression
+					| expression or expression
+					| expression sorequ expression
+					| expression xor expression
+					| expression xorequ expression
+					| expression ampersand ampersand expression
+					| expression orequ expression
+					| expression mod expression
+					| expression modequ expression
+					| expression quest expression colon expression
+					| true
+					| false;
+					
+method_declaration ::= modifier_loop type identifier openpar parameter_list_optional closepar colchetes_loop statement_block
+					| modifier_loop type identifier openpar parameter_list_optional closepar colchetes_loop semic;
+					
 modifier ::= public
            | private
            | protected
@@ -150,38 +301,95 @@ modifier ::= public
            | abstract
            | threadsafe
            | transient;
+           
+numeric_expression ::= minus expression
+					| plusplus expression
+					| minusminus expression
+					| expression plusplus
+					| expression minusminus
+					| expression plus expression
+					| expression plusequ expression
+					| expression minus expression
+					| expression minusequ expression
+					| expression importstar expression
+					| expression multequ expression
+					| expression div expression
+					| expression divequ expression
+					| expression mod expression
+					| expression modequ expression;
+					
+package_name ::= identifier
+				| package_name dot identifier;
+				
+package_statement ::= packag package_name semic;
 
-field_declaration ::= doc_comment method_declaration
-                    | doc_comment constructor_declaration
-                    | doc_comment variable_declaration
-                    | doc_comment static_initializer
-                    | doc_comment semic;
+parameter ::= type identifier colchetes_loop;
 
-//5
+parameter_list ::= parameter comma_parameter_loop;
 
-method_declaration ::= modifier type identifier 
-                       openpar parameter_list closepar openbrac closebrac 
-                       statement_block semic;
+comma_parameter_loop ::= comma parameter comma_parameter_loop
+						| /* vazio */ ;
+						
+statement ::= variable_declarator
+            | expression semic
+            | statement_block
+            | if_statement
+            | do_statement
+            | while_statement
+            | for_statement
+            | try_statement
+            | switch_statement
+            | synchronized openpar expression closepar statement
+            | return expression_optional semic 
+            | throw expression semic
+            | identifier colon statement 
+            | break identifier_optional semic
+            | continue identifier_optional semic
+            | semic;						
+						
+identifier_optional ::= identifier
+					| /* vazio */ ;
+					
+statement_block ::= openkeys statement_loop closekeys;	
 
-constructor_declaration ::= modifier identifier openpar parameter_list close_par 
-                            statement block;
-
-variable_declaration ::= modifier type variable_declarator 
-                         semic variable_declarator semic;
-
+statement_loop ::= statement statement_loop
+				| /* vazio */ ;
+				
 static_initializer ::= static statement_block;
 
-//6
+string ::= strg character_loop strg;
 
-type ::= type_specifier openbrac closebrac;
+character_loop ::= character character_loop
+				| /* vazio */ ;
+				
+string_expression ::= expression plus expression
+					| expression plusequ expression;
+					
+switch_statement ::= switch openpar expression closepar openkeys case_expression_default_statement_loop closekeys;
 
-parameter_list ::= parameter semic parameter;
+case_expression_default_statement_loop ::= case expression colon case_expression_default_statement_loop
+										| default colon case_expression_default_statement_loop
+										| statement;
 
-statement_block ::= openkeys statement closekeys;
+testing_expression ::= expression bthen expression
+					| expression lthen expression
+					| expression lequ expression
+					| expression bequ expression
+					| expression equequ expression
+					| expression neequ expression;
+					
+try_statement ::= try statement catch_parameter_statement_loop finally_statement_optional;
 
-variable_declarator :== identifier openbrac closebrac equ variable_initializer;
+catch_parameter_statement_loop ::= catch openpar parameter closepar statement catch_parameter_statement_loop
+								| /* vazio */;
+								
+finally_statement_optional ::= finally statement
+							| /* vazio */ ;
+				
+type ::= type_specifier colchetes_loop;
 
-//7
+type_declaration ::= doc_comment_optional class_declaration semic
+					| doc_comment_optional interface_declaration semic;
 
 type_specifier ::= boolean
                  | byte
@@ -193,136 +401,31 @@ type_specifier ::= boolean
                  | double
                  | class_name
                  | interface_name;
+                 
+variable_declaration ::= modifier_optional type variable_declarator comma_variable_declarator_loop semic;
 
-parameter ::= type_identifier openbrac closebrac;
+modifier_optional ::= modifier
+					| /* vazio */;
 
-statement ::= variable_declarator
-            | expression semic
-            | statement_block
-            | if_statement
-            | do_statement
-            | while_statement
-            | for_statement
-            | try_statement
-            | switch_statement
-            | syncrhonized openpar expression close par statement
-            | return expression semic 
-            | throw expression semic
-            | identifier colon statement 
-            | break identifier semic
-            | continue identifier semic
-            | semic;
+comma_variable_declarator_loop ::= comma variable_declarator comma_variable_declarator_loop
+								| /* vazio */;
+					
+variable_declarator ::= identifier colchetes_loop equ_variable_initializer_optional;	
 
-variable_initializer ::= expression openkeys variable_initializer 
-                         conma variable_initializer conma closekeys;
+equ_variable_initializer_optional ::= equ variable_initializer	
+									| /* vazio */ ;		
+									
+variable_initializer ::= expression
+						| openkeys variables_optional closekeys;
+						
+variables_optional ::= variable_initializer comma_variable_initializer_loop	comma_optional
+					| /* vazio */ ;
 
-//8       
+comma_variable_initializer_loop ::= comma variable_initializer comma_variable_initializer_loop
+								| /* vazio */ ;
 
-expression ::= numeric_expression
-             | testing_expression
-             | logical_expression
-             | string_expression
-             | bit_expression
-             | casting_expression
-             | creating_expression 
-             | literal_expression 
-             | null
-             | super
-             | this 
-             | identifier 
-             | openpar expression closepar
-             | expression 
-                openpar arglist closepar
-                | openbrac expression closebrac
-                | dot expression 
-                | conma expression
-                | isntanceof class name | interfacename;
-             
-
-if_statement ::= if openpar expression closepar statement
-                else statement;
-
-do_statement :: = statement while openpar expression closepar semic;
-
+comma_optional ::= comma
+				| /*vazio*/ ;
+				
 while_statement ::= while openpar expression closepar statement;
-
-for_statement ::= for openpar variable_declaration | expression semic | semic 
-                  expression semic
-                  expression semic
-                  closepar statement;
-
-try_statement ::= try statement 
-                  catch openpar parameter closepar statement 
-                  finally statement;
-
-switch_statement ::= switch openpar expression closepar openkeys
-                     case expression colon 
-                     default colon
-                     statement
-                     closekeys;
-
-//9
-
-numeric_expression ::= minus | plusplus | minusminus | expression
-                     | expression plusplus minusminus 
-                     | expression 
-                     | plus
-                     | plusequ
-                     | minusequ
-                     | mult                  
-                     | multequ
-                     | div
-                     | divequ
-                     | mod
-                     | modequ expression;
-
-testing_expression ::= expression bthen
-                       | bthen 
-                       | lthen 
-                       | bthenequ
-                       | lthenequ
-                       | equequ
-                       | neequ
-                       expression;
-
-logical_expression ::= ne expression
-                     | expression 
-                       ecom 
-                     | ecomequ
-                     | or
-                     | sorequ
-                     | xor
-                     |xorequ
-                     | ecom ecom    
-                     | orequ
-                     | mod
-                     | modequ 
-                     expression
-                     | true
-                     | false;
-
-string_expression ::= expression plus | plusequ
-                      expression;
-
-bit_expression ::= binneg expression 
-                 | expression 
-                 dbthenequ
-                 | dlthen
-                 | dbthen 
-                 | tbthen 
-                 expression;
-
-casting_expression ::= openpar type closepar expression;
-  
-creating_expression ::= new class_name openpar arglist closepar 
-                      |     type_specifier openbrac expression closebrac openbrac closebrac 
-                      | openpar expression closepar;
-
-literal_expression ::= integral_literal 
-                     | float_literal 
-                     | string 
-                     | character;
-
-arglist ::= expression semic expression;
-
-//10
+						
