@@ -1,0 +1,328 @@
+/* Código do Usuário */
+
+package Analisadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+
+
+parser code
+{:
+    public String resultado = "";
+    public static LinkedList<TError> TabelaERSintatico = new  LinkedList<TError>();
+
+
+    public void syntaxError(Symbol symbol){
+
+        String lexema = symbol.value.toString();
+        int linha = symbol.right;
+        int coluna = symbol.left;
+        
+        System.out.println("Erro sintático!");
+        System.out.println("\tLexema:   " + lexema);
+        System.out.println("\tLinha: " + linha);
+        System.out.println("\tColuna: " + coluna);
+
+
+
+        TError dados = new TError(lexema, linha, coluna, "Erro Sintatico",  "Caractere nao reconhecido!");
+        TabelaERSintatico.add(dados);   
+    }
+
+    public void unrecoveredSyntaxError(Symbol symbol) throws java.lang.Exception{
+        String lexema = symbol.value.toString();
+        int linha = symbol.right;
+        int coluna = symbol.left;
+
+        System.out.println("Erro sintatico irrecuperavel!");
+        System.out.println("\tLexema:   " + lexema);
+        System.out.println("\tLinha: " + linha);
+        System.out.println("\tColuna: " + coluna);
+
+        TError dados = new TError(lexema, linha, coluna, "Erro Sintatico",  "Caractere nao reconhecido!");
+        TabelaERSintatico.add(dados);
+    }
+    
+:}
+
+    //Ações Gramaticais
+
+action code {::}
+
+
+/* Declarações */
+
+    //Terminais
+        //Palavras chave
+    
+terminal abstract;
+terminal boolean, break, byte;
+terminal case, catch, char, class, continue;
+terminal d, default, do, double;
+terminal e, else, extends;
+terminal f, false, final, finally, float, for;
+terminal if, implements, import, instanceof, int, interface;
+terminal l, long;
+terminal native, new, null;
+terminal package, private, protected, public;
+terminal return;
+terminal short, static, super, switch, synchronized;
+terminal this, threadsafe, throw, transient, true, try;
+terminal while;
+terminal x;
+
+        //Simbolos           
+            
+terminal ecom, xor, sor, lthen, dlthen, lequ, equequ, bthen, bequ, dbthen, tbthen;
+terminal plusop, minusop, multop, divop, modop;
+terminal openpar, closepar;
+terminal xorequ, equ, plusequ, minusequ, multequ, divequ, modequ, sorequ, orequ, neequ;
+terminal ne, plusplus, minusminus;
+terminal quest, openbrac, closebrac, openkeys, closekeys, conma, semic;
+terminal strg;
+terminal comments1, comments2;
+terminal importstar;
+
+    //Não Terminais
+
+non terminal compilation_unit; //1
+non terminal package_statement, import_statement, type_declaration; //2
+non terminal package_name, class_name, interface_name, doc_comment, class_declaration, interface_declaration; //3
+non terminal identifier, modifier, field_declaration; //4
+non terminal mothod_declaration, constructor_declaration, variable_declaration, static_initializer;//5 
+non terminal type, parameter_list, statement_block, variable_declarator; //6
+non terminal type_specifier, parameter, statement, variable_initializer; //7
+non terminal expression, if_statement, do_statement, while_statement, for_statement, try_statement, switch_statement; //8
+non terminal numeric_expression, testing_expression, logical_expression, string_expression, bit_expression, casting_expression,
+             creating_expression, literal_expression, arglist; //9
+non terminal ;
+
+start with compilation_unit;
+
+ 
+/* Gramática */
+
+//1
+
+compilation_unit ::=  package_statement import_statement type_declaration;
+
+//2
+
+package_statement ::= package package_name semic;
+                    
+import_statement ::=  import package_name dot starimport semic
+                   | import class_name semic
+                   | import interface_name semic;
+
+type_declaration ::= doc_comment class_declaration semic
+                   | interface declaration semic
+
+//3
+
+package_name ::= identifier 
+               | package_name dot identifier
+
+class_name ::= identifier
+             | package_name dot identifier
+
+interface_name ::= identifier
+                 | package_name dot identifier
+
+doc_comment ::= comment2 /*alguma coisa aqui*/ comment1
+
+class_declaration ::= modifier class identifier 
+                      extends class_name implements interface_name  semic interface_name
+                      openkeys field_declaration close_keys
+
+interface_declaration :: = modifier interface identifier 
+                         extendes interface_name semic interface_name
+                         field_declaration;
+
+//4
+
+identifier ::= ;
+
+modifier ::= public
+           | private
+           | protected
+           | static
+           | final
+           | synchronized
+           | abstract
+           | threadsafe
+           | transient;
+
+field_declaration ::= doc_comment method_declaration
+                    | doc_comment constructor_declaration
+                    | doc_comment variable_declaration
+                    | doc_comment static_initializer
+                    | doc_comment semic;
+
+//5
+
+method_declaration ::= modifier type identifier 
+                       openpar parameter_list closepar openbrac closebrac 
+                       statement_block semic;
+
+constructor_declaration ::= modifier identifier openpar parameter_list close_par 
+                            statement block;
+
+variable_declaration ::= modifier type variable_declarator 
+                         semic variable_declarator semic;
+
+static_initializer ::= static statement_block;
+
+//6
+
+type ::= type_specifier openbrac closebrac;
+
+parameter_list ::= parameter semic parameter;
+
+statement_block ::= openkeys statement closekeys;
+
+variable_declarator :== identifier openbrac closebrac equ variable_initializer;
+
+//7
+
+type_specifier ::= boolean
+                 | byte
+                 | char
+                 | short
+                 | int
+                 | float
+                 | long 
+                 | double
+                 | class_name
+                 | interface_name;
+
+parameter ::= type_identifier openbrac closebrac;
+
+statement ::= variable_declarator
+            | expression semic
+            | statement_block
+            | if_statement
+            | do_statement
+            | while_statement
+            | for_statement
+            | try_statement
+            | switch_statement
+            | syncrhonized openpar expression close par statement
+            | return expression semic 
+            | throw expression semic
+            | identifier colon statement 
+            | break identifier semic
+            | continue identifier semic
+            | semic;
+
+variable_initializer ::= expression openkeys variable_initializer 
+                         conma variable_initializer conma closekeys;
+
+//8       
+
+expression ::= numeric_expression
+             | testing_expression
+             | logical_expression
+             | string_expression
+             | bit_expression
+             | casting_expression
+             | creating_expression 
+             | literal_expression 
+             | null
+             | super
+             | this 
+             | identifier 
+             | openpar expression closepar
+             | expression 
+                openpar arglist closepar
+                | openbrac expression closebrac
+                | dot expression 
+                | conma expression
+                | isntanceof class name | interfacename;
+             
+
+if_statement ::= if openpar expression closepar statement
+                else statement;
+
+do_statement :: = statement while openpar expression closepar semic;
+
+while_statement ::= while openpar expression closepar statement;
+
+for_statement ::= for openpar variable_declaration | expression semic | semic 
+                  expression semic
+                  expression semic
+                  closepar statement;
+
+try_statement ::= try statement 
+                  catch openpar parameter closepar statement 
+                  finally statement;
+
+switch_statement ::= switch openpar expression closepar openkeys
+                     case expression colon 
+                     default colon
+                     statement
+                     closekeys;
+
+//9
+
+numeric_expression ::= minus | plusplus | minusminus | expression
+                     | expression plusplus minusminus 
+                     | expression 
+                     | plus
+                     | plusequ
+                     | minusequ
+                     | mult                  
+                     | multequ
+                     | div
+                     | divequ
+                     | mod
+                     | modequ expression;
+
+testing_expression ::= expression bthen
+                       | bthen 
+                       | lthen 
+                       | bthenequ
+                       | lthenequ
+                       | equequ
+                       | neequ
+                       expression;
+
+logical_expression ::= ne expression
+                     | expression 
+                       ecom 
+                     | ecomequ
+                     | or
+                     | sorequ
+                     | xor
+                     |xorequ
+                     | ecom ecom    
+                     | orequ
+                     | mod
+                     | modequ 
+                     expression
+                     | true
+                     | false;
+
+string_expression ::= expression plus | plusequ
+                      expression;
+
+bit_expression ::= binneg expression 
+                 | expression 
+                 dbthenequ
+                 | dlthen
+                 | dbthen 
+                 | tbthen 
+                 expression;
+
+casting_expression ::= openpar type closepar expression;
+  
+creating_expression ::= new class_name openpar arglist closepar 
+                      |     type_specifier openbrac expression closebrac openbrac closebrac 
+                      | openpar expression closepar;
+
+literal_expression ::= integral_literal 
+                     | float_literal 
+                     | string 
+                     | character;
+
+arglist ::= expression semic expression;
+
+//10
