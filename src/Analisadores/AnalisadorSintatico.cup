@@ -56,7 +56,7 @@ action code {::}
     
 terminal abstract, ampersand;
 terminal boolean, break, byte;
-terminal case, catch, char, clas, continue;
+terminal case, catch, char, clas, CONTINUE;
 terminal d, default, do, double;
 terminal e, else, extend;
 terminal f, false, final, finally, float, for;
@@ -113,6 +113,7 @@ non terminal comma_variable_declarator_loop;
 non terminal equ_variable_initializer_optional;
 non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
 non terminal modifier_optional;
+non terminal bit_expression_2;
 
 precedence nonassoc dot, openpar, openbrac;
 precedence left plus, minus;
@@ -132,10 +133,12 @@ comma_expression_loop ::= comma expression comma_expression_loop
 						| /* vazio*/ ;
 						
 bit_expression ::= binneg expression
-				| expression bequ expression
-				| expression dlthen expression
-				| expression dbthen expression
-				| expression tbthen expression;
+				| expression bit_expression_2;
+				
+bit_expression_2 ::= bequ expression
+				| dlthen expression
+				| dbthen expression
+				| tbthen expression;
 				
 casting_expression ::= openpar type closepar expression;
 
@@ -347,7 +350,7 @@ statement ::= variable_declarator
             | throw expression semic
             | identifier colon statement 
             | break identifier_optional semic
-            | continue identifier_optional semic
+            | CONTINUE identifier_optional semic
             | semic;						
 						
 identifier_optional ::= identifier
