@@ -114,6 +114,9 @@ non terminal equ_variable_initializer_optional;
 non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
 non terminal modifier_optional;
 
+precedence nonassoc dot, openpar, openbrac;
+precedence left plus, minus;
+
 start with compilation_unit;
 
  
