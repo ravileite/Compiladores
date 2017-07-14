@@ -140,7 +140,6 @@ import java.util.LinkedList;
             "&"     {return new Symbol(Simbolos.AND, yycolumn, yyline, yytext());  }  
             "^"     {return new Symbol(Simbolos.XOR, yycolumn, yyline, yytext());  }
             "|"     {return new Symbol(Simbolos.OR, yycolumn, yyline, yytext());  }
-            "*"     {return new Symbol(Simbolos.MULT, yycolumn, yyline, yytext());  }
             "<"     {return new Symbol(Simbolos.LTHEN, yycolumn, yyline, yytext());  }
             "<<"    {return new Symbol(Simbolos.DLTHEN, yycolumn, yyline, yytext());  }
             "<="    {return new Symbol(Simbolos.LEQU, yycolumn, yyline, yytext());  }
@@ -164,6 +163,7 @@ import java.util.LinkedList;
             "&="    {return new Symbol(Simbolos.ANDEQU, yycolumn, yyline, yytext());  }
             "+"	    {return new Symbol(Simbolos.PLUS, yycolumn, yyline, yytext());  }
             "-"	    {return new Symbol(Simbolos.MINUS, yycolumn, yyline, yytext());  }
+            "*"     {return new Symbol(Simbolos.MULT, yycolumn, yyline, yytext());  }
             "+="    {return new Symbol(Simbolos.PLUSEQU, yycolumn, yyline, yytext());  }
             "-="    {return new Symbol(Simbolos.MINUSEQU, yycolumn, yyline, yytext());  }
             "*="    {return new Symbol(Simbolos.MULTEQU, yycolumn, yyline, yytext());  }
@@ -188,7 +188,7 @@ import java.util.LinkedList;
             "]"     {return new Symbol(Simbolos.CLOSEBRAC, yycolumn, yyline, yytext());  }
             "{"     {return new Symbol(Simbolos.OPENKEYS, yycolumn, yyline, yytext());  }
             "}"     {return new Symbol(Simbolos.CLOSEKEYS, yycolumn, yyline, yytext());  }
-            ","     {return new Symbol(Simbolos.CONMA, yycolumn, yyline, yytext());  }
+            ","     {return new Symbol(Simbolos.COMMA, yycolumn, yyline, yytext());  }
             ";"     {return new Symbol(Simbolos.SEMIC, yycolumn, yyline, yytext());  }
             "."     {return new Symbol(Simbolos.DOT, yycolumn, yyline, yytext());  }
             ":"     {return new Symbol(Simbolos.COLON, yycolumn, yyline, yytext());  }
@@ -201,7 +201,7 @@ import java.util.LinkedList;
 
             "/*"    {return new Symbol(Simbolos.COMMENTS1, yycolumn, yyline, yytext());  }
             "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
-            
+
     //Special
     		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.id, yycolumn, yyline, yytext());  }
     		"[0-9]*" {return new Symbol(Simbolos.dec_digits, yycolumn, yyline, yytext());  }
