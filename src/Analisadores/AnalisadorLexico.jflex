@@ -38,172 +38,172 @@ import java.util.LinkedList;
     //  -- -- -- Palavras Chave -- -- -- 
 
     //A
-		"ampersand"   {return new Symbol(Simbolos.ampersand, yycolumn, yyline, yytext());  }
-        "abstract"    {return new Symbol(Simbolos.abstract, yycolumn, yyline, yytext());  }
+        "ampersand"   {return new Symbol(Simbolos.AMPERSAND, yycolumn, yyline, yytext());  }
+        "abstract"    {return new Symbol(Simbolos.ABSTRACT, yycolumn, yyline, yytext());  }
 
     //B
 
-        "boolean"     {return new Symbol(Simbolos.boolean, yycolumn, yyline, yytext());  }
-        "break"       {return new Symbol(Simbolos.break, yycolumn, yyline, yytext());  }
-        "byte"        {return new Symbol(Simbolos.byte, yycolumn, yyline, yytext());  }   
+        "boolean"     {return new Symbol(Simbolos.BOOLEAN, yycolumn, yyline, yytext());  }
+        "break"       {return new Symbol(Simbolos.BREAK, yycolumn, yyline, yytext());  }
+        "byte"        {return new Symbol(Simbolos.BYTE, yycolumn, yyline, yytext());  }   
 
     //C
     
-        "case"        {return new Symbol(Simbolos.case, yycolumn, yyline, yytext());  }   
-        "catch"       {return new Symbol(Simbolos.catch, yycolumn, yyline, yytext());  }
-        "char"        {return new Symbol(Simbolos.char, yycolumn, yyline, yytext());  }
-        "class"       {return new Symbol(Simbolos.clas, yycolumn, yyline, yytext());  }
-        "continue"    {return new Symbol(Simbolos.continue, yycolumn, yyline, yytext());  }
+        "case"        {return new Symbol(Simbolos.CASE, yycolumn, yyline, yytext());  }   
+        "catch"       {return new Symbol(Simbolos.CATCH, yycolumn, yyline, yytext());  }
+        "char"        {return new Symbol(Simbolos.CHAR, yycolumn, yyline, yytext());  }
+        "class"       {return new Symbol(Simbolos.CLAS, yycolumn, yyline, yytext());  }
+        "continue"    {return new Symbol(Simbolos.CONTINUE, yycolumn, yyline, yytext());  }
 
     //D
 
-        "d"           {return new Symbol(Simbolos.d, yycolumn, yyline, yytext());  }
-        "default"     {return new Symbol(Simbolos.default, yycolumn, yyline, yytext());  }
-        "do"          {return new Symbol(Simbolos.do, yycolumn, yyline, yytext());  }
-        "double"      {return new Symbol(Simbolos.double, yycolumn, yyline, yytext());  }
+        "d"           {return new Symbol(Simbolos.D, yycolumn, yyline, yytext());  }
+        "default"     {return new Symbol(Simbolos.DEFAULT, yycolumn, yyline, yytext());  }
+        "do"          {return new Symbol(Simbolos.DO, yycolumn, yyline, yytext());  }
+        "double"      {return new Symbol(Simbolos.DOUBLE, yycolumn, yyline, yytext());  }
 
     //E
 
-        "e"           {return new Symbol(Simbolos.e, yycolumn, yyline, yytext());  }
-        "else"        {return new Symbol(Simbolos.else, yycolumn, yyline, yytext());  }
-        "extends"     {return new Symbol(Simbolos.extend, yycolumn, yyline, yytext());  }
+        "e"           {return new Symbol(Simbolos.E, yycolumn, yyline, yytext());  }
+        "else"        {return new Symbol(Simbolos.ELSE, yycolumn, yyline, yytext());  }
+        "extends"     {return new Symbol(Simbolos.EXTEND, yycolumn, yyline, yytext());  }
 
     //F
 
-        "f"           {return new Symbol(Simbolos.f, yycolumn, yyline, yytext());  }
-        "false"       {return new Symbol(Simbolos.false, yycolumn, yyline, yytext());  }
-        "final"       {return new Symbol(Simbolos.final, yycolumn, yyline, yytext());  }
-        "finally"     {return new Symbol(Simbolos.finally, yycolumn, yyline, yytext());  }
-        "float"       {return new Symbol(Simbolos.float, yycolumn, yyline, yytext());  }
-        "for"         {return new Symbol(Simbolos.for, yycolumn, yyline, yytext());  }
+        "f"           {return new Symbol(Simbolos.F, yycolumn, yyline, yytext());  }
+        "false"       {return new Symbol(Simbolos.FALSE, yycolumn, yyline, yytext());  }
+        "final"       {return new Symbol(Simbolos.FINAL, yycolumn, yyline, yytext());  }
+        "finally"     {return new Symbol(Simbolos.FINALLY, yycolumn, yyline, yytext());  }
+        "float"       {return new Symbol(Simbolos.FLOAT, yycolumn, yyline, yytext());  }
+        "for"         {return new Symbol(Simbolos.FOR, yycolumn, yyline, yytext());  }
 
     //I
 
-        "if"          {return new Symbol(Simbolos.if, yycolumn, yyline, yytext());  }
-        "implements"  {return new Symbol(Simbolos.implements, yycolumn, yyline, yytext());  }
-        "import"      {return new Symbol(Simbolos.impor, yycolumn, yyline, yytext());  }
-        "instanceof"  {return new Symbol(Simbolos.instanceof, yycolumn, yyline, yytext());  }
-        "int"         {return new Symbol(Simbolos.int, yycolumn, yyline, yytext());  }
-        "interface"   {return new Symbol(Simbolos.interface, yycolumn, yyline, yytext());  }
+        "if"          {return new Symbol(Simbolos.IF, yycolumn, yyline, yytext());  }
+        "implements"  {return new Symbol(Simbolos.IMPLEMENTS, yycolumn, yyline, yytext());  }
+        "import"      {return new Symbol(Simbolos.IMPOR, yycolumn, yyline, yytext());  }
+        "instanceof"  {return new Symbol(Simbolos.INSTANCEOF, yycolumn, yyline, yytext());  }
+        "int"         {return new Symbol(Simbolos.INT, yycolumn, yyline, yytext());  }
+        "interface"   {return new Symbol(Simbolos.INTERFACE, yycolumn, yyline, yytext());  }
 
     //L
 
-        "l"           {return new Symbol(Simbolos.l, yycolumn, yyline, yytext());  }
-        "long"        {return new Symbol(Simbolos.long, yycolumn, yyline, yytext());  }
+        "l"           {return new Symbol(Simbolos.L, yycolumn, yyline, yytext());  }
+        "long"        {return new Symbol(Simbolos.LONG, yycolumn, yyline, yytext());  }
 
     //N
 
-        "native"      {return new Symbol(Simbolos.native, yycolumn, yyline, yytext());  }
-        "new"         {return new Symbol(Simbolos.new, yycolumn, yyline, yytext());  }
-        "null"        {return new Symbol(Simbolos.null, yycolumn, yyline, yytext());  }
+        "native"      {return new Symbol(Simbolos.NATIVE, yycolumn, yyline, yytext());  }
+        "new"         {return new Symbol(Simbolos.NEW, yycolumn, yyline, yytext());  }
+        "null"        {return new Symbol(Simbolos.NULL, yycolumn, yyline, yytext());  }
 
     //P
 
-        "package"     {return new Symbol(Simbolos.packag, yycolumn, yyline, yytext());  }
-        "private"     {return new Symbol(Simbolos.private, yycolumn, yyline, yytext());  }
-        "protected"   {return new Symbol(Simbolos.protected, yycolumn, yyline, yytext());  }
-        "public"      {return new Symbol(Simbolos.public, yycolumn, yyline, yytext());  }
+        "package"     {return new Symbol(Simbolos.PACKAG, yycolumn, yyline, yytext());  }
+        "private"     {return new Symbol(Simbolos.PRIVATE, yycolumn, yyline, yytext());  }
+        "protected"   {return new Symbol(Simbolos.PROTECTED, yycolumn, yyline, yytext());  }
+        "public"      {return new Symbol(Simbolos.PUBLIC, yycolumn, yyline, yytext());  }
 
     //R
 
-        "return"      {return new Symbol(Simbolos.return, yycolumn, yyline, yytext());  }
+        "return"      {return new Symbol(Simbolos.RETURN, yycolumn, yyline, yytext());  }
 
     //S
 
-        "short"       {return new Symbol(Simbolos.short, yycolumn, yyline, yytext());  }
-        "static"      {return new Symbol(Simbolos.static, yycolumn, yyline, yytext());  }
-        "super"       {return new Symbol(Simbolos.super, yycolumn, yyline, yytext());  }
-        "switch"      {return new Symbol(Simbolos.switch, yycolumn, yyline, yytext());  }
-        "synchronized" {return new Symbol(Simbolos.synchronized, yycolumn, yyline, yytext());  }
+        "short"       {return new Symbol(Simbolos.SHORT, yycolumn, yyline, yytext());  }
+        "static"      {return new Symbol(Simbolos.STATIC, yycolumn, yyline, yytext());  }
+        "super"       {return new Symbol(Simbolos.SUPER, yycolumn, yyline, yytext());  }
+        "switch"      {return new Symbol(Simbolos.SWITCH, yycolumn, yyline, yytext());  }
+        "synchronized" {return new Symbol(Simbolos.SYNCHRONIZED, yycolumn, yyline, yytext());  }
 
     //T
 
-        "this"        {return new Symbol(Simbolos.this, yycolumn, yyline, yytext());  }
-        "threadsafe"  {return new Symbol(Simbolos.threadsafe, yycolumn, yyline, yytext());  }
-        "throw"       {return new Symbol(Simbolos.throw, yycolumn, yyline, yytext());  }
-        "transient"   {return new Symbol(Simbolos.transient, yycolumn, yyline, yytext());  }
-        "true"        {return new Symbol(Simbolos.true, yycolumn, yyline, yytext());  }
-        "try"         {return new Symbol(Simbolos.try, yycolumn, yyline, yytext());  }
+        "this"        {return new Symbol(Simbolos.THIS, yycolumn, yyline, yytext());  }
+        "threadsafe"  {return new Symbol(Simbolos.THREADSAFE, yycolumn, yyline, yytext());  }
+        "throw"       {return new Symbol(Simbolos.THROW, yycolumn, yyline, yytext());  }
+        "transient"   {return new Symbol(Simbolos.TRANSIENT, yycolumn, yyline, yytext());  }
+        "true"        {return new Symbol(Simbolos.TRUE, yycolumn, yyline, yytext());  }
+        "try"         {return new Symbol(Simbolos.TRY, yycolumn, yyline, yytext());  }
 
     //W
 
-        "while"       {return new Symbol(Simbolos.while, yycolumn, yyline, yytext());  }
+        "while"       {return new Symbol(Simbolos.WHILE, yycolumn, yyline, yytext());  }
 
     //X
 
-        "x"           {return new Symbol(Simbolos.x, yycolumn, yyline, yytext());  }
+        "x"           {return new Symbol(Simbolos.X, yycolumn, yyline, yytext());  }
 
     //  -- -- -- Caracteres -- -- -- 
 
     //Expressões Relacionais e Lógicas
 
-            "&"     {return new Symbol(Simbolos.and, yycolumn, yyline, yytext());  }  
-            "^"     {return new Symbol(Simbolos.xor, yycolumn, yyline, yytext());  }
-            "|"     {return new Symbol(Simbolos.or, yycolumn, yyline, yytext());  }
-            "<"     {return new Symbol(Simbolos.lthen, yycolumn, yyline, yytext());  }
-            "<<"    {return new Symbol(Simbolos.dlthen, yycolumn, yyline, yytext());  }
-            "<="    {return new Symbol(Simbolos.lequ, yycolumn, yyline, yytext());  }
-            "=="    {return new Symbol(Simbolos.equequ, yycolumn, yyline, yytext());  }
-            ">"     {return new Symbol(Simbolos.bthen, yycolumn, yyline, yytext());  }
-            ">="    {return new Symbol(Simbolos.bequ, yycolumn, yyline, yytext());  }
-            ">>="    {return new Symbol(Simbolos.bequ, yycolumn, yyline, yytext());  }
-            ">>"    {return new Symbol(Simbolos.dbthen, yycolumn, yyline, yytext());  }
-            ">>>"   {return new Symbol(Simbolos.tbthen, yycolumn, yyline, yytext());  }
-            "%"     {return new Symbol(Simbolos.mod, yycolumn, yyline, yytext());  }
+            "&"     {return new Symbol(Simbolos.AND, yycolumn, yyline, yytext());  }  
+            "^"     {return new Symbol(Simbolos.XOR, yycolumn, yyline, yytext());  }
+            "|"     {return new Symbol(Simbolos.OR, yycolumn, yyline, yytext());  }
+            "<"     {return new Symbol(Simbolos.LTHEN, yycolumn, yyline, yytext());  }
+            "<<"    {return new Symbol(Simbolos.DLTHEN, yycolumn, yyline, yytext());  }
+            "<="    {return new Symbol(Simbolos.LEQU, yycolumn, yyline, yytext());  }
+            "=="    {return new Symbol(Simbolos.EQUEQU, yycolumn, yyline, yytext());  }
+            ">"     {return new Symbol(Simbolos.BTHEN, yycolumn, yyline, yytext());  }
+            ">="    {return new Symbol(Simbolos.BEQU, yycolumn, yyline, yytext());  }
+            ">>="    {return new Symbol(Simbolos.DBEQU, yycolumn, yyline, yytext());  }
+            ">>"    {return new Symbol(Simbolos.DBTHEN, yycolumn, yyline, yytext());  }
+            ">>>"   {return new Symbol(Simbolos.TBTHEN, yycolumn, yyline, yytext());  }
+            "%"     {return new Symbol(Simbolos.MOD, yycolumn, yyline, yytext());  }
 
     //Sinais
 
-            "("     {return new Symbol(Simbolos.openpar, yycolumn, yyline, yytext());  }
-            ")"     {return new Symbol(Simbolos.closepar, yycolumn, yyline, yytext());  }
+            "("     {return new Symbol(Simbolos.OPENPAR, yycolumn, yyline, yytext());  }
+            ")"     {return new Symbol(Simbolos.CLOSEPAR, yycolumn, yyline, yytext());  }
 
     //Atribuição
     
-            "="    {return new Symbol(Simbolos.equ, yycolumn, yyline, yytext());  }
-            "^="    {return new Symbol(Simbolos.xorequ, yycolumn, yyline, yytext());  }
-            "&="    {return new Symbol(Simbolos.andequ, yycolumn, yyline, yytext());  }
-            "+"		{return new Symbol(Simbolos.plus, yycolumn, yyline, yytext());  }
-            "-"		{return new Symbol(Simbolos.minus, yycolumn, yyline, yytext());  }
-            "+="    {return new Symbol(Simbolos.plusequ, yycolumn, yyline, yytext());  }
-            "-="    {return new Symbol(Simbolos.minusequ, yycolumn, yyline, yytext());  }
-            "*="    {return new Symbol(Simbolos.multequ, yycolumn, yyline, yytext());  }
-            "/"		{return new Symbol(Simbolos.div, yycolumn, yyline, yytext());  }
-            "/="    {return new Symbol(Simbolos.divequ, yycolumn, yyline, yytext());  }
-            "%="    {return new Symbol(Simbolos.modequ, yycolumn, yyline, yytext());  }
-            "|="    {return new Symbol(Simbolos.sorequ, yycolumn, yyline, yytext());  }
-            "||="   {return new Symbol(Simbolos.orequ, yycolumn, yyline, yytext());  }    
-            "!="    {return new Symbol(Simbolos.neequ, yycolumn, yyline, yytext());  } 
+            "="     {return new Symbol(Simbolos.EQU, yycolumn, yyline, yytext());  }
+            "^="    {return new Symbol(Simbolos.XOREQU, yycolumn, yyline, yytext());  }
+            "&="    {return new Symbol(Simbolos.ANDEQU, yycolumn, yyline, yytext());  }
+            "+"	    {return new Symbol(Simbolos.PLUS, yycolumn, yyline, yytext());  }
+            "-"	    {return new Symbol(Simbolos.MINUS, yycolumn, yyline, yytext());  }
+            "+="    {return new Symbol(Simbolos.PLUSEQU, yycolumn, yyline, yytext());  }
+            "-="    {return new Symbol(Simbolos.MINUSEQU, yycolumn, yyline, yytext());  }
+            "*="    {return new Symbol(Simbolos.MULTEQU, yycolumn, yyline, yytext());  }
+            "/"	    {return new Symbol(Simbolos.DIV, yycolumn, yyline, yytext());  }
+            "/="    {return new Symbol(Simbolos.DIVEQU, yycolumn, yyline, yytext());  }
+            "%="    {return new Symbol(Simbolos.MODEQU, yycolumn, yyline, yytext());  }
+            "|="    {return new Symbol(Simbolos.SOREQU, yycolumn, yyline, yytext());  }
+            "||="   {return new Symbol(Simbolos.OREQU, yycolumn, yyline, yytext());  }    
+            "!="    {return new Symbol(Simbolos.NEEQU, yycolumn, yyline, yytext());  } 
 
     //Operadores unários
 
-            "!"     {return new Symbol(Simbolos.ne, yycolumn, yyline, yytext());  } 
-            "++"    {return new Symbol(Simbolos.plusplus, yycolumn, yyline, yytext());  }
-            "--"    {return new Symbol(Simbolos.minusminus, yycolumn, yyline, yytext());  }
-            "~"    {return new Symbol(Simbolos.binneg, yycolumn, yyline, yytext());  }
+            "!"     {return new Symbol(Simbolos.NE, yycolumn, yyline, yytext());  } 
+            "++"    {return new Symbol(Simbolos.PLUSPLUS, yycolumn, yyline, yytext());  }
+            "--"    {return new Symbol(Simbolos.MINUSMINUS, yycolumn, yyline, yytext());  }
+            "~"     {return new Symbol(Simbolos.BINNEG, yycolumn, yyline, yytext());  }
 
     //Separadores
 
-            "?"     {return new Symbol(Simbolos.quest, yycolumn, yyline, yytext());  }
-            "["     {return new Symbol(Simbolos.openbrac, yycolumn, yyline, yytext());  }
-            "]"     {return new Symbol(Simbolos.closebrac, yycolumn, yyline, yytext());  }
-            "{"     {return new Symbol(Simbolos.openkeys, yycolumn, yyline, yytext());  }
-            "}"     {return new Symbol(Simbolos.closekeys, yycolumn, yyline, yytext());  }
-            ","     {return new Symbol(Simbolos.comma, yycolumn, yyline, yytext());  }
-            ";"     {return new Symbol(Simbolos.semic, yycolumn, yyline, yytext());  }
-            "."     {return new Symbol(Simbolos.dot, yycolumn, yyline, yytext());  }
-            ":"     {return new Symbol(Simbolos.colon, yycolumn, yyline, yytext());  }
+            "?"     {return new Symbol(Simbolos.QUEST, yycolumn, yyline, yytext());  }
+            "["     {return new Symbol(Simbolos.OPENBRAC, yycolumn, yyline, yytext());  }
+            "]"     {return new Symbol(Simbolos.CLOSEBRAC, yycolumn, yyline, yytext());  }
+            "{"     {return new Symbol(Simbolos.OPENKEYS, yycolumn, yyline, yytext());  }
+            "}"     {return new Symbol(Simbolos.CLOSEKEYS, yycolumn, yyline, yytext());  }
+            ","     {return new Symbol(Simbolos.CONMA, yycolumn, yyline, yytext());  }
+            ";"     {return new Symbol(Simbolos.SEMIC, yycolumn, yyline, yytext());  }
+            "."     {return new Symbol(Simbolos.DOT, yycolumn, yyline, yytext());  }
+            ":"     {return new Symbol(Simbolos.COLON, yycolumn, yyline, yytext());  }
 
     //String
 
-            "''"    {return new Symbol(Simbolos.strg, yycolumn, yyline, yytext());  }
+            "''"    {return new Symbol(Simbolos.STRG, yycolumn, yyline, yytext());  }
 
     //Documentação
 
-            "/*"    {return new Symbol(Simbolos.comments1, yycolumn, yyline, yytext());  }
-            "/**"   {return new Symbol(Simbolos.comments2, yycolumn, yyline, yytext());  }
+            "/*"    {return new Symbol(Simbolos.COMMENTS1, yycolumn, yyline, yytext());  }
+            "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
 
     //Imports
         
-            "*"     {return new Symbol(Simbolos.importstar, yycolumn, yyline, yytext());  }
+            "*"     {return new Symbol(Simbolos.IMPORTSTAR, yycolumn, yyline, yytext());  }
             
     //Special
     		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.id, yycolumn, yyline, yytext());  }
