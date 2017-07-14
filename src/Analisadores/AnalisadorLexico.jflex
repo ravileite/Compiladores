@@ -140,6 +140,7 @@ import java.util.LinkedList;
             "&"     {return new Symbol(Simbolos.AND, yycolumn, yyline, yytext());  }  
             "^"     {return new Symbol(Simbolos.XOR, yycolumn, yyline, yytext());  }
             "|"     {return new Symbol(Simbolos.OR, yycolumn, yyline, yytext());  }
+            "*"     {return new Symbol(Simbolos.MULT, yycolumn, yyline, yytext());  }
             "<"     {return new Symbol(Simbolos.LTHEN, yycolumn, yyline, yytext());  }
             "<<"    {return new Symbol(Simbolos.DLTHEN, yycolumn, yyline, yytext());  }
             "<="    {return new Symbol(Simbolos.LEQU, yycolumn, yyline, yytext());  }
@@ -200,10 +201,6 @@ import java.util.LinkedList;
 
             "/*"    {return new Symbol(Simbolos.COMMENTS1, yycolumn, yyline, yytext());  }
             "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
-
-    //Imports
-        
-            "*"     {return new Symbol(Simbolos.IMPORTSTAR, yycolumn, yyline, yytext());  }
             
     //Special
     		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.id, yycolumn, yyline, yytext());  }
