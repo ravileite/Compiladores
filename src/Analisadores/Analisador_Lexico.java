@@ -2,7 +2,7 @@
 
 /* Código do Usuário */
 
-package Analisadores;
+package Analisadores
 import java_cup.runtime.*;
 import java.util.LinkedList;
 

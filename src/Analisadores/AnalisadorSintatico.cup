@@ -115,6 +115,7 @@ non terminal variables_optional, comma_variable_initializer_loop, comma_optional
 non terminal modifier_optional;
 non terminal bit_expression_2;
 non terminal logical_expression_2, testing_expression_2, numeric_expression_2;
+non terminal expression_2;
 
 precedence nonassoc DOT,OPENPAR, OPENBRAC;
 precedence left PLUS, MINUS;
@@ -134,12 +135,12 @@ comma_expression_loop ::= COMMA expression comma_expression_loop
 						| /* vazio*/ ;
 						
 bit_expression ::= BINNEG expression
-				| expression bit_expression_2;
+				| expression bit_expression_2 expression;
 				
-bit_expression_2 ::= BEQU expression
-				| DLTHEN expression
-				| DBTHEN expression
-				| TBTHEN expression;
+bit_expression_2 ::= BEQU
+				| DLTHEN
+				| DBTHEN
+				| TBTHEN;
 				
 casting_expression ::= OPENPAR type CLOSEPAR expression;
 
@@ -217,12 +218,14 @@ expression ::= numeric_expression
              | THIS 
              | identifier 
              | OPENPAR expression CLOSEPAR
-             | expression OPENBRAC arglist_optional CLOSEBRAC
-             | expression OPENBRAC expression CLOSEBRAC
-             | expression DOT expression
-             | expression COMMA expression
-             | expression INSTANCEOF class_name
-             | expression INSTANCEOF interface_name;
+             | expression expression_2;
+             
+expression_2 ::= OPENBRAC arglist_optional CLOSEBRAC
+             | OPENBRAC expression CLOSEBRAC
+             | DOT expression
+             | COMMA expression
+             | INSTANCEOF class_name
+             | INSTANCEOF interface_name;
              
 field_declaration ::= doc_comment_optional method_declaration
 					| doc_comment_optional constructor_declaration

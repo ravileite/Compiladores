@@ -112,7 +112,7 @@ import java.util.LinkedList;
 
         "short"       {return new Symbol(Simbolos.SHORT, yycolumn, yyline, yytext());  }
         "static"      {return new Symbol(Simbolos.STATIC, yycolumn, yyline, yytext());  }
-        "super"       {return new Symbol(Simbolos.SUPER, yycolumn, yyline, yytext());  }
+        "super"       {return new Symbol(Simbolos.SUPE, yycolumn, yyline, yytext());  }
         "switch"      {return new Symbol(Simbolos.SWITCH, yycolumn, yyline, yytext());  }
         "synchronized" {return new Symbol(Simbolos.SYNCHRONIZED, yycolumn, yyline, yytext());  }
 
