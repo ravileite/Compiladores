@@ -114,9 +114,9 @@ non terminal equ_variable_initializer_optional;
 non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
 non terminal modifier_optional;
 non terminal bit_expression_2;
-non terminal logical_expression_2;
+non terminal logical_expression_2, testing_expression_2, numeric_expression_2;
 
-precedence nonassoc DOT, OPENPAR, OPENBRAC;
+precedence nonassoc DOT,OPENPAR, OPENBRAC;
 precedence left PLUS, MINUS;
 
 start with compilation_unit;
@@ -277,26 +277,26 @@ interface_name ::= identifier
 				| package_name DOT identifier;
 				
 literal_expression ::= integer_literal
-					| float_literal
-					| string
-					| character;
+		     | float_literal
+		     | string
+		     | character;
 					
 logical_expression ::= NE expression
-					| expression logical_expression_2 expression
-					| TRUE
-					| FALSE;
-					
+                    | expression logical_expression_2 expression
+                    | TRUE
+                    | FALSE;
+                    
 logical_expression_2 ::= AMPERSAND 
-					| AMPERSAND EQU
-					| OR
-					| SOREQU
-					| XOR
-					| XOREQU
-					| AMPERSAND AMPERSAND
-					| OREQU
-					| MOD
-					| MODEQU
-					| QUEST expression COLON;
+                    | AMPERSAND EQU
+                    | OR
+                    | SOREQU
+                    | XOR
+                    | XOREQU
+                    | AMPERSAND AMPERSAND
+                    | OREQU
+                    | MOD
+                    | MODEQU
+                    | QUEST expression COLON;
 					
 method_declaration ::= modifier_loop type identifier OPENPAR parameter_list_optional CLOSEPAR colchetes_loop statement_block
 					| modifier_loop type identifier OPENPAR parameter_list_optional CLOSEPAR colchetes_loop SEMIC;
@@ -312,21 +312,25 @@ modifier ::= PUBLIC
            | TRANSIENT;
            
 numeric_expression ::= MINUS expression
-					| PLUSPLUS expression
-					| MINUSMINUS expression
-					| expression PLUSPLUS
-					| expression MINUSMINUS
-					| expression PLUS expression
-					| expression PLUSEQU expression
-					| expression MINUS expression
-					| expression MINUSEQU expression
-					| expression MULT expression
-					| expression MULTEQU expression
-					| expression DIV expression
-					| expression DIVEQU expression
-					| expression MOD expression
-					| expression MODEQU expression;
-					
+		     | PLUSPLUS expression
+      		     | MINUSMINUS expression                 
+		     | expression PLUSPLUS
+		     | expression MINUSMINUS
+                     | expression numeric_expression_2 expression
+                     ;
+
+numeric_expression_2 ::= PLUS 
+		     | PLUSEQU 
+		     | MINUS 
+		     | MINUSEQU 
+		     | MULT 
+		     | MULTEQU 
+		     | DIV 
+		     | DIVEQU 
+		     | MOD 
+		     | MODEQU
+                     ;
+				
 package_name ::= identifier
 				| package_name DOT identifier;
 				
@@ -372,7 +376,7 @@ character_loop ::= character character_loop
 				| /* vazio */ ;
 				
 string_expression ::= expression PLUS expression
-					| expression PLUSEQU expression;
+		    | expression PLUSEQU expression;
 					
 switch_statement ::= SWITCH OPENPAR expression CLOSEPAR OPENKEYS case_expression_default_statement_loop CLOSEKEYS;
 
@@ -380,12 +384,15 @@ case_expression_default_statement_loop ::= CASE expression COLON case_expression
 										| DEFAULT COLON case_expression_default_statement_loop
 										| statement;
 
-testing_expression ::= expression BTHEN expression
-					| expression LTHEN expression
-					| expression LEQU expression
-					| expression BEQU expression
-					| expression EQUEQU expression
-					| expression NEEQU expression;
+testing_expression ::= expression testing_expression_2 expression;
+
+testing_expression_2 ::= EQUEQU
+                       | NEEQU
+                       | BTHEN
+                       | LTHEN
+                       | LEQU
+                       | BEQU
+                       ;
 					
 try_statement ::= TRY statement catch_parameter_statement_loop finally_statement_optional;
 
