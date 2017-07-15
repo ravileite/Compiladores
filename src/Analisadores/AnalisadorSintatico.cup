@@ -114,6 +114,7 @@ non terminal equ_variable_initializer_optional;
 non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
 non terminal modifier_optional;
 non terminal bit_expression_2;
+non terminal logical_expression_2;
 
 precedence nonassoc DOT, OPENPAR, OPENBRAC;
 precedence left PLUS, MINUS;
@@ -281,19 +282,21 @@ literal_expression ::= integer_literal
 					| character;
 					
 logical_expression ::= NE expression
-					| expression AMPERSAND expression
-					| expression AMPERSAND EQU expression
-					| expression OR expression
-					| expression SOREQU expression
-					| expression XOR expression
-					| expression XOREQU expression
-					| expression AMPERSAND AMPERSAND expression
-					| expression OREQU expression
-					| expression MOD expression
-					| expression MODEQU expression
-					| expression QUEST expression COLON expression
+					| expression logical_expression_2 expression
 					| TRUE
 					| FALSE;
+					
+logical_expression_2 ::= AMPERSAND 
+					| AMPERSAND EQU
+					| OR
+					| SOREQU
+					| XOR
+					| XOREQU
+					| AMPERSAND AMPERSAND
+					| OREQU
+					| MOD
+					| MODEQU
+					| QUEST expression COLON;
 					
 method_declaration ::= modifier_loop type identifier OPENPAR parameter_list_optional CLOSEPAR colchetes_loop statement_block
 					| modifier_loop type identifier OPENPAR parameter_list_optional CLOSEPAR colchetes_loop SEMIC;

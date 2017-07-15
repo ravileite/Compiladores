@@ -65,23 +65,23 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\3\1\1\2\3\1\1\3\3\1\1\4\1\1"+
     "\1\5\1\6\1\1\1\7\1\10\1\11\1\12\1\13"+
-    "\1\14\1\15\1\16\1\17\2\1\1\20\1\21\1\22"+
-    "\1\23\1\24\1\25\1\26\1\27\1\30\1\31\1\32"+
-    "\1\33\1\34\1\1\1\35\21\0\1\36\14\0\1\37"+
-    "\5\0\1\40\1\41\1\0\1\42\1\43\1\44\1\45"+
-    "\1\46\1\47\1\50\1\51\1\52\1\53\1\54\1\55"+
-    "\1\56\1\57\1\60\2\0\1\61\17\0\1\62\7\0"+
-    "\1\63\13\0\1\64\1\0\1\65\3\0\1\66\1\67"+
-    "\1\70\10\0\1\71\10\0\1\72\4\0\1\73\1\0"+
-    "\1\74\2\0\1\75\1\76\3\0\1\77\1\100\24\0"+
-    "\1\101\1\102\4\0\1\103\3\0\1\104\1\105\1\0"+
-    "\1\106\4\0\1\107\1\110\1\111\1\112\10\0\1\113"+
-    "\1\0\1\114\1\115\1\0\1\116\1\117\1\0\1\120"+
-    "\4\0\1\121\6\0\1\122\2\0\1\123\1\0\1\124"+
-    "\1\125\1\0\1\126\1\127\6\0\1\130\3\0\1\131"+
-    "\4\0\1\132\6\0\1\133\1\134\1\0\1\135\3\0"+
-    "\1\136\2\0\1\137\1\0\1\140\1\141\1\142\5\0"+
-    "\1\143\3\0\1\144\12\0\1\145";
+    "\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23"+
+    "\1\24\1\25\1\26\1\27\1\30\1\31\1\32\1\33"+
+    "\1\34\1\35\1\36\1\1\1\37\21\0\1\40\14\0"+
+    "\1\41\5\0\1\42\1\43\1\0\1\44\1\45\1\46"+
+    "\1\47\1\50\1\51\1\52\1\53\1\54\1\55\1\56"+
+    "\1\57\1\60\1\61\1\62\2\0\1\63\17\0\1\64"+
+    "\7\0\1\65\13\0\1\66\1\0\1\67\3\0\1\70"+
+    "\1\71\1\72\10\0\1\73\10\0\1\74\4\0\1\75"+
+    "\1\0\1\76\2\0\1\77\1\100\3\0\1\101\1\102"+
+    "\24\0\1\103\1\104\4\0\1\105\3\0\1\106\1\107"+
+    "\1\0\1\110\4\0\1\111\1\112\1\113\1\114\10\0"+
+    "\1\115\1\0\1\116\1\117\1\0\1\120\1\121\1\0"+
+    "\1\122\4\0\1\123\6\0\1\124\2\0\1\125\1\0"+
+    "\1\126\1\127\1\0\1\130\1\131\6\0\1\132\3\0"+
+    "\1\133\4\0\1\134\6\0\1\135\1\136\1\0\1\137"+
+    "\3\0\1\140\2\0\1\141\1\0\1\142\1\143\1\144"+
+    "\5\0\1\145\3\0\1\146\12\0\1\147";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[316];
@@ -756,407 +756,415 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
                                      TError dados = new TError(yytext(), yyline, yycolumn, "Erro Lexico", "Simbolo nao permitido");
                                      TabelaER.add(dados);
             }
-          case 102: break;
+          case 104: break;
           case 2: 
             { return new Symbol(Simbolos.e, yycolumn, yyline, yytext());
             }
-          case 103: break;
+          case 105: break;
           case 3: 
             { return new Symbol(Simbolos.d, yycolumn, yyline, yytext());
             }
-          case 104: break;
+          case 106: break;
           case 4: 
             { return new Symbol(Simbolos.l, yycolumn, yyline, yytext());
             }
-          case 105: break;
+          case 107: break;
           case 5: 
             { return new Symbol(Simbolos.f, yycolumn, yyline, yytext());
             }
-          case 106: break;
+          case 108: break;
           case 6: 
             { return new Symbol(Simbolos.x, yycolumn, yyline, yytext());
             }
-          case 107: break;
+          case 109: break;
           case 7: 
             { return new Symbol(Simbolos.and, yycolumn, yyline, yytext());
             }
-          case 108: break;
+          case 110: break;
           case 8: 
             { return new Symbol(Simbolos.xor, yycolumn, yyline, yytext());
             }
-          case 109: break;
+          case 111: break;
           case 9: 
             { return new Symbol(Simbolos.or, yycolumn, yyline, yytext());
             }
-          case 110: break;
+          case 112: break;
           case 10: 
             { return new Symbol(Simbolos.lthen, yycolumn, yyline, yytext());
             }
-          case 111: break;
+          case 113: break;
           case 11: 
             { return new Symbol(Simbolos.equ, yycolumn, yyline, yytext());
             }
-          case 112: break;
+          case 114: break;
           case 12: 
             { return new Symbol(Simbolos.bthen, yycolumn, yyline, yytext());
             }
-          case 113: break;
+          case 115: break;
           case 13: 
             { return new Symbol(Simbolos.mod, yycolumn, yyline, yytext());
             }
-          case 114: break;
+          case 116: break;
           case 14: 
             { return new Symbol(Simbolos.openpar, yycolumn, yyline, yytext());
             }
-          case 115: break;
+          case 117: break;
           case 15: 
             { return new Symbol(Simbolos.closepar, yycolumn, yyline, yytext());
             }
-          case 116: break;
-          case 16: 
-            { return new Symbol(Simbolos.importstar, yycolumn, yyline, yytext());
-            }
-          case 117: break;
-          case 17: 
-            { return new Symbol(Simbolos.div, yycolumn, yyline, yytext());
-            }
           case 118: break;
-          case 18: 
-            { return new Symbol(Simbolos.ne, yycolumn, yyline, yytext());
+          case 16: 
+            { return new Symbol(Simbolos.plus, yycolumn, yyline, yytext());
             }
           case 119: break;
-          case 19: 
-            { return new Symbol(Simbolos.binneg, yycolumn, yyline, yytext());
+          case 17: 
+            { return new Symbol(Simbolos.minus, yycolumn, yyline, yytext());
             }
           case 120: break;
-          case 20: 
-            { return new Symbol(Simbolos.quest, yycolumn, yyline, yytext());
+          case 18: 
+            { return new Symbol(Simbolos.importstar, yycolumn, yyline, yytext());
             }
           case 121: break;
-          case 21: 
-            { return new Symbol(Simbolos.openbrac, yycolumn, yyline, yytext());
+          case 19: 
+            { return new Symbol(Simbolos.div, yycolumn, yyline, yytext());
             }
           case 122: break;
-          case 22: 
-            { return new Symbol(Simbolos.closebrac, yycolumn, yyline, yytext());
+          case 20: 
+            { return new Symbol(Simbolos.ne, yycolumn, yyline, yytext());
             }
           case 123: break;
-          case 23: 
-            { return new Symbol(Simbolos.openkeys, yycolumn, yyline, yytext());
+          case 21: 
+            { return new Symbol(Simbolos.binneg, yycolumn, yyline, yytext());
             }
           case 124: break;
-          case 24: 
-            { return new Symbol(Simbolos.closekeys, yycolumn, yyline, yytext());
+          case 22: 
+            { return new Symbol(Simbolos.quest, yycolumn, yyline, yytext());
             }
           case 125: break;
-          case 25: 
-            { return new Symbol(Simbolos.comma, yycolumn, yyline, yytext());
+          case 23: 
+            { return new Symbol(Simbolos.openbrac, yycolumn, yyline, yytext());
             }
           case 126: break;
-          case 26: 
-            { return new Symbol(Simbolos.semic, yycolumn, yyline, yytext());
+          case 24: 
+            { return new Symbol(Simbolos.closebrac, yycolumn, yyline, yytext());
             }
           case 127: break;
-          case 27: 
-            { return new Symbol(Simbolos.dot, yycolumn, yyline, yytext());
+          case 25: 
+            { return new Symbol(Simbolos.openkeys, yycolumn, yyline, yytext());
             }
           case 128: break;
-          case 28: 
-            { return new Symbol(Simbolos.colon, yycolumn, yyline, yytext());
+          case 26: 
+            { return new Symbol(Simbolos.closekeys, yycolumn, yyline, yytext());
             }
           case 129: break;
-          case 29: 
-            { /*Espacos em branco devem ser ignorados*/
+          case 27: 
+            { return new Symbol(Simbolos.comma, yycolumn, yyline, yytext());
             }
           case 130: break;
-          case 30: 
-            { return new Symbol(Simbolos.do, yycolumn, yyline, yytext());
+          case 28: 
+            { return new Symbol(Simbolos.semic, yycolumn, yyline, yytext());
             }
           case 131: break;
-          case 31: 
-            { return new Symbol(Simbolos.if, yycolumn, yyline, yytext());
+          case 29: 
+            { return new Symbol(Simbolos.dot, yycolumn, yyline, yytext());
             }
           case 132: break;
-          case 32: 
-            { return new Symbol(Simbolos.andequ, yycolumn, yyline, yytext());
+          case 30: 
+            { return new Symbol(Simbolos.colon, yycolumn, yyline, yytext());
             }
           case 133: break;
-          case 33: 
-            { return new Symbol(Simbolos.xorequ, yycolumn, yyline, yytext());
+          case 31: 
+            { /*Espacos em branco devem ser ignorados*/
             }
           case 134: break;
-          case 34: 
-            { return new Symbol(Simbolos.sorequ, yycolumn, yyline, yytext());
+          case 32: 
+            { return new Symbol(Simbolos.do, yycolumn, yyline, yytext());
             }
           case 135: break;
-          case 35: 
-            { return new Symbol(Simbolos.dlthen, yycolumn, yyline, yytext());
+          case 33: 
+            { return new Symbol(Simbolos.if, yycolumn, yyline, yytext());
             }
           case 136: break;
-          case 36: 
-            { return new Symbol(Simbolos.lequ, yycolumn, yyline, yytext());
+          case 34: 
+            { return new Symbol(Simbolos.andequ, yycolumn, yyline, yytext());
             }
           case 137: break;
-          case 37: 
-            { return new Symbol(Simbolos.equequ, yycolumn, yyline, yytext());
+          case 35: 
+            { return new Symbol(Simbolos.xorequ, yycolumn, yyline, yytext());
             }
           case 138: break;
-          case 38: 
-            { return new Symbol(Simbolos.bequ, yycolumn, yyline, yytext());
+          case 36: 
+            { return new Symbol(Simbolos.sorequ, yycolumn, yyline, yytext());
             }
           case 139: break;
-          case 39: 
-            { return new Symbol(Simbolos.dbthen, yycolumn, yyline, yytext());
+          case 37: 
+            { return new Symbol(Simbolos.dlthen, yycolumn, yyline, yytext());
             }
           case 140: break;
-          case 40: 
-            { return new Symbol(Simbolos.modequ, yycolumn, yyline, yytext());
+          case 38: 
+            { return new Symbol(Simbolos.lequ, yycolumn, yyline, yytext());
             }
           case 141: break;
-          case 41: 
-            { return new Symbol(Simbolos.plusequ, yycolumn, yyline, yytext());
+          case 39: 
+            { return new Symbol(Simbolos.equequ, yycolumn, yyline, yytext());
             }
           case 142: break;
-          case 42: 
-            { return new Symbol(Simbolos.plusplus, yycolumn, yyline, yytext());
+          case 40: 
+            { return new Symbol(Simbolos.bequ, yycolumn, yyline, yytext());
             }
           case 143: break;
-          case 43: 
-            { return new Symbol(Simbolos.minusequ, yycolumn, yyline, yytext());
+          case 41: 
+            { return new Symbol(Simbolos.dbthen, yycolumn, yyline, yytext());
             }
           case 144: break;
-          case 44: 
-            { return new Symbol(Simbolos.minusminus, yycolumn, yyline, yytext());
+          case 42: 
+            { return new Symbol(Simbolos.modequ, yycolumn, yyline, yytext());
             }
           case 145: break;
-          case 45: 
-            { return new Symbol(Simbolos.multequ, yycolumn, yyline, yytext());
+          case 43: 
+            { return new Symbol(Simbolos.plusequ, yycolumn, yyline, yytext());
             }
           case 146: break;
-          case 46: 
-            { return new Symbol(Simbolos.divequ, yycolumn, yyline, yytext());
+          case 44: 
+            { return new Symbol(Simbolos.plusplus, yycolumn, yyline, yytext());
             }
           case 147: break;
-          case 47: 
-            { return new Symbol(Simbolos.comments1, yycolumn, yyline, yytext());
+          case 45: 
+            { return new Symbol(Simbolos.minusequ, yycolumn, yyline, yytext());
             }
           case 148: break;
-          case 48: 
-            { return new Symbol(Simbolos.neequ, yycolumn, yyline, yytext());
+          case 46: 
+            { return new Symbol(Simbolos.minusminus, yycolumn, yyline, yytext());
             }
           case 149: break;
-          case 49: 
-            { return new Symbol(Simbolos.strg, yycolumn, yyline, yytext());
+          case 47: 
+            { return new Symbol(Simbolos.multequ, yycolumn, yyline, yytext());
             }
           case 150: break;
-          case 50: 
-            { return new Symbol(Simbolos.new, yycolumn, yyline, yytext());
+          case 48: 
+            { return new Symbol(Simbolos.divequ, yycolumn, yyline, yytext());
             }
           case 151: break;
-          case 51: 
-            { return new Symbol(Simbolos.try, yycolumn, yyline, yytext());
+          case 49: 
+            { return new Symbol(Simbolos.comments1, yycolumn, yyline, yytext());
             }
           case 152: break;
-          case 52: 
-            { return new Symbol(Simbolos.int, yycolumn, yyline, yytext());
+          case 50: 
+            { return new Symbol(Simbolos.neequ, yycolumn, yyline, yytext());
             }
           case 153: break;
-          case 53: 
-            { return new Symbol(Simbolos.for, yycolumn, yyline, yytext());
+          case 51: 
+            { return new Symbol(Simbolos.strg, yycolumn, yyline, yytext());
             }
           case 154: break;
-          case 54: 
-            { return new Symbol(Simbolos.orequ, yycolumn, yyline, yytext());
+          case 52: 
+            { return new Symbol(Simbolos.new, yycolumn, yyline, yytext());
             }
           case 155: break;
-          case 55: 
-            { return new Symbol(Simbolos.tbthen, yycolumn, yyline, yytext());
+          case 53: 
+            { return new Symbol(Simbolos.try, yycolumn, yyline, yytext());
             }
           case 156: break;
-          case 56: 
-            { return new Symbol(Simbolos.comments2, yycolumn, yyline, yytext());
+          case 54: 
+            { return new Symbol(Simbolos.int, yycolumn, yyline, yytext());
             }
           case 157: break;
-          case 57: 
-            { return new Symbol(Simbolos.else, yycolumn, yyline, yytext());
+          case 55: 
+            { return new Symbol(Simbolos.for, yycolumn, yyline, yytext());
             }
           case 158: break;
-          case 58: 
-            { return new Symbol(Simbolos.null, yycolumn, yyline, yytext());
+          case 56: 
+            { return new Symbol(Simbolos.orequ, yycolumn, yyline, yytext());
             }
           case 159: break;
-          case 59: 
-            { return new Symbol(Simbolos.byte, yycolumn, yyline, yytext());
+          case 57: 
+            { return new Symbol(Simbolos.tbthen, yycolumn, yyline, yytext());
             }
           case 160: break;
-          case 60: 
-            { return new Symbol(Simbolos.true, yycolumn, yyline, yytext());
+          case 58: 
+            { return new Symbol(Simbolos.comments2, yycolumn, yyline, yytext());
             }
           case 161: break;
-          case 61: 
-            { return new Symbol(Simbolos.this, yycolumn, yyline, yytext());
+          case 59: 
+            { return new Symbol(Simbolos.else, yycolumn, yyline, yytext());
             }
           case 162: break;
-          case 62: 
-            { return new Symbol(Simbolos.case, yycolumn, yyline, yytext());
+          case 60: 
+            { return new Symbol(Simbolos.null, yycolumn, yyline, yytext());
             }
           case 163: break;
-          case 63: 
-            { return new Symbol(Simbolos.char, yycolumn, yyline, yytext());
+          case 61: 
+            { return new Symbol(Simbolos.byte, yycolumn, yyline, yytext());
             }
           case 164: break;
-          case 64: 
-            { return new Symbol(Simbolos.long, yycolumn, yyline, yytext());
+          case 62: 
+            { return new Symbol(Simbolos.true, yycolumn, yyline, yytext());
             }
           case 165: break;
-          case 65: 
-            { return new Symbol(Simbolos.short, yycolumn, yyline, yytext());
+          case 63: 
+            { return new Symbol(Simbolos.this, yycolumn, yyline, yytext());
             }
           case 166: break;
-          case 66: 
-            { return new Symbol(Simbolos.super, yycolumn, yyline, yytext());
+          case 64: 
+            { return new Symbol(Simbolos.case, yycolumn, yyline, yytext());
             }
           case 167: break;
-          case 67: 
-            { return new Symbol(Simbolos.break, yycolumn, yyline, yytext());
+          case 65: 
+            { return new Symbol(Simbolos.char, yycolumn, yyline, yytext());
             }
           case 168: break;
-          case 68: 
-            { return new Symbol(Simbolos.throw, yycolumn, yyline, yytext());
+          case 66: 
+            { return new Symbol(Simbolos.long, yycolumn, yyline, yytext());
             }
           case 169: break;
-          case 69: 
-            { return new Symbol(Simbolos.catch, yycolumn, yyline, yytext());
+          case 67: 
+            { return new Symbol(Simbolos.short, yycolumn, yyline, yytext());
             }
           case 170: break;
-          case 70: 
-            { return new Symbol(Simbolos.clas, yycolumn, yyline, yytext());
+          case 68: 
+            { return new Symbol(Simbolos.super, yycolumn, yyline, yytext());
             }
           case 171: break;
-          case 71: 
-            { return new Symbol(Simbolos.false, yycolumn, yyline, yytext());
+          case 69: 
+            { return new Symbol(Simbolos.break, yycolumn, yyline, yytext());
             }
           case 172: break;
-          case 72: 
-            { return new Symbol(Simbolos.float, yycolumn, yyline, yytext());
+          case 70: 
+            { return new Symbol(Simbolos.throw, yycolumn, yyline, yytext());
             }
           case 173: break;
-          case 73: 
-            { return new Symbol(Simbolos.final, yycolumn, yyline, yytext());
+          case 71: 
+            { return new Symbol(Simbolos.catch, yycolumn, yyline, yytext());
             }
           case 174: break;
-          case 74: 
-            { return new Symbol(Simbolos.while, yycolumn, yyline, yytext());
+          case 72: 
+            { return new Symbol(Simbolos.clas, yycolumn, yyline, yytext());
             }
           case 175: break;
-          case 75: 
-            { return new Symbol(Simbolos.public, yycolumn, yyline, yytext());
+          case 73: 
+            { return new Symbol(Simbolos.false, yycolumn, yyline, yytext());
             }
           case 176: break;
-          case 76: 
-            { return new Symbol(Simbolos.return, yycolumn, yyline, yytext());
+          case 74: 
+            { return new Symbol(Simbolos.float, yycolumn, yyline, yytext());
             }
           case 177: break;
-          case 77: 
-            { return new Symbol(Simbolos.static, yycolumn, yyline, yytext());
+          case 75: 
+            { return new Symbol(Simbolos.final, yycolumn, yyline, yytext());
             }
           case 178: break;
-          case 78: 
-            { return new Symbol(Simbolos.switch, yycolumn, yyline, yytext());
+          case 76: 
+            { return new Symbol(Simbolos.while, yycolumn, yyline, yytext());
             }
           case 179: break;
-          case 79: 
-            { return new Symbol(Simbolos.native, yycolumn, yyline, yytext());
+          case 77: 
+            { return new Symbol(Simbolos.public, yycolumn, yyline, yytext());
             }
           case 180: break;
-          case 80: 
-            { return new Symbol(Simbolos.double, yycolumn, yyline, yytext());
+          case 78: 
+            { return new Symbol(Simbolos.return, yycolumn, yyline, yytext());
             }
           case 181: break;
-          case 81: 
-            { return new Symbol(Simbolos.impor, yycolumn, yyline, yytext());
+          case 79: 
+            { return new Symbol(Simbolos.static, yycolumn, yyline, yytext());
             }
           case 182: break;
-          case 82: 
-            { return new Symbol(Simbolos.dec_digits, yycolumn, yyline, yytext());
+          case 80: 
+            { return new Symbol(Simbolos.switch, yycolumn, yyline, yytext());
             }
           case 183: break;
-          case 83: 
-            { return new Symbol(Simbolos.packag, yycolumn, yyline, yytext());
+          case 81: 
+            { return new Symbol(Simbolos.native, yycolumn, yyline, yytext());
             }
           case 184: break;
-          case 84: 
-            { return new Symbol(Simbolos.private, yycolumn, yyline, yytext());
+          case 82: 
+            { return new Symbol(Simbolos.double, yycolumn, yyline, yytext());
             }
           case 185: break;
-          case 85: 
-            { return new Symbol(Simbolos.extend, yycolumn, yyline, yytext());
+          case 83: 
+            { return new Symbol(Simbolos.impor, yycolumn, yyline, yytext());
             }
           case 186: break;
-          case 86: 
-            { return new Symbol(Simbolos.default, yycolumn, yyline, yytext());
+          case 84: 
+            { return new Symbol(Simbolos.dec_digits, yycolumn, yyline, yytext());
             }
           case 187: break;
-          case 87: 
-            { return new Symbol(Simbolos.boolean, yycolumn, yyline, yytext());
+          case 85: 
+            { return new Symbol(Simbolos.packag, yycolumn, yyline, yytext());
             }
           case 188: break;
-          case 88: 
-            { return new Symbol(Simbolos.finally, yycolumn, yyline, yytext());
+          case 86: 
+            { return new Symbol(Simbolos.private, yycolumn, yyline, yytext());
             }
           case 189: break;
-          case 89: 
-            { return new Symbol(Simbolos.abstract, yycolumn, yyline, yytext());
+          case 87: 
+            { return new Symbol(Simbolos.extend, yycolumn, yyline, yytext());
             }
           case 190: break;
-          case 90: 
-            { return new Symbol(Simbolos.continue, yycolumn, yyline, yytext());
+          case 88: 
+            { return new Symbol(Simbolos.default, yycolumn, yyline, yytext());
             }
           case 191: break;
-          case 91: 
-            { return new Symbol(Simbolos.ampersand, yycolumn, yyline, yytext());
+          case 89: 
+            { return new Symbol(Simbolos.boolean, yycolumn, yyline, yytext());
             }
           case 192: break;
-          case 92: 
-            { return new Symbol(Simbolos.protected, yycolumn, yyline, yytext());
+          case 90: 
+            { return new Symbol(Simbolos.finally, yycolumn, yyline, yytext());
             }
           case 193: break;
-          case 93: 
-            { return new Symbol(Simbolos.transient, yycolumn, yyline, yytext());
+          case 91: 
+            { return new Symbol(Simbolos.abstract, yycolumn, yyline, yytext());
             }
           case 194: break;
-          case 94: 
-            { return new Symbol(Simbolos.interface, yycolumn, yyline, yytext());
+          case 92: 
+            { return new Symbol(Simbolos.continue, yycolumn, yyline, yytext());
             }
           case 195: break;
-          case 95: 
-            { return new Symbol(Simbolos.int_literal, yycolumn, yyline, yytext());
+          case 93: 
+            { return new Symbol(Simbolos.ampersand, yycolumn, yyline, yytext());
             }
           case 196: break;
-          case 96: 
-            { return new Symbol(Simbolos.threadsafe, yycolumn, yyline, yytext());
+          case 94: 
+            { return new Symbol(Simbolos.protected, yycolumn, yyline, yytext());
             }
           case 197: break;
-          case 97: 
-            { return new Symbol(Simbolos.implements, yycolumn, yyline, yytext());
+          case 95: 
+            { return new Symbol(Simbolos.transient, yycolumn, yyline, yytext());
             }
           case 198: break;
-          case 98: 
-            { return new Symbol(Simbolos.instanceof, yycolumn, yyline, yytext());
+          case 96: 
+            { return new Symbol(Simbolos.interface, yycolumn, yyline, yytext());
             }
           case 199: break;
-          case 99: 
-            { return new Symbol(Simbolos.synchronized, yycolumn, yyline, yytext());
+          case 97: 
+            { return new Symbol(Simbolos.int_literal, yycolumn, yyline, yytext());
             }
           case 200: break;
-          case 100: 
-            { return new Symbol(Simbolos.text, yycolumn, yyline, yytext());
+          case 98: 
+            { return new Symbol(Simbolos.threadsafe, yycolumn, yyline, yytext());
             }
           case 201: break;
-          case 101: 
-            { return new Symbol(Simbolos.id, yycolumn, yyline, yytext());
+          case 99: 
+            { return new Symbol(Simbolos.implements, yycolumn, yyline, yytext());
             }
           case 202: break;
+          case 100: 
+            { return new Symbol(Simbolos.instanceof, yycolumn, yyline, yytext());
+            }
+          case 203: break;
+          case 101: 
+            { return new Symbol(Simbolos.synchronized, yycolumn, yyline, yytext());
+            }
+          case 204: break;
+          case 102: 
+            { return new Symbol(Simbolos.text, yycolumn, yyline, yytext());
+            }
+          case 205: break;
+          case 103: 
+            { return new Symbol(Simbolos.id, yycolumn, yyline, yytext());
+            }
+          case 206: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
