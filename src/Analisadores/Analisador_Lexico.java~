@@ -2,7 +2,7 @@
 
 /* Código do Usuário */
 
-package Analisadores
+package Analisadores;
 import java_cup.runtime.*;
 import java.util.LinkedList;
 
@@ -1026,7 +1026,7 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
             }
           case 172: break;
           case 69: 
-            { return new Symbol(Simbolos.SUPER, yycolumn, yyline, yytext());
+            { return new Symbol(Simbolos.SUPE, yycolumn, yyline, yytext());
             }
           case 173: break;
           case 70: 

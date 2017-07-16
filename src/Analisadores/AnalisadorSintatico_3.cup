@@ -83,11 +83,11 @@ terminal ID, DEC_DIGITS, INT_LITERAL, TEXT;
 
     //Nao Terminais
 
-non terminal arglist, character, class_declaration, class_name;
-non terminal compilation_unit, constructor_declaration, decimal_digits, doc_comment, do_statement;
+non terminal arglist, bit_expression, casting_expression, character, class_declaration, class_name;
+non terminal compilation_unit, constructor_declaration, creating_expression, decimal_digits, doc_comment, do_statement;
 non terminal exponent_part, expression, field_declaration, float_literal, float_type_suffix, for_statement;
 non terminal identifier, if_statement, import_statement, integer_literal, interface_declaration, interface_name;
-non terminal method_declaration, modifier, package_name;
+non terminal literal_expression, logical_expression, method_declaration, modifier, numeric_expression, package_name;
 non terminal package_statement, parameter, parameter_list, statement, statement_block, static_initializer;
 non terminal string, string_expression, switch_statement, testing_expression, try_statement, type;
 non terminal type_declaration, type_specifier, variable_declaration, variable_declarator, variable_initializer, while_statement;
@@ -113,7 +113,8 @@ non terminal comma_variable_declarator_loop;
 non terminal equ_variable_initializer_optional;
 non terminal variables_optional, comma_variable_initializer_loop, comma_optional;
 non terminal modifier_optional;
-non terminal interface_declaration_2, method_declaration_2, type_declaration_2, expression_3, expression_4, expression_5;
+non terminal bit_expression_2;
+non terminal logical_expression_2, testing_expression_2, numeric_expression_2, numeric_expression_3, string_expression_2, interface_declaration_2, method_declaration_2, type_declaration_2, expression_3;
 non terminal expression_2;
 
 precedence nonassoc DOT,OPENPAR, OPENBRAC;
@@ -132,6 +133,16 @@ arglist ::= expression comma_expression_loop ;
 
 comma_expression_loop ::= COMMA expression comma_expression_loop
 						| /* vazio*/ ;
+						
+bit_expression ::= BINNEG expression
+				| expression bit_expression_2 expression;
+				
+bit_expression_2 ::= BEQU
+				| DLTHEN
+				| DBTHEN
+				| TBTHEN;
+				
+casting_expression ::= OPENPAR type CLOSEPAR expression;
 
 character ::= ID;
 
@@ -171,6 +182,10 @@ constructor_declaration ::= modifier_loop identifier OPENPAR parameter_list_opti
 parameter_list_optional ::= parameter_list
 						| /* vazio */ ;
 						
+creating_expression ::= NEW class_name OPENPAR arglist_optional CLOSEPAR
+					| NEW type_specifier expression_optional_brac colchetes_loop
+					| NEW OPENPAR expression CLOSEPAR;
+					
 arglist_optional ::= arglist
 					| /* vazio */ ;
 					
@@ -190,16 +205,19 @@ exponent_part ::= E decimal_digits
 				| E PLUS decimal_digits
 				| E MINUS decimal_digits;
 				
-expression ::= expression_5 expression 
+expression ::= MINUS expression
+             | PLUSPLUS expression
+             | MINUSMINUS expression
              | expression expression_2
                 // Logical Expression
+             | NE expression
              | TRUE
              | FALSE
                 // String Expression
                 // Bit Expression
-             
+             | BINNEG expression
                 // Casting Expression
-             
+             | OPENPAR type CLOSEPAR expression
                 // Creating Expression
              | NEW expression_3
                 // Literal Expression
@@ -214,62 +232,53 @@ expression ::= expression_5 expression
              | identifier 
              | OPENPAR expression CLOSEPAR;
 
-expression_5 ::=  MINUS
-             | PLUSPLUS
-             | MINUSMINUS
-             | BINNEG
-             | OPENPAR type CLOSEPAR
-             | NE;
-
 expression_2 ::= PLUSPLUS
                | MINUSMINUS
+               | PLUS expression
+               | PLUSEQU  expression
+               | MINUS expression
+               | MINUSEQU expression
+               | MULT  expression
+               | MULTEQU expression
+               | DIV expression
+               | DIVEQU expression
+               | MOD expression
+               | MODEQU expression
+               | EQUEQU expression
+               | NEEQU expression
+               | EQUEQU expression
+               | NEEQU expression
+               | BTHEN expression
+               | LTHEN expression
+               | LEQU expression
+               | BEQU expression
+               | AMPERSAND expression
+               | AMPERSAND EQU expression
+               | OR expression
+               | SOREQU expression
+               | XOR expression
+               | XOREQU expression
+               | AMPERSAND AMPERSAND expression
+               | OREQU expression
+               | MOD expression
+               | MODEQU expression
+               | QUEST expression COLON expression
+               | PLUS expression
+               | PLUSEQU expression
+               | BEQU expression
+               | DLTHEN expression
+               | DBTHEN expression
+               | TBTHEN expression
                | OPENBRAC arglist_optional CLOSEBRAC
                | OPENBRAC expression CLOSEBRAC
                | DOT expression
                | COMMA expression
                | INSTANCEOF class_name
-               | INSTANCEOF interface_name
-               | expression_2 expression_4 expression;
+               | INSTANCEOF interface_name;
 
 expression_3 ::= class_name OPENPAR arglist_optional CLOSEPAR
                | type_specifier expression_optional_brac colchetes_loop
                | OPENPAR expression CLOSEPAR;
-
-expression_4 ::= PLUS
-               | PLUSEQU
-               | MINUS
-               | MINUSEQU
-               | MULT
-               | MULTEQU
-               | DIV
-               | DIVEQU
-               | MOD
-               | MODEQU
-               | EQUEQU
-               | NEEQU
-               | EQUEQU
-               | NEEQU
-               | BTHEN
-               | LTHEN
-               | LEQU
-               | BEQU
-               | AMPERSAND
-               | AMPERSAND EQU
-               | OR
-               | SOREQU
-               | XOR
-               | XOREQU
-               | AMPERSAND AMPERSAND
-               | OREQU
-               | MOD
-               | MODEQU
-               | QUEST expression COLON
-               | PLUS
-               | PLUSEQU
-               | BEQU
-               | DLTHEN
-               | DBTHEN
-               | TBTHEN;
              
 field_declaration ::= doc_comment_optional method_declaration
 					| doc_comment_optional constructor_declaration
@@ -323,6 +332,28 @@ interface_declaration_2 ::= OPENKEYS | EXTEND interface_name interface_comma_loo
 						
 interface_name ::= identifier
 				| package_name DOT identifier;
+				
+literal_expression ::= integer_literal
+		     | float_literal
+		     | string
+		     | character;
+					
+logical_expression ::= NE expression
+                    | expression logical_expression_2 expression
+                    | TRUE
+                    | FALSE;
+                    
+logical_expression_2 ::= AMPERSAND 
+                    | AMPERSAND EQU
+                    | OR
+                    | SOREQU
+                    | XOR
+                    | XOREQU
+                    | AMPERSAND AMPERSAND
+                    | OREQU
+                    | MOD
+                    | MODEQU
+                    | QUEST expression COLON;
 					
 method_declaration ::= modifier_loop type identifier OPENPAR parameter_list_optional CLOSEPAR colchetes_loop method_declaration_2;
 
@@ -336,6 +367,27 @@ modifier ::= PUBLIC
            | ABSTRACT
            | THREADSAFE
            | TRANSIENT;
+           
+numeric_expression ::= MINUS expression
+		     | PLUSPLUS expression
+      		     | MINUSMINUS expression                 
+                     | expression numeric_expression_3;
+
+numeric_expression_3 ::= PLUSPLUS | 
+                         MINUSMINUS | 
+                         numeric_expression_2 expression;
+
+numeric_expression_2 ::= PLUS 
+		     | PLUSEQU 
+		     | MINUS 
+		     | MINUSEQU 
+		     | MULT 
+		     | MULTEQU 
+		     | DIV 
+		     | DIVEQU 
+		     | MOD 
+		     | MODEQU
+                     ;
 				
 package_name ::= identifier
 				| package_name DOT identifier;
@@ -380,12 +432,27 @@ string ::= STRG character_loop STRG;
 
 character_loop ::= character character_loop
 				| /* vazio */ ;
+				
+string_expression ::= expression string_expression_2 expression;
+
+string_expression_2 ::= PLUS | 
+                        PLUSEQU;
 					
 switch_statement ::= SWITCH OPENPAR expression CLOSEPAR OPENKEYS case_expression_default_statement_loop CLOSEKEYS;
 
 case_expression_default_statement_loop ::= CASE expression COLON case_expression_default_statement_loop
 										| DEFAULT COLON case_expression_default_statement_loop
 										| statement;
+
+testing_expression ::= expression testing_expression_2 expression;
+
+testing_expression_2 ::= EQUEQU
+                       | NEEQU
+                       | BTHEN
+                       | LTHEN
+                       | LEQU
+                       | BEQU
+                       ;
 					
 try_statement ::= TRY statement catch_parameter_statement_loop finally_statement_optional;
 
