@@ -38,7 +38,6 @@ import java.util.LinkedList;
     //  -- -- -- Palavras Chave -- -- -- 
 
     //A
-        "amper"   {return new Symbol(Simbolos.AMPER, yycolumn, yyline, yytext());  }
         "abstract"    {return new Symbol(Simbolos.ABSTRACT, yycolumn, yyline, yytext());  }
 
     //B
@@ -49,9 +48,11 @@ import java.util.LinkedList;
 
     //C
         "case"        {return new Symbol(Simbolos.CASE, yycolumn, yyline, yytext());  }   
+        "cast"        {return new Symbol(Simbolos.CAST, yycolumn, yyline, yytext());  }
         "catch"       {return new Symbol(Simbolos.CATCH, yycolumn, yyline, yytext());  }
         "char"        {return new Symbol(Simbolos.CHAR, yycolumn, yyline, yytext());  }
         "class"       {return new Symbol(Simbolos.CLAS, yycolumn, yyline, yytext());  }
+        "const"        {return new Symbol(Simbolos.CONST, yycolumn, yyline, yytext());  }
         "continue"    {return new Symbol(Simbolos.CONTINUE, yycolumn, yyline, yytext());  }
 
     //D
@@ -68,12 +69,17 @@ import java.util.LinkedList;
         "finally"     {return new Symbol(Simbolos.FINALLY, yycolumn, yyline, yytext());  }
         "float"       {return new Symbol(Simbolos.FLOAT, yycolumn, yyline, yytext());  }
         "for"         {return new Symbol(Simbolos.FOR, yycolumn, yyline, yytext());  }
+        "future"        {return new Symbol(Simbolos.FUTURE, yycolumn, yyline, yytext());  }
+    //G
+        "generic"        {return new Symbol(Simbolos.GENERIC, yycolumn, yyline, yytext());  }
+        "goto"          {return new Symbol(Simbolos.GOTO, yycolumn, yyline, yytext());  }
 
     //I
         "identifier"   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
         "if"          {return new Symbol(Simbolos.IF, yycolumn, yyline, yytext());  }
         "implements"  {return new Symbol(Simbolos.IMPLEMENTS, yycolumn, yyline, yytext());  }
         "import"      {return new Symbol(Simbolos.IMPOR, yycolumn, yyline, yytext());  }
+        "inner"      {return new Symbol(Simbolos.INNER, yycolumn, yyline, yytext());  }
         "instanceof"  {return new Symbol(Simbolos.INSTANCEOF, yycolumn, yyline, yytext());  }
         "int"         {return new Symbol(Simbolos.INT, yycolumn, yyline, yytext());  }
         "interface"   {return new Symbol(Simbolos.INTERFACE, yycolumn, yyline, yytext());  }
@@ -87,6 +93,10 @@ import java.util.LinkedList;
         "native"      {return new Symbol(Simbolos.NATIVE, yycolumn, yyline, yytext());  }
         "new"         {return new Symbol(Simbolos.NEW, yycolumn, yyline, yytext());  }
         "jnull"        {return new Symbol(Simbolos.JNULL, yycolumn, yyline, yytext());  }
+    //O
+
+        "operator"      {return new Symbol(Simbolos.OPERATOR, yycolumn, yyline, yytext());  }
+        "outer"         {return new Symbol(Simbolos.OUTER, yycolumn, yyline, yytext());  }
 
     //P
 
@@ -98,6 +108,7 @@ import java.util.LinkedList;
     //R
 
         "return"      {return new Symbol(Simbolos.RETURN, yycolumn, yyline, yytext());  }
+        "rest"      {return new Symbol(Simbolos.REST, yycolumn, yyline, yytext());  }
 
     //S
         "short"       {return new Symbol(Simbolos.SHORT, yycolumn, yyline, yytext());  }
@@ -115,8 +126,10 @@ import java.util.LinkedList;
         "try"         {return new Symbol(Simbolos.TRY, yycolumn, yyline, yytext());  }
 
     //V
+
         "void"        {return new Symbol(Simbolos.VOID, yycolumn, yyline, yytext());  }
         "volatile"    {return new Symbol(Simbolos.VOLATILE, yycolumn, yyline, yytext());  }
+        "var"    {return new Symbol(Simbolos.VAR, yycolumn, yyline, yytext());  }
 
     //W
 
