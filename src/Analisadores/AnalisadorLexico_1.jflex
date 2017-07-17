@@ -26,6 +26,8 @@ import java.util.LinkedList;
 %line
 %unicode
 
+Identifier = [a-zA-Z_][a-zA-Z_0-9]*
+Literal = [a-zA-Z_.]+
 
 %%
 
@@ -75,7 +77,6 @@ import java.util.LinkedList;
         "goto"          {return new Symbol(Simbolos.GOTO, yycolumn, yyline, yytext());  }
 
     //I
-        "identifier"   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
         "if"          {return new Symbol(Simbolos.IF, yycolumn, yyline, yytext());  }
         "implements"  {return new Symbol(Simbolos.IMPLEMENTS, yycolumn, yyline, yytext());  }
         "import"      {return new Symbol(Simbolos.IMPOR, yycolumn, yyline, yytext());  }
@@ -211,10 +212,8 @@ import java.util.LinkedList;
             "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
 
     //Special
-    		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());  }
-    		"[0-9]*" {return new Symbol(Simbolos.DEC_DIGITS, yycolumn, yyline, yytext());  }
-    		"[0-9a-f]*" {return new Symbol(Simbolos.INT_LITERAL, yycolumn, yyline, yytext());  }
-    		"[a-zA-Z0-9_$]" {return new Symbol(Simbolos.TEXT, yycolumn, yyline, yytext());  }
+    		 {Identifier}   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
+    		{Literal}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
 }
 
     // ISSO AQUI EMBAIXO (ESPAÇOS E ERROS LEXICOS) NÃO SEI SE VAI PERMANECER ASSIM MAS VAMOS DEIXAR POR HORA, VAI QUE...

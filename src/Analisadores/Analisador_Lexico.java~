@@ -1090,7 +1090,7 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
             }
           case 188: break;
           case 85: 
-            { return new Symbol(Simbolos.dec_digits, yycolumn, yyline, yytext());
+            { return new Symbol(Simbolos.DEC_DIGITS, yycolumn, yyline, yytext());
             }
           case 189: break;
           case 86: 
@@ -1142,7 +1142,7 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
             }
           case 201: break;
           case 98: 
-            { return new Symbol(Simbolos.int_literal, yycolumn, yyline, yytext());
+            { return new Symbol(Simbolos.INT_LITERAL, yycolumn, yyline, yytext());
             }
           case 202: break;
           case 99: 
@@ -1162,11 +1162,11 @@ public class Analisador_Lexico implements java_cup.runtime.Scanner {
             }
           case 206: break;
           case 103: 
-            { return new Symbol(Simbolos.text, yycolumn, yyline, yytext());
+            { return new Symbol(Simbolos.TEXT, yycolumn, yyline, yytext());
             }
           case 207: break;
           case 104: 
-            { return new Symbol(Simbolos.id, yycolumn, yyline, yytext());
+            { return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());
             }
           case 208: break;
           default:

@@ -26,6 +26,8 @@ import java.util.LinkedList;
 %line
 %unicode
 
+Identifier = [a-zA-Z_][a-zA-Z_0-9]*
+
 
 %%
 
@@ -203,7 +205,7 @@ import java.util.LinkedList;
             "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
 
     //Special
-    		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());  }
+    		{Identifier}  {return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());  }
     		"[0-9]*" {return new Symbol(Simbolos.DEC_DIGITS, yycolumn, yyline, yytext());  }
     		"[0-9a-f]*" {return new Symbol(Simbolos.INT_LITERAL, yycolumn, yyline, yytext());  }
     		"[a-zA-Z0-9_$]" {return new Symbol(Simbolos.TEXT, yycolumn, yyline, yytext());  }

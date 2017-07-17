@@ -8,215 +8,203 @@ package Analisadores;
 /** CUP generated class containing symbol constants. */
 public class Simbolos {
   /* terminals */
-  public static final int LTHEN = 57;
-  public static final int SHORT = 41;
-  public static final int EQUEQU = 60;
+  public static final int LTHEN = 85;
+  public static final int OP_SHL = 95;
+  public static final int SHORT = 5;
+  public static final int OP_DEC = 47;
+  public static final int IDENTIFIER = 13;
   public static final int IMPLEMENTS = 26;
-  public static final int INT_LITERAL = 102;
-  public static final int MODEQU = 80;
-  public static final int DBEQU = 63;
-  public static final int SUPE = 43;
-  public static final int COMMA = 93;
-  public static final int CATCH = 8;
-  public static final int THROW = 48;
-  public static final int XOREQU = 73;
-  public static final int LEQU = 59;
-  public static final int COMMENTS2 = 99;
-  public static final int COMMENTS1 = 98;
+  public static final int OP_LOR = 54;
+  public static final int ASS_AND = 63;
+  public static final int TIL = 78;
+  public static final int ASS_XOR = 64;
+  public static final int SOR = 87;
+  public static final int CATCH = 92;
+  public static final int COMMA = 66;
+  public static final int THROW = 91;
+  public static final int OP_NE = 52;
   public static final int EQU = 72;
-  public static final int DOUBLE = 15;
-  public static final int TRANSIENT = 49;
-  public static final int EXTEND = 18;
-  public static final int PROTECTED = 38;
-  public static final int FALSE = 20;
-  public static final int TEXT = 103;
-  public static final int FINAL = 21;
-  public static final int FLOAT = 23;
-  public static final int NEEQU = 83;
-  public static final int CLAS = 10;
-  public static final int MOD = 66;
-  public static final int DIVEQU = 79;
-  public static final int SOREQU = 81;
-  public static final int ABSTRACT = 2;
-  public static final int TRUE = 50;
-  public static final int NATIVE = 33;
-  public static final int LONG = 32;
-  public static final int PLUS = 67;
-  public static final int IMPOR = 27;
-  public static final int OREQU = 82;
-  public static final int WHILE = 52;
-  public static final int MINUSEQU = 76;
-  public static final int INTERFACE = 30;
-  public static final int CHAR = 9;
-  public static final int BOOLEAN = 4;
-  public static final int ANDEQU = 74;
-  public static final int X = 53;
-  public static final int SEMIC = 94;
-  public static final int SWITCH = 44;
-  public static final int OPENKEYS = 91;
-  public static final int DO = 14;
-  public static final int FOR = 24;
-  public static final int DIV = 78;
-  public static final int DBTHEN = 64;
-  public static final int PUBLIC = 39;
-  public static final int RETURN = 40;
+  public static final int DOUBLE = 9;
+  public static final int TRANSIENT = 20;
+  public static final int PROTECTED = 17;
+  public static final int LITERAL = 41;
+  public static final int QUE = 89;
+  public static final int OP_DIM = 27;
+  public static final int FINAL = 15;
+  public static final int FLOAT = 8;
+  public static final int OP_GE = 49;
+  public static final int PACKAGE = 11;
+  public static final int OP_INC = 46;
+  public static final int ASS_SUB = 59;
+  public static final int MOD = 83;
+  public static final int CLASS = 24;
+  public static final int ASS_SHR = 61;
+  public static final int SUPER = 44;
+  public static final int ABSTRACT = 14;
+  public static final int OP_LAND = 53;
+  public static final int ASS_SHL = 60;
+  public static final int NATIVE = 22;
+  public static final int PLUS = 80;
+  public static final int LONG = 7;
+  public static final int WHILE = 35;
+  public static final int EXTENDS = 29;
+  public static final int ASS_OR = 65;
+  public static final int INTERFACE = 25;
+  public static final int CHAR = 3;
+  public static final int BOOLEAN = 2;
+  public static final int OP_LE = 48;
+  public static final int ASS_MUL = 55;
+  public static final int SWITCH = 33;
+  public static final int SEMIC = 67;
+  public static final int DO = 36;
+  public static final int ASS_MOD = 57;
+  public static final int OPENKEYS = 70;
+  public static final int FOR = 37;
+  public static final int DIV = 82;
+  public static final int VOID = 10;
+  public static final int PUBLIC = 16;
+  public static final int RETURN = 39;
   public static final int MULT = 69;
-  public static final int ELSE = 17;
-  public static final int TRY = 51;
-  public static final int CLOSEKEYS = 92;
-  public static final int BREAK = 5;
-  public static final int DOT = 95;
-  public static final int AMPERSAND = 3;
-  public static final int L = 31;
-  public static final int INT = 29;
-  public static final int BINNEG = 87;
-  public static final int F = 19;
-  public static final int NULL = 35;
-  public static final int E = 16;
+  public static final int ELSE = 34;
+  public static final int TRY = 40;
+  public static final int CLOSEKEYS = 71;
+  public static final int OP_EQ = 51;
+  public static final int BREAK = 38;
+  public static final int DOT = 68;
+  public static final int INT = 6;
+  public static final int THROWS = 28;
+  public static final int AMPER = 88;
   public static final int EOF = 0;
-  public static final int D = 12;
-  public static final int THIS = 46;
-  public static final int DEFAULT = 13;
-  public static final int PACKAG = 36;
-  public static final int DLTHEN = 58;
-  public static final int MULTEQU = 77;
-  public static final int MINUS = 68;
-  public static final int OR = 56;
+  public static final int THIS = 43;
+  public static final int DEFAULT = 31;
+  public static final int OP_SHRR = 97;
+  public static final int JNULL = 45;
+  public static final int IMPORT = 12;
+  public static final int ASS_ADD = 58;
+  public static final int ASS_DIV = 56;
+  public static final int MINUS = 81;
+  public static final int ASS_SHRR = 62;
   public static final int error = 1;
-  public static final int CLOSEPAR = 71;
-  public static final int SYNCHRONIZED = 45;
-  public static final int FINALLY = 22;
-  public static final int CONTINUE = 11;
-  public static final int IF = 25;
-  public static final int INSTANCEOF = 28;
-  public static final int ID = 100;
-  public static final int MINUSMINUS = 86;
-  public static final int COLON = 96;
-  public static final int STRG = 97;
-  public static final int QUEST = 88;
-  public static final int PLUSPLUS = 85;
-  public static final int CASE = 7;
-  public static final int OPENBRAC = 89;
-  public static final int BTHEN = 61;
-  public static final int NEW = 34;
-  public static final int THREADSAFE = 47;
-  public static final int CLOSEBRAC = 90;
-  public static final int BYTE = 6;
-  public static final int PLUSEQU = 75;
-  public static final int AND = 54;
-  public static final int PRIVATE = 37;
-  public static final int STATIC = 42;
-  public static final int DEC_DIGITS = 101;
-  public static final int BEQU = 62;
-  public static final int OPENPAR = 70;
-  public static final int TBTHEN = 65;
-  public static final int NE = 84;
-  public static final int XOR = 55;
+  public static final int CLOSEPAR = 74;
+  public static final int SYNCHRONIZED = 23;
+  public static final int FINALLY = 93;
+  public static final int CONTINUE = 90;
+  public static final int IF = 32;
+  public static final int INSTANCEOF = 50;
+  public static final int COLON = 75;
+  public static final int VOLATILE = 21;
+  public static final int CASE = 30;
+  public static final int OPENBRAC = 76;
+  public static final int BTHEN = 84;
+  public static final int NEW = 94;
+  public static final int CLOSEBRAC = 77;
+  public static final int BYTE = 4;
+  public static final int PRIVATE = 18;
+  public static final int STATIC = 19;
+  public static final int OPENPAR = 73;
+  public static final int BOOLLIT = 42;
+  public static final int OP_SHR = 96;
+  public static final int NE = 79;
+  public static final int XOR = 86;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "ABSTRACT",
-  "AMPERSAND",
   "BOOLEAN",
-  "BREAK",
-  "BYTE",
-  "CASE",
-  "CATCH",
   "CHAR",
-  "CLAS",
-  "CONTINUE",
-  "D",
-  "DEFAULT",
-  "DO",
-  "DOUBLE",
-  "E",
-  "ELSE",
-  "EXTEND",
-  "F",
-  "FALSE",
-  "FINAL",
-  "FINALLY",
-  "FLOAT",
-  "FOR",
-  "IF",
-  "IMPLEMENTS",
-  "IMPOR",
-  "INSTANCEOF",
-  "INT",
-  "INTERFACE",
-  "L",
-  "LONG",
-  "NATIVE",
-  "NEW",
-  "NULL",
-  "PACKAG",
-  "PRIVATE",
-  "PROTECTED",
-  "PUBLIC",
-  "RETURN",
+  "BYTE",
   "SHORT",
+  "INT",
+  "LONG",
+  "FLOAT",
+  "DOUBLE",
+  "VOID",
+  "PACKAGE",
+  "IMPORT",
+  "IDENTIFIER",
+  "ABSTRACT",
+  "FINAL",
+  "PUBLIC",
+  "PROTECTED",
+  "PRIVATE",
   "STATIC",
-  "SUPE",
-  "SWITCH",
-  "SYNCHRONIZED",
-  "THIS",
-  "THREADSAFE",
-  "THROW",
   "TRANSIENT",
-  "TRUE",
-  "TRY",
+  "VOLATILE",
+  "NATIVE",
+  "SYNCHRONIZED",
+  "CLASS",
+  "INTERFACE",
+  "IMPLEMENTS",
+  "OP_DIM",
+  "THROWS",
+  "EXTENDS",
+  "CASE",
+  "DEFAULT",
+  "IF",
+  "SWITCH",
+  "ELSE",
   "WHILE",
-  "X",
-  "AND",
-  "XOR",
-  "OR",
-  "LTHEN",
-  "DLTHEN",
-  "LEQU",
-  "EQUEQU",
-  "BTHEN",
-  "BEQU",
-  "DBEQU",
-  "DBTHEN",
-  "TBTHEN",
-  "MOD",
-  "PLUS",
-  "MINUS",
-  "MULT",
-  "OPENPAR",
-  "CLOSEPAR",
-  "EQU",
-  "XOREQU",
-  "ANDEQU",
-  "PLUSEQU",
-  "MINUSEQU",
-  "MULTEQU",
-  "DIV",
-  "DIVEQU",
-  "MODEQU",
-  "SOREQU",
-  "OREQU",
-  "NEEQU",
-  "NE",
-  "PLUSPLUS",
-  "MINUSMINUS",
-  "BINNEG",
-  "QUEST",
-  "OPENBRAC",
-  "CLOSEBRAC",
-  "OPENKEYS",
-  "CLOSEKEYS",
+  "DO",
+  "FOR",
+  "BREAK",
+  "RETURN",
+  "TRY",
+  "LITERAL",
+  "BOOLLIT",
+  "THIS",
+  "SUPER",
+  "JNULL",
+  "OP_INC",
+  "OP_DEC",
+  "OP_LE",
+  "OP_GE",
+  "INSTANCEOF",
+  "OP_EQ",
+  "OP_NE",
+  "OP_LAND",
+  "OP_LOR",
+  "ASS_MUL",
+  "ASS_DIV",
+  "ASS_MOD",
+  "ASS_ADD",
+  "ASS_SUB",
+  "ASS_SHL",
+  "ASS_SHR",
+  "ASS_SHRR",
+  "ASS_AND",
+  "ASS_XOR",
+  "ASS_OR",
   "COMMA",
   "SEMIC",
   "DOT",
+  "MULT",
+  "OPENKEYS",
+  "CLOSEKEYS",
+  "EQU",
+  "OPENPAR",
+  "CLOSEPAR",
   "COLON",
-  "STRG",
-  "COMMENTS1",
-  "COMMENTS2",
-  "ID",
-  "DEC_DIGITS",
-  "INT_LITERAL",
-  "TEXT"
+  "OPENBRAC",
+  "CLOSEBRAC",
+  "TIL",
+  "NE",
+  "PLUS",
+  "MINUS",
+  "DIV",
+  "MOD",
+  "BTHEN",
+  "LTHEN",
+  "XOR",
+  "SOR",
+  "AMPER",
+  "QUE",
+  "CONTINUE",
+  "THROW",
+  "CATCH",
+  "FINALLY",
+  "NEW",
+  "OP_SHL",
+  "OP_SHR",
+  "OP_SHRR"
   };
 }
 

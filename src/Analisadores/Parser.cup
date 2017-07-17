@@ -84,8 +84,11 @@ non terminal MultiplicativeExpression, AdditiveExpression, ShiftExpression, Rela
 non terminal EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
 non terminal ConditionalAndExpression ConditionalOrExpression, AssignmentExpression, ConditionalExpression, SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
-non terminal AssignmentOperator;  
+non terminal AssignmentOperator; 
 
+precedence left ELSE; //eh bom conferir se eh isso mesmo
+
+start with CompilationUnit;
 
 /* Gramática */
 
