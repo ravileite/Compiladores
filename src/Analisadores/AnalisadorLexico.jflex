@@ -203,10 +203,10 @@ import java.util.LinkedList;
             "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
 
     //Special
-    		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.id, yycolumn, yyline, yytext());  }
-    		"[0-9]*" {return new Symbol(Simbolos.dec_digits, yycolumn, yyline, yytext());  }
-    		"[0-9a-f]*" {return new Symbol(Simbolos.int_literal, yycolumn, yyline, yytext());  }
-    		"[a-zA-Z0-9_$]" {return new Symbol(Simbolos.text, yycolumn, yyline, yytext());  }
+    		"[a-zA-Z_$][a-zA-Z_$0-9]*"  {return new Symbol(Simbolos.ID, yycolumn, yyline, yytext());  }
+    		"[0-9]*" {return new Symbol(Simbolos.DEC_DIGITS, yycolumn, yyline, yytext());  }
+    		"[0-9a-f]*" {return new Symbol(Simbolos.INT_LITERAL, yycolumn, yyline, yytext());  }
+    		"[a-zA-Z0-9_$]" {return new Symbol(Simbolos.TEXT, yycolumn, yyline, yytext());  }
 }
 
     // ISSO AQUI EMBAIXO (ESPAÇOS E ERROS LEXICOS) NÃO SEI SE VAI PERMANECER ASSIM MAS VAMOS DEIXAR POR HORA, VAI QUE...
