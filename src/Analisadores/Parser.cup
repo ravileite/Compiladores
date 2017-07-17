@@ -1,0 +1,660 @@
+/* Código do Usuário */
+
+package Analisadores;
+import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+
+
+parser code
+{:
+    public String resultado = "";
+    public static LinkedList<TError> TabelaERSintatico = new  LinkedList<TError>();
+
+
+    public void syntaxError(Symbol symbol){
+
+        String lexema = symbol.value.toString();
+        int linha = symbol.right;
+        int coluna = symbol.left;
+        
+        System.out.println("Erro sintático!");
+        System.out.println("\tLexema:   " + lexema);
+        System.out.println("\tLinha: " + linha);
+        System.out.println("\tColuna: " + coluna);
+
+
+
+        TError dados = new TError(lexema, linha, coluna, "Erro Sintatico",  "Caractere nao reconhecido!");
+        TabelaERSintatico.add(dados);   
+    }
+
+    public void unrecoveredSyntaxError(Symbol symbol) throws java.lang.Exception{
+        String lexema = symbol.value.toString();
+        int linha = symbol.right;
+        int coluna = symbol.left;
+
+        System.out.println("Erro sintatico irrecuperavel!");
+        System.out.println("\tLexema:   " + lexema);
+        System.out.println("\tLinha: " + linha);
+        System.out.println("\tColuna: " + coluna);
+
+        TError dados = new TError(lexema, linha, coluna, "Erro Sintatico",  "Caractere nao reconhecido!");
+        TabelaERSintatico.add(dados);
+    }
+    
+:}
+
+    //Ações Gramaticais
+
+action code {::}
+
+
+/* Declaracoes */
+
+    //Terminais
+terminal BOOLEAN, CHAR, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, VOID;
+terminal PACKAGE, IMPORT, IDENTIFIER;
+terminal ABSTRACT, FINAL, PUBLIC, PROTECTED, PRIVATE, STATIC, TRANSIENT, VOLATILE, NATIVE, SYNCHRONIZED;
+terminal CLASS, INTERFACE, IMPLEMENTS, OP_DIM, THROWS, EXTENDS, CASE, DEFAULT, IF, SWITCH, ELSE;
+terminal WHILE, DO, FOR, BREAK, RETURN, TRY, LITERAL, BOOLLIT, THIS, SUPER, JNULL, OP_INC, OP_DEC;
+terminal OP_LE, OP_GE, INSTANCEOF, OP_EQ, OP_NE, OP_LAND, OP_LOR;
+terminal ASS_MUL, ASS_DIV, ASS_MOD, ASS_ADD, ASS_SUB, ASS_SHL, ASS_SHR, ASS_SHRR, ASS_AND, ASS_XOR, ASS_OR;
+terminal COMMA, SEMIC, DOT, MULT, OPENKEYS, CLOSEKEYS, EQU, OPENPAR, CLOSEPAR, COLON;
+terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;  
+ 
+
+non terminal TypeName, Dims, PrimitiveType, QualifiedName, SemiColon, ProgramFile;
+non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
+non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
+non terminal ClassWord Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
+non terminal FieldDeclaration, FieldVariableDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
+non terminal VariableDeclarators, VariableDeclarator, Expression, ArrayInitializers;
+non terminal VariableInitializer, TypeSpecifier, MethodDeclarator, Throws, MethodBody; 
+non terminal DeclaratorName, ParameterList, Parameter, Block, ConstructorDeclarator;
+non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
+non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
+non terminal IterationStatement, JumpStatement, GuardingStatement, ConstantExpression; 
+non terminal ForInit, ForExp, ExpressionStatement, Catches, Finally, CatchHeader, NotJustName;  
+non terminal NewAllocationExpression, ComplexPrimary, ComplexPrimaryNoParenthesis, ArrayAccess, FieldAccess;
+non terminal MethodCall, RealPostfixExpression, ArgumentList, PlainNewAllocationExpression;
+non terminal ArrayAllocationExpression, ClassAllocationExpression;
+non terminal DimExprs, PostfixExpression, UnaryExpression, ArithmeticUnaryOperator;
+non terminal CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
+non terminal MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
+non terminal EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
+non terminal ConditionalAndExpression ConditionalOrExpression, AssignmentExpression, ConditionalExpression, SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
+non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
+non terminal AssignmentOperator;  
+
+
+/* Gramática */
+
+TypeSpecifier::= TypeName | TypeName Dims;
+
+TypeName::= PrimitiveType | QualifiedName;
+
+ClassNameList ::= QualifiedName | ClassNameList COMMA QualifiedName;
+
+PrimitiveType
+	::= BOOLEAN
+	| CHAR
+	| BYTE
+	| SHORT
+	| INT
+	| LONG
+	| FLOAT
+	| DOUBLE
+	| VOID
+	;
+
+SemiColons
+	::= SEMIC
+        | SemiColons SEMIC
+        ;
+
+CompilationUnit
+	::= ProgramFile
+        ;
+
+ProgramFile
+	::= PackageStatement ImportStatements TypeDeclarations
+	| PackageStatement ImportStatements
+	| PackageStatement                  TypeDeclarations
+	|                  ImportStatements TypeDeclarations
+	| PackageStatement
+	|                  ImportStatements
+	|                                   TypeDeclarations
+	;
+
+PackageStatement
+	::= PACKAGE QualifiedName SemiColons
+	;
+
+TypeDeclarations
+	::= TypeDeclarationOptSemi
+	| TypeDeclarations TypeDeclarationOptSemi
+	;
+
+TypeDeclarationOptSemi
+        ::= TypeDeclaration
+        | TypeDeclaration SemiColons
+        ;
+
+ImportStatements
+	::= ImportStatement
+	| ImportStatements ImportStatement
+	;
+
+ImportStatement
+	::= IMPORT QualifiedName SemiColons
+	| IMPORT QualifiedName DOT MULT SemiColons
+	;
+
+QualifiedName
+	::= IDENTIFIER
+	| QualifiedName DOT IDENTIFIER
+	;
+
+TypeDeclaration
+	::= ClassHeader OPENKEYS FieldDeclarations CLOSEKEYS
+	| ClassHeader OPENKEYS CLOSEKEYS
+	;
+
+ClassHeader
+	::= Modifiers ClassWord IDENTIFIER Extends Interfaces
+	| Modifiers ClassWord IDENTIFIER Extends
+	| Modifiers ClassWord IDENTIFIER       Interfaces
+	|           ClassWord IDENTIFIER Extends Interfaces
+	| Modifiers ClassWord IDENTIFIER
+	|           ClassWord IDENTIFIER Extends
+	|           ClassWord IDENTIFIER       Interfaces
+	|           ClassWord IDENTIFIER
+	;
+
+Modifiers
+	::= Modifier
+	| Modifiers Modifier
+	;
+
+Modifier
+	::= ABSTRACT
+	| FINAL
+	| PUBLIC
+	| PROTECTED
+	| PRIVATE
+	| STATIC
+	| TRANSIENT
+	| VOLATILE
+	| NATIVE
+	| SYNCHRONIZED
+	;
+
+ClassWord
+	::= CLASS
+	| INTERFACE
+	;
+
+Interfaces
+	::= IMPLEMENTS ClassNameList
+	;
+
+FieldDeclarations
+	::= FieldDeclarationOptSemi
+        | FieldDeclarations FieldDeclarationOptSemi
+	;
+
+FieldDeclarationOptSemi
+        ::= FieldDeclaration
+        | FieldDeclaration SemiColons
+        ;
+
+FieldDeclaration
+	::= FieldVariableDeclaration SEMIC
+	| MethodDeclaration
+	| ConstructorDeclaration
+	| StaticInitializer
+        | NonStaticInitializer
+        | TypeDeclaration
+	;
+
+FieldVariableDeclaration
+	::= Modifiers TypeSpecifier VariableDeclarators
+	|           TypeSpecifier VariableDeclarators
+	;
+
+VariableDeclarators
+	::= VariableDeclarator
+	| VariableDeclarators COMMA VariableDeclarator
+	;
+
+VariableDeclarator
+	::= DeclaratorName
+	| DeclaratorName EQU VariableInitializer
+	;
+
+VariableInitializer
+	::= Expression
+	| OPENKEYS CLOSEKEYS
+        | OPENKEYS ArrayInitializers CLOSEKEYS
+        ;
+
+ArrayInitializers
+	::= VariableInitializer
+	| ArrayInitializers COMMA VariableInitializer
+	| ArrayInitializers COMMA
+	;
+
+MethodDeclaration
+	::= Modifiers TypeSpecifier MethodDeclarator Throws MethodBody
+	| Modifiers TypeSpecifier MethodDeclarator        MethodBody
+	|           TypeSpecifier MethodDeclarator Throws MethodBody
+	|           TypeSpecifier MethodDeclarator        MethodBody
+	;
+
+MethodDeclarator
+	::= DeclaratorName OPENPAR ParameterList CLOSEPAR
+	| DeclaratorName OPENPAR CLOSEPAR
+	| MethodDeclarator OP_DIM
+	;
+
+ParameterList
+	::= Parameter
+	| ParameterList COMMA Parameter
+	;
+
+Parameter
+	::= TypeSpecifier DeclaratorName
+        | FINAL TypeSpecifier DeclaratorName
+	;
+
+DeclaratorName
+	::= IDENTIFIER
+        | DeclaratorName OP_DIM
+        ;
+
+Throws
+	::= THROWS ClassNameList
+	;
+
+MethodBody
+	::= Block
+	| SEMIC
+	;
+
+ConstructorDeclaration
+	::= Modifiers ConstructorDeclarator Throws Block
+	| Modifiers ConstructorDeclarator        Block
+	|           ConstructorDeclarator Throws Block
+	|           ConstructorDeclarator        Block
+	;
+
+ConstructorDeclarator
+	::= IDENTIFIER OPENPAR ParameterList CLOSEPAR
+	| IDENTIFIER OPENPAR CLOSEPAR
+	;
+
+StaticInitializer
+	::= STATIC Block
+	;
+
+NonStaticInitializer
+        ::= Block
+        ;
+
+Extends
+	::= EXTENDS TypeName
+	| Extends COMMA TypeName
+	;
+
+Block
+	::= OPENKEYS LocalVariableDeclarationsAndStatements CLOSEKEYS
+	| OPENKEYS CLOSEKEYS
+        ;
+
+LocalVariableDeclarationsAndStatements
+	::= LocalVariableDeclarationOrStatement
+	| LocalVariableDeclarationsAndStatements LocalVariableDeclarationOrStatement
+	;
+
+LocalVariableDeclarationOrStatement
+	::= LocalVariableDeclarationStatement
+	| Statement
+	;
+
+LocalVariableDeclarationStatement
+	::= TypeSpecifier VariableDeclarators SEMIC
+        | FINAL TypeSpecifier VariableDeclarators SEMIC
+	;
+
+Statement
+	::= EmptyStatement
+	| LabelStatement
+	| ExpressionStatement SEMIC
+        | SelectionStatement
+        | IterationStatement
+	| JumpStatement
+	| GuardingStatement
+	| Block
+	;
+
+EmptyStatement
+	::= SEMIC
+        ;
+
+LabelStatement
+	::= IDENTIFIER COLON
+        | CASE ConstantExpression COLON
+	| DEFAULT COLON
+        ;
+
+ExpressionStatement
+	::= Expression
+	;
+
+SelectionStatement
+	::= IF OPENPAR Expression CLOSEPAR Statement
+        | IF OPENPAR Expression CLOSEPAR Statement ELSE Statement
+        | SWITCH OPENPAR Expression CLOSEPAR Block
+        ;
+
+IterationStatement
+	::= WHILE OPENPAR Expression CLOSEPAR Statement
+	| DO Statement WHILE OPENPAR Expression CLOSEPAR SEMIC
+	| FOR OPENPAR ForInit ForExpr ForIncr CLOSEPAR Statement
+	| FOR OPENPAR ForInit ForExpr         CLOSEPAR Statement
+	;
+
+ForInit
+	::= ExpressionStatements SEMIC
+	| LocalVariableDeclarationStatement
+	| SEMIC
+	;
+
+ForExpr
+	::= Expression SEMIC
+	| SEMIC
+	;
+
+ForIncr
+	::= ExpressionStatements
+	;
+
+ExpressionStatements
+	::= ExpressionStatement
+	| ExpressionStatements COMMA ExpressionStatement
+	;
+
+JumpStatement
+	::= BREAK IDENTIFIER SEMIC
+	| BREAK            SEMIC
+        | CONTINUE IDENTIFIER SEMIC
+	| CONTINUE            SEMIC
+	| RETURN Expression SEMIC
+	| RETURN            SEMIC
+	| THROW Expression SEMIC
+	;
+
+GuardingStatement
+	::= SYNCHRONIZED OPENPAR Expression OPENPAR Statement
+	| TRY Block Finally
+	| TRY Block Catches
+	| TRY Block Catches Finally
+	;
+
+Catches
+	::= Catch
+	| Catches Catch
+	;
+
+Catch
+	::= CatchHeader Block
+	;
+
+CatchHeader
+	::= CATCH OPENPAR TypeSpecifier IDENTIFIER CLOSEPAR
+	| CATCH OPENPAR TypeSpecifier CLOSEPAR
+	;
+
+Finally
+	::= FINALLY Block
+	;
+
+PrimaryExpression
+	::= QualifiedName
+	| NotJustName
+	;
+
+NotJustName
+	::= SpecialName
+	| NewAllocationExpression
+	| ComplexPrimary
+	;
+
+ComplexPrimary
+	::= OPENPAR Expression OPENPAR
+	| ComplexPrimaryNoParenthesis
+	;
+
+ComplexPrimaryNoParenthesis
+	::= LITERAL
+	| BOOLLIT
+	| ArrayAccess
+	| FieldAccess
+	| MethodCall
+	;
+
+ArrayAccess
+	::= QualifiedName OPENBRAC Expression CLOSEBRAC
+	| ComplexPrimary OPENBRAC Expression CLOSEBRAC
+	;
+
+FieldAccess
+	::= NotJustName DOT IDENTIFIER
+	| RealPostfixExpression DOT IDENTIFIER
+        | QualifiedName DOT THIS
+        | QualifiedName DOT CLASS
+        | PrimitiveType DOT CLASS
+	;
+
+MethodCall
+	::= MethodAccess OPENPAR ArgumentList CLOSEPAR
+	| MethodAccess OPENPAR CLOSEPAR
+	;
+
+MethodAccess
+	::= ComplexPrimaryNoParenthesis
+	| SpecialName
+	| QualifiedName
+	;
+
+SpecialName
+	::= THIS
+	| SUPER
+	| JNULL
+	;
+
+ArgumentList
+	::= Expression
+	| ArgumentList COMMA Expression
+	;
+
+NewAllocationExpression
+        ::= PlainNewAllocationExpression
+        | QualifiedName DOT PlainNewAllocationExpression
+        ;
+
+PlainNewAllocationExpression
+    	::= ArrayAllocationExpression
+    	| ClassAllocationExpression
+    	| ArrayAllocationExpression OPENKEYS CLOSEKEYS
+    	| ClassAllocationExpression OPENKEYS CLOSEKEYS
+    	| ArrayAllocationExpression OPENKEYS ArrayInitializers CLOSEKEYS
+    	| ClassAllocationExpression OPENKEYS FieldDeclarations CLOSEKEYS
+    	;
+
+ClassAllocationExpression
+	::= NEW TypeName OPENPAR ArgumentList CLOSEPAR
+	| NEW TypeName OPENPAR CLOSEPAR
+        ;
+
+ArrayAllocationExpression
+	::= NEW TypeName DimExprs Dims
+	| NEW TypeName DimExprs
+        | NEW TypeName Dims
+	;
+
+DimExprs
+	::= DimExpr
+	| DimExprs DimExpr
+	;
+
+DimExpr
+	::= OPENBRAC Expression CLOSEBRAC
+	;
+
+Dims
+	::= OP_DIM
+	| Dims OP_DIM
+	;
+
+PostfixExpression
+	::= PrimaryExpression
+	| RealPostfixExpression
+	;
+
+RealPostfixExpression
+	::= PostfixExpression OP_INC
+	| PostfixExpression OP_DEC
+	;
+
+UnaryExpression
+	::= OP_INC UnaryExpression
+	| OP_DEC UnaryExpression
+	| ArithmeticUnaryOperator CastExpression
+	| LogicalUnaryExpression
+	;
+
+LogicalUnaryExpression
+	::= PostfixExpression
+	| LogicalUnaryOperator UnaryExpression
+	;
+
+LogicalUnaryOperator
+	::= TIL
+	| NE
+	;
+
+ArithmeticUnaryOperator
+	::= PLUS
+	| MINUS
+	;
+
+CastExpression
+	::= UnaryExpression
+	| OPENPAR PrimitiveTypeExpression CLOSEPAR CastExpression
+	| OPENPAR ClassTypeExpression CLOSEPAR CastExpression
+	| OPENPAR Expression CLOSEPAR LogicalUnaryExpression
+	;
+
+PrimitiveTypeExpression
+	::= PrimitiveType
+        | PrimitiveType Dims
+        ;
+
+ClassTypeExpression
+	::= QualifiedName Dims
+        ;/
+
+MultiplicativeExpression
+	::= CastExpression
+	| MultiplicativeExpression MULT CastExpression
+	| MultiplicativeExpression DIV CastExpression
+	| MultiplicativeExpression MOD CastExpression
+	;
+
+AdditiveExpression
+	::= MultiplicativeExpression
+        | AdditiveExpression PLUS MultiplicativeExpression
+	| AdditiveExpression MINUS MultiplicativeExpression
+        ;
+
+ShiftExpression
+	::= AdditiveExpression
+        | ShiftExpression OP_SHL AdditiveExpression
+        | ShiftExpression OP_SHR AdditiveExpression
+        | ShiftExpression OP_SHRR AdditiveExpression
+	;
+
+RelationalExpression
+	::= ShiftExpression
+        | RelationalExpression LTHEN ShiftExpression
+	| RelationalExpression BTHEN ShiftExpression
+	| RelationalExpression OP_LE ShiftExpression
+	| RelationalExpression OP_GE ShiftExpression
+	| RelationalExpression INSTANCEOF TypeSpecifier
+	;
+
+EqualityExpression
+	::= RelationalExpression
+        | EqualityExpression OP_EQ RelationalExpression
+        | EqualityExpression OP_NE RelationalExpression
+        ;
+
+AndExpression
+	::= EqualityExpression
+        | AndExpression AMPER EqualityExpression
+        ;
+
+ExclusiveOrExpression
+	::= AndExpression
+	| ExclusiveOrExpression XOR AndExpression
+	;
+
+InclusiveOrExpression
+	::= ExclusiveOrExpression
+	| InclusiveOrExpression SOR ExclusiveOrExpression
+	;
+
+ConditionalAndExpression
+	::= InclusiveOrExpression
+	| ConditionalAndExpression OP_LAND InclusiveOrExpression
+	;
+
+ConditionalOrExpression
+	::= ConditionalAndExpression
+	| ConditionalOrExpression OP_LOR ConditionalAndExpression
+	;
+
+ConditionalExpression
+	::= ConditionalOrExpression
+	| ConditionalOrExpression QUE Expression COLON ConditionalExpression
+	;
+
+AssignmentExpression
+	::= ConditionalExpression
+	| UnaryExpression AssignmentOperator AssignmentExpression
+	;
+
+AssignmentOperator
+	::= EQU
+	| ASS_MUL
+	| ASS_DIV
+	| ASS_MOD
+	| ASS_ADD
+	| ASS_SUB
+	| ASS_SHL
+	| ASS_SHR
+	| ASS_SHRR
+	| ASS_AND
+	| ASS_XOR
+	| ASS_OR
+	;
+
+Expression
+	::= AssignmentExpression
+        ;
+
+ConstantExpression
+	::= ConditionalExpression
+	;
+						
