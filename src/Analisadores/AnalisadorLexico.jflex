@@ -27,7 +27,14 @@ import java.util.LinkedList;
 %unicode
 
 Identifier = [a-zA-Z_][a-zA-Z_0-9]*
-Literal = [a-zA-Z0-9]+
+IntLiteral = [0-9]+
+DecimalDigit = [0-9]*"."[0-9]+
+FloatEx = "d"|"f"
+Exponent = "e" [ "+" | "-" ]
+FloatLiteral = {DecimalDigit} | ({DecimalDigit} {FloatEx}) | ({DecimalDigit} {Exponent} {FloatEx}) | ({DecimalDigit} {Exponent})
+CharLiteral = "'" [a-zA-Z_0-9_.,] "'"
+StringLiteral =  [\"][a-zA-Z_0-9_.,]*[\"]
+
 
 
 %%
@@ -192,7 +199,10 @@ Literal = [a-zA-Z0-9]+
 
     //Special
     		{Identifier}   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
-    		{Literal}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
+    		{IntLiteral}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
+    		{FloatLiteral}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
+    		{CharLiteral}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
+    		{StringLiteral}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
 }
 
     // ISSO AQUI EMBAIXO (ESPAÇOS E ERROS LEXICOS) NÃO SEI SE VAI PERMANECER ASSIM MAS VAMOS DEIXAR POR HORA, VAI QUE...
@@ -203,6 +213,6 @@ Literal = [a-zA-Z0-9]+
 
     //Erros Lexicos
 
-            .                        {System.out.println("Erro Léxico " + yytext() + " Linha " + yyline +  " Coluna " + yycolumn);
+            .                        {System.out.println("Erro Lexico " + yytext() + " Linha " + (yyline+1) +  " Coluna " + (yycolumn+1));
                                      TError dados = new TError(yytext(), yyline, yycolumn, "Erro Lexico", "Simbolo nao permitido");
                                      TabelaER.add(dados);} 

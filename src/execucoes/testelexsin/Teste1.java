@@ -56,4 +56,18 @@ public class Teste1{
     protected int hello9 (int x, int k) {
         return x + k;
     }
+    
+    protected int hello10 (int x, int k) {
+        return x = new Integer(k);
+    }
+    
+    protected char hello11 (int x, int k) {
+        char b = 'a';
+        return b;
+    }
+    
+    private String hello12(){
+    	String x = "deucert";
+    	return x;
+    }
 }

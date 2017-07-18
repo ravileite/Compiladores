@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		args = new String[1];
-		args[0] = "C:/Users/Wesley/Documents/NetBeansProjects2/Compiladores/src/execucoes/testelexsin/Teste1.java";
+		args[0] = "C:/Users/JoaoFelipe/git/Compiladores/src/execucoes/testelexsin/Teste1.java";
 		
 		try {
 			AnalisadorLexicoGen lex = new AnalisadorLexicoGen(new FileReader(args[0]));
