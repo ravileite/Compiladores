@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>AnalisadorLexico_1.jflex</tt>
  */
-public class Analisador_Lexico_1 implements java_cup.runtime.Scanner {
+public class Analisador_Lexico implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -748,7 +748,7 @@ public class Analisador_Lexico_1 implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Analisador_Lexico_1(java.io.Reader in) {
+  public Analisador_Lexico(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -1106,7 +1106,7 @@ public class Analisador_Lexico_1 implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          { return new java_cup.runtime.Symbol(Simbolos_1.EOF); }
+          { return new java_cup.runtime.Symbol(Simbolos.EOF); }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {

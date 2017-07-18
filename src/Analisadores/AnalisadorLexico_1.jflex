@@ -9,15 +9,15 @@ import java.util.LinkedList;
 %%
 %{
     //Código de Sintaxe Java
-    public static LinkedList<TError> TabelaER2 = new  LinkedList<TError>();
+    public static LinkedList<TError> TabelaER = new  LinkedList<TError>();
 
 %}
 
     //Diretivas
 
 %public
-%class Analisador_Lexico_1
-%cupsym Simbolos_1
+%class Analisador_Lexico
+%cupsym Simbolos
 %cup
 %char
 %column
