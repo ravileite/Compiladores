@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/BigRon/Documents/NetBeansProjects/Compiladores/src/Geradores/AnalisadorSintatico.bat</file>
-            <file>file:/C:/Users/BigRon/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico.cup</file>
-            <file>file:/C:/Users/BigRon/Documents/NetBeansProjects/Compiladores/src/Geradores/AnalisadorLexico.bat</file>
-            <file>file:/C:/Users/BigRon/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorLexico.jflex</file>
-            <file>file:/C:/Users/BigRon/Documents/NetBeansProjects/Compiladores/src/Analisadores/TError.java</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorLexico.jflex</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico_4.cup</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/TError.java</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/Analisador_Lexico.java</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico.cup</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Geradores/AnalisadorSintatico.bat</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Geradores/AnalisadorLexico.bat</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/Analisador_Sintatico.java</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/Simbolos.java</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico_3.cup</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico_2.cup</file>
+            <file>file:/C:/Users/Wesley%20Silva/Documents/NetBeansProjects/Compiladores/src/Analisadores/AnalisadorSintatico_1.cup</file>
         </group>
     </open-files>
 </project-private>
