@@ -66,7 +66,7 @@ terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR,
 non terminal TypeName, Dims, PrimitiveType, QualifiedName, ProgramFile;
 non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
 non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
-non terminal ClassWord Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
+non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
 non terminal FieldDeclaration, FieldVariableDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
 non terminal VariableDeclarators, VariableDeclarator, Expression, ArrayInitializers;
 non terminal VariableInitializer, TypeSpecifier, MethodDeclarator, Throws, MethodBody; 
@@ -82,7 +82,7 @@ non terminal DimExprs, PostfixExpression, UnaryExpression, ArithmeticUnaryOperat
 non terminal CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
 non terminal MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
 non terminal EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
-non terminal ConditionalAndExpression ConditionalOrExpression, AssignmentExpression, ConditionalExpression, SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
+non terminal ConditionalOrExpression, AssignmentExpression, ConditionalExpression, SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
 non terminal AssignmentOperator; 
 

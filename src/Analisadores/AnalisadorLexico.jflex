@@ -16,7 +16,7 @@ import java.util.LinkedList;
     //Diretivas
 
 %public
-%class Analisador_Lexico
+%class AnalisadorLexicoGen
 %cupsym Simbolos
 %cup
 %char
@@ -27,7 +27,8 @@ import java.util.LinkedList;
 %unicode
 
 Identifier = [a-zA-Z_][a-zA-Z_0-9]*
-Literal = [a-zA-Z_.]+
+Literal = [a-zA-Z0-9]+
+
 
 %%
 
@@ -50,11 +51,9 @@ Literal = [a-zA-Z_.]+
 
     //C
         "case"        {return new Symbol(Simbolos.CASE, yycolumn, yyline, yytext());  }   
-        "cast"        {return new Symbol(Simbolos.CAST, yycolumn, yyline, yytext());  }
         "catch"       {return new Symbol(Simbolos.CATCH, yycolumn, yyline, yytext());  }
         "char"        {return new Symbol(Simbolos.CHAR, yycolumn, yyline, yytext());  }
-        "class"       {return new Symbol(Simbolos.CLAS, yycolumn, yyline, yytext());  }
-        "const"        {return new Symbol(Simbolos.CONST, yycolumn, yyline, yytext());  }
+        "class"       {return new Symbol(Simbolos.CLASS, yycolumn, yyline, yytext());  }
         "continue"    {return new Symbol(Simbolos.CONTINUE, yycolumn, yyline, yytext());  }
 
     //D
@@ -64,29 +63,23 @@ Literal = [a-zA-Z_.]+
 
     //E
         "else"        {return new Symbol(Simbolos.ELSE, yycolumn, yyline, yytext());  }
-        "extends"     {return new Symbol(Simbolos.EXTEND, yycolumn, yyline, yytext());  }
+        "extends"     {return new Symbol(Simbolos.EXTENDS, yycolumn, yyline, yytext());  }
 
     //F
         "final"       {return new Symbol(Simbolos.FINAL, yycolumn, yyline, yytext());  }
         "finally"     {return new Symbol(Simbolos.FINALLY, yycolumn, yyline, yytext());  }
         "float"       {return new Symbol(Simbolos.FLOAT, yycolumn, yyline, yytext());  }
         "for"         {return new Symbol(Simbolos.FOR, yycolumn, yyline, yytext());  }
-        "future"        {return new Symbol(Simbolos.FUTURE, yycolumn, yyline, yytext());  }
-    //G
-        "generic"        {return new Symbol(Simbolos.GENERIC, yycolumn, yyline, yytext());  }
-        "goto"          {return new Symbol(Simbolos.GOTO, yycolumn, yyline, yytext());  }
 
     //I
         "if"          {return new Symbol(Simbolos.IF, yycolumn, yyline, yytext());  }
         "implements"  {return new Symbol(Simbolos.IMPLEMENTS, yycolumn, yyline, yytext());  }
-        "import"      {return new Symbol(Simbolos.IMPOR, yycolumn, yyline, yytext());  }
-        "inner"      {return new Symbol(Simbolos.INNER, yycolumn, yyline, yytext());  }
+        "import"      {return new Symbol(Simbolos.IMPORT, yycolumn, yyline, yytext());  }
         "instanceof"  {return new Symbol(Simbolos.INSTANCEOF, yycolumn, yyline, yytext());  }
         "int"         {return new Symbol(Simbolos.INT, yycolumn, yyline, yytext());  }
         "interface"   {return new Symbol(Simbolos.INTERFACE, yycolumn, yyline, yytext());  }
 
     //L
-        "literal"        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
         "long"        {return new Symbol(Simbolos.LONG, yycolumn, yyline, yytext());  }
 
     //N
@@ -94,14 +87,10 @@ Literal = [a-zA-Z_.]+
         "native"      {return new Symbol(Simbolos.NATIVE, yycolumn, yyline, yytext());  }
         "new"         {return new Symbol(Simbolos.NEW, yycolumn, yyline, yytext());  }
         "jnull"        {return new Symbol(Simbolos.JNULL, yycolumn, yyline, yytext());  }
-    //O
-
-        "operator"      {return new Symbol(Simbolos.OPERATOR, yycolumn, yyline, yytext());  }
-        "outer"         {return new Symbol(Simbolos.OUTER, yycolumn, yyline, yytext());  }
 
     //P
 
-        "package"     {return new Symbol(Simbolos.PACKAG, yycolumn, yyline, yytext());  }
+        "package"     {return new Symbol(Simbolos.PACKAGE, yycolumn, yyline, yytext());  }
         "private"     {return new Symbol(Simbolos.PRIVATE, yycolumn, yyline, yytext());  }
         "protected"   {return new Symbol(Simbolos.PROTECTED, yycolumn, yyline, yytext());  }
         "public"      {return new Symbol(Simbolos.PUBLIC, yycolumn, yyline, yytext());  }
@@ -109,7 +98,6 @@ Literal = [a-zA-Z_.]+
     //R
 
         "return"      {return new Symbol(Simbolos.RETURN, yycolumn, yyline, yytext());  }
-        "rest"      {return new Symbol(Simbolos.REST, yycolumn, yyline, yytext());  }
 
     //S
         "short"       {return new Symbol(Simbolos.SHORT, yycolumn, yyline, yytext());  }
@@ -130,7 +118,6 @@ Literal = [a-zA-Z_.]+
 
         "void"        {return new Symbol(Simbolos.VOID, yycolumn, yyline, yytext());  }
         "volatile"    {return new Symbol(Simbolos.VOLATILE, yycolumn, yyline, yytext());  }
-        "var"    {return new Symbol(Simbolos.VAR, yycolumn, yyline, yytext());  }
 
     //W
 
@@ -203,17 +190,8 @@ Literal = [a-zA-Z_.]+
             ":"     {return new Symbol(Simbolos.COLON, yycolumn, yyline, yytext());  }
             "[]"    {return new Symbol(Simbolos.OP_DIM, yycolumn, yyline, yytext()); }
 
-    //String
-
-            "''"    {return new Symbol(Simbolos.STRG, yycolumn, yyline, yytext());  }
-
-    //Documentação
-
-            "/*"    {return new Symbol(Simbolos.COMMENTS1, yycolumn, yyline, yytext());  }
-            "/**"   {return new Symbol(Simbolos.COMMENTS2, yycolumn, yyline, yytext());  }
-
     //Special
-    		 {Identifier}   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
+    		{Identifier}   {return new Symbol(Simbolos.IDENTIFIER, yycolumn, yyline, yytext());  }
     		{Literal}        {return new Symbol(Simbolos.LITERAL, yycolumn, yyline, yytext());  }
 }
 
@@ -225,6 +203,6 @@ Literal = [a-zA-Z_.]+
 
     //Erros Lexicos
 
-            .                        {System.out.println("Erro Léxico " + yytext() + "Linha " + yyline +  "Coluna " + yycolumn);
+            .                        {System.out.println("Erro Léxico " + yytext() + " Linha " + yyline +  " Coluna " + yycolumn);
                                      TError dados = new TError(yytext(), yyline, yycolumn, "Erro Lexico", "Simbolo nao permitido");
                                      TabelaER.add(dados);} 

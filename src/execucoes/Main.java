@@ -1,19 +1,18 @@
 package execucoes;
 
+import Analisadores.AnalisadorLexicoGen;
+import Analisadores.AnalisadorSintaticoGen;
 import java.io.FileReader;
-
-import Analisadores.ASintatico;
-import Analisadores.Analisador_Lexico;
 
 public class Main {
 
 	public static void main(String[] args) {
 		args = new String[1];
-		args[0] = "C:/Users/JoaoFelipe/git/Compiladores/src/execucoes/Exemplo1.java";
+		args[0] = "C:/Users/Wesley/Documents/NetBeansProjects2/Compiladores/src/execucoes/testelexsin/Teste1.java";
 		
 		try {
-			Analisador_Lexico lex = new Analisador_Lexico(new FileReader(args[0]));
-			ASintatico parser = new ASintatico(lex);
+			AnalisadorLexicoGen lex = new AnalisadorLexicoGen(new FileReader(args[0]));
+			AnalisadorSintaticoGen parser = new AnalisadorSintaticoGen(lex);
 			parser.parse();
 			
 			
