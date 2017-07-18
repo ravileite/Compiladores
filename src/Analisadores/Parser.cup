@@ -63,7 +63,7 @@ terminal COMMA, SEMIC, DOT, MULT, OPENKEYS, CLOSEKEYS, EQU, OPENPAR, CLOSEPAR, C
 terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;  
  
 
-non terminal TypeName, Dims, PrimitiveType, QualifiedName, SemiColon, ProgramFile;
+non terminal TypeName, Dims, PrimitiveType, QualifiedName, ProgramFile;
 non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
 non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
 non terminal ClassWord Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
@@ -74,7 +74,7 @@ non terminal DeclaratorName, ParameterList, Parameter, Block, ConstructorDeclara
 non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
 non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
 non terminal IterationStatement, JumpStatement, GuardingStatement, ConstantExpression; 
-non terminal ForInit, ForExp, ExpressionStatement, Catches, Finally, CatchHeader, NotJustName;  
+non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader, NotJustName;  
 non terminal NewAllocationExpression, ComplexPrimary, ComplexPrimaryNoParenthesis, ArrayAccess, FieldAccess;
 non terminal MethodCall, RealPostfixExpression, ArgumentList, PlainNewAllocationExpression;
 non terminal ArrayAllocationExpression, ClassAllocationExpression;
@@ -86,7 +86,7 @@ non terminal ConditionalAndExpression ConditionalOrExpression, AssignmentExpress
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
 non terminal AssignmentOperator; 
 
-precedence left ELSE; //eh bom conferir se eh isso mesmo
+precedence nonassoc ELSE; //eh bom conferir se eh isso mesmo
 
 start with CompilationUnit;
 
@@ -460,8 +460,8 @@ FieldAccess
 	;
 
 MethodCall
-	::= MethodAccess OPENPAR ArgumentList CLOSEPAR
-	| MethodAccess OPENPAR CLOSEPAR
+	::= DOT MethodAccess OPENPAR ArgumentList CLOSEPAR
+	| DOT MethodAccess OPENPAR CLOSEPAR
 	;
 
 MethodAccess
@@ -469,6 +469,7 @@ MethodAccess
 	| SpecialName
 	| QualifiedName
 	;
+
 
 SpecialName
 	::= THIS
@@ -566,7 +567,7 @@ PrimitiveTypeExpression
 
 ClassTypeExpression
 	::= QualifiedName Dims
-        ;/
+        ;
 
 MultiplicativeExpression
 	::= CastExpression

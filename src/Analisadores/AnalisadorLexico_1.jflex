@@ -201,6 +201,7 @@ Literal = [a-zA-Z_.]+
             ";"     {return new Symbol(Simbolos.SEMIC, yycolumn, yyline, yytext());  }
             "."     {return new Symbol(Simbolos.DOT, yycolumn, yyline, yytext());  }
             ":"     {return new Symbol(Simbolos.COLON, yycolumn, yyline, yytext());  }
+            "[]"    {return new Symbol(Simbolos.OP_DIM, yycolumn, yyline, yytext()); }
 
     //String
 
