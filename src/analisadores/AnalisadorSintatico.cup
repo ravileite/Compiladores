@@ -63,14 +63,14 @@ terminal COMMA, SEMIC, DOT, MULT, OPENKEYS, CLOSEKEYS, EQU, OPENPAR, CLOSEPAR, C
 terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;  
  
 
-non terminal TypeName, Dims, PrimitiveType, QualifiedName, ProgramFile;
+non terminal Dims, QualifiedName, ProgramFile;
 non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
 non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
 non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
 non terminal FieldDeclaration, FieldVariableDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
 non terminal VariableDeclarators, VariableDeclarator, Expression, ArrayInitializers;
-non terminal VariableInitializer, TypeSpecifier, MethodDeclarator, Throws, MethodBody; 
-non terminal DeclaratorName, ParameterList, Parameter, Block, ConstructorDeclarator;
+non terminal VariableInitializer, MethodDeclarator, Throws, MethodBody; 
+non terminal ParameterList, Parameter, Block, ConstructorDeclarator;
 non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
 non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
 non terminal IterationStatement, JumpStatement, GuardingStatement, ConstantExpression; 
@@ -81,10 +81,11 @@ non terminal ArrayAllocationExpression, ClassAllocationExpression;
 non terminal DimExprs, PostfixExpression, UnaryExpression, ArithmeticUnaryOperator;
 non terminal CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
 non terminal MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
-non terminal EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
-non terminal ConditionalOrExpression, AssignmentExpression, ConditionalExpression, SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
-non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
-non terminal AssignmentOperator; 
+non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
+non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator;  
+non terminal AssignmentOperator, DeclaratorName; 
+non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalOrExpression,  ConditionalExpression, ConditionalAndExpression;
+non terminal String EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
@@ -92,22 +93,22 @@ start with CompilationUnit;
 
 /* Gramática */
 
-TypeSpecifier::= TypeName | TypeName Dims;
+TypeSpecifier::= TypeName:type {: RESULT = type; :} | TypeName Dims;
 
-TypeName::= PrimitiveType | QualifiedName;
+TypeName::= PrimitiveType:type {: RESULT = type; :} | QualifiedName; // tem que mecher no qualified name depois pra permitir classe como tipo
 
 ClassNameList ::= QualifiedName | ClassNameList COMMA QualifiedName;
 
 PrimitiveType
-	::= BOOLEAN
-	| CHAR
-	| BYTE
-	| SHORT
-	| INT
-	| LONG
-	| FLOAT
-	| DOUBLE
-	| VOID
+	::= BOOLEAN:type  {: RESULT = type; :}
+	| CHAR:type       {: RESULT = type; :}
+	| BYTE:type       {: RESULT = type; :}
+	| SHORT:type      {: RESULT = type; :}
+	| INT:type        {: RESULT = type; :}
+	| LONG:type       {: RESULT = type; :}
+	| FLOAT:type      {: RESULT = type; :}
+	| DOUBLE:type     {: RESULT = type; :}
+	| VOID:type       {: RESULT = type; :}
 	;
 
 SemiColons
@@ -271,7 +272,7 @@ Parameter
 	;
 
 DeclaratorName
-	::= IDENTIFIER
+	::= IDENTIFIER:type
         | DeclaratorName OP_DIM
         ;
 
@@ -460,8 +461,8 @@ FieldAccess
 	;
 
 MethodCall
-	::= MethodAccess OPENPAR ArgumentList CLOSEPAR
-	| MethodAccess OPENPAR CLOSEPAR
+	::= DOT MethodAccess OPENPAR ArgumentList CLOSEPAR
+	| DOT MethodAccess OPENPAR CLOSEPAR
 	;
 
 MethodAccess
@@ -620,22 +621,28 @@ InclusiveOrExpression
 	;
 
 ConditionalAndExpression
-	::= InclusiveOrExpression
-	| ConditionalAndExpression OP_LAND InclusiveOrExpression
+	::= InclusiveOrExpression:type {: RESULT = type; System.out.println("TESTANDO PRINT"); :}
+	| ConditionalAndExpression:type1 OP_LAND InclusiveOrExpression:type2 {: if(type1.equals(type2)){
+																				RESULT = type1;} else { 
+																					System.out.println("ERRO SEMANTICO");
+																				} :}
 	;
 
 ConditionalOrExpression
-	::= ConditionalAndExpression
-	| ConditionalOrExpression OP_LOR ConditionalAndExpression
+	::= ConditionalAndExpression:type {: RESULT = type; :}
+	| ConditionalOrExpression:type1 OP_LOR ConditionalAndExpression:type2 {: if(type1.equals(type2)){
+																				RESULT = type1} else { 
+																					System.out.println("ERRO SEMANTICO");
+																				} :}
 	;
 
 ConditionalExpression
-	::= ConditionalOrExpression
+	::= ConditionalOrExpression:type {: RESULT = type; :}
 	| ConditionalOrExpression QUE Expression COLON ConditionalExpression
 	;
 
 AssignmentExpression
-	::= ConditionalExpression
+	::= ConditionalExpression:type  {: RESULT = type; :}
 	| UnaryExpression AssignmentOperator AssignmentExpression
 	;
 
@@ -660,5 +667,4 @@ Expression
 
 ConstantExpression
 	::= ConditionalExpression
-	;
-						
+	;				
