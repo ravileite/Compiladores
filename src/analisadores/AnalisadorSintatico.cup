@@ -17,7 +17,7 @@ parser code
         int linha = symbol.right;
         int coluna = symbol.left;
         
-        System.out.println("Erro sintático!");
+        System.out.println("Erro sintatico!");
         System.out.println("\tLexema:   " + lexema);
         System.out.println("\tLinha: " + linha);
         System.out.println("\tColuna: " + coluna);
@@ -86,7 +86,7 @@ non terminal ConditionalOrExpression, AssignmentExpression, ConditionalExpressio
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator, ConditionalAndExpression;  
 non terminal AssignmentOperator; 
 
-precedence nonassoc ELSE; //eh bom conferir se eh isso mesmo
+precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
 start with CompilationUnit;
 
@@ -434,7 +434,7 @@ NotJustName
 	;
 
 ComplexPrimary
-	::= OPENPAR Expression OPENPAR
+	::= OPENPAR Expression CLOSEPAR
 	| ComplexPrimaryNoParenthesis
 	;
 
@@ -460,8 +460,8 @@ FieldAccess
 	;
 
 MethodCall
-	::= DOT MethodAccess OPENPAR ArgumentList CLOSEPAR
-	| DOT MethodAccess OPENPAR CLOSEPAR
+	::= MethodAccess OPENPAR ArgumentList CLOSEPAR
+	| MethodAccess OPENPAR CLOSEPAR
 	;
 
 MethodAccess
