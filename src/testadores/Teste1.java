@@ -12,13 +12,13 @@ public class Teste1{
         x1 = 15;
         
         Teste1 t = new Teste1();
-        t.hello9(5,15);
+        .t.hello9(5,15);
         
-        hello1();
-        hello2();
-        hello3();
-        hello8(10);
-        hello9(5, 15);
+        .hello1();
+        .hello2();
+        .hello3();
+        .hello8(10);
+        .hello9(5, 15);
     }
     
     public void hello1(){

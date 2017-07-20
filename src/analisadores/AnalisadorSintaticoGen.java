@@ -2373,7 +2373,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "boolean"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2385,7 +2385,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "char"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2397,7 +2397,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "byte"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2409,7 +2409,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "short"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2421,7 +2421,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "int"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2433,7 +2433,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "long"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2445,7 +2445,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "float"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2457,7 +2457,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "double"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -2469,7 +2469,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Object type = (Object)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; 
+		 RESULT = "void"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveType",89, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4699,7 +4699,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(type1.equals(type2)){
-																				RESULT = type1} else { 
+																				RESULT = type1;} else { 
 																					System.out.println("ERRO SEMANTICO");
 																				} 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalOrExpression",93, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);

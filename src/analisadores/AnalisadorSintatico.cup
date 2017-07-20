@@ -100,15 +100,15 @@ TypeName::= PrimitiveType:type {: RESULT = type; :} | QualifiedName; // tem que 
 ClassNameList ::= QualifiedName | ClassNameList COMMA QualifiedName;
 
 PrimitiveType
-	::= BOOLEAN:type  {: RESULT = type; :}
-	| CHAR:type       {: RESULT = type; :}
-	| BYTE:type       {: RESULT = type; :}
-	| SHORT:type      {: RESULT = type; :}
-	| INT:type        {: RESULT = type; :}
-	| LONG:type       {: RESULT = type; :}
-	| FLOAT:type      {: RESULT = type; :}
-	| DOUBLE:type     {: RESULT = type; :}
-	| VOID:type       {: RESULT = type; :}
+	::= BOOLEAN:type  {: RESULT = "boolean"; :}
+	| CHAR:type       {: RESULT = "char"; :}
+	| BYTE:type       {: RESULT = "byte"; :}
+	| SHORT:type      {: RESULT = "short"; :}
+	| INT:type        {: RESULT = "int"; :}
+	| LONG:type       {: RESULT = "long"; :}
+	| FLOAT:type      {: RESULT = "float"; :}
+	| DOUBLE:type     {: RESULT = "double"; :}
+	| VOID:type       {: RESULT = "void"; :}
 	;
 
 SemiColons
@@ -627,11 +627,12 @@ ConditionalAndExpression
 																					System.out.println("ERRO SEMANTICO");
 																				} :}
 	;
+	
 
 ConditionalOrExpression
 	::= ConditionalAndExpression:type {: RESULT = type; :}
 	| ConditionalOrExpression:type1 OP_LOR ConditionalAndExpression:type2 {: if(type1.equals(type2)){
-																				RESULT = type1} else { 
+																				RESULT = type1;} else { 
 																					System.out.println("ERRO SEMANTICO");
 																				} :}
 	;
