@@ -1,12 +1,13 @@
-/* C√≥digo do Usu√°rio */
+/* CÛdigo do Usu·rio */
 
 package analisadores;
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-
+import auxiliares.*;
 
 parser code
 {:
+    public Util util = new Util();
     public String resultado = "";
     public static LinkedList<TError> TabelaERSintatico = new  LinkedList<TError>();
 
@@ -44,7 +45,7 @@ parser code
     
 :}
 
-    //A√ß√µes Gramaticais
+    //AÁıes Gramaticais
 
 action code {::}
 
@@ -79,8 +80,8 @@ non terminal NewAllocationExpression, ComplexPrimary, ComplexPrimaryNoParenthesi
 non terminal MethodCall, RealPostfixExpression, ArgumentList, PlainNewAllocationExpression;
 non terminal ArrayAllocationExpression, ClassAllocationExpression;
 non terminal DimExprs, PostfixExpression, UnaryExpression, ArithmeticUnaryOperator;
-non terminal CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
-non terminal MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
+non terminal String CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
+non terminal String MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
 non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator;  
 non terminal AssignmentOperator, DeclaratorName; 
@@ -91,7 +92,7 @@ precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso m
 
 start with CompilationUnit;
 
-/* Gram√°tica */
+/* Gram·tica */
 
 TypeSpecifier::= TypeName:type {: RESULT = type; :} | TypeName Dims;
 
@@ -571,70 +572,143 @@ ClassTypeExpression
         ;
 
 MultiplicativeExpression
-	::= CastExpression
-	| MultiplicativeExpression MULT CastExpression
-	| MultiplicativeExpression DIV CastExpression
-	| MultiplicativeExpression MOD CastExpression
+	::= CastExpression:type {: RESULT = type; :}
+	| MultiplicativeExpression:type1 MULT CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     :} 
+	| MultiplicativeExpression:type1 DIV CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     :} 
+	| MultiplicativeExpression:type1 MOD CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     :} 
 	;
 
 AdditiveExpression
-	::= MultiplicativeExpression
-        | AdditiveExpression PLUS MultiplicativeExpression
-	| AdditiveExpression MINUS MultiplicativeExpression
+	::= MultiplicativeExpression:type {: RESULT = type; :}
+        | AdditiveExpression:type1 PLUS MultiplicativeExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     :} 
+                                                                        
+	| AdditiveExpression:type1 MINUS MultiplicativeExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     :} 
         ;
 
 ShiftExpression
-	::= AdditiveExpression
+	::= AdditiveExpression:type {: RESULT = type; :}
         | ShiftExpression OP_SHL AdditiveExpression
         | ShiftExpression OP_SHR AdditiveExpression
         | ShiftExpression OP_SHRR AdditiveExpression
 	;
 
 RelationalExpression
-	::= ShiftExpression
-        | RelationalExpression LTHEN ShiftExpression
-	| RelationalExpression BTHEN ShiftExpression
-	| RelationalExpression OP_LE ShiftExpression
-	| RelationalExpression OP_GE ShiftExpression
+	::= ShiftExpression:type {: RESULT = type; :}
+        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
+	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
+	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
+	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
 	| RelationalExpression INSTANCEOF TypeSpecifier
 	;
 
 EqualityExpression
-	::= RelationalExpression
-        | EqualityExpression OP_EQ RelationalExpression
-        | EqualityExpression OP_NE RelationalExpression
+	::= RelationalExpression:type {: RESULT = type; :}
+
+        | EqualityExpression:type1 OP_EQ RelationalExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
+
+        | EqualityExpression:type1 OP_NE RelationalExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     :}
         ;
 
 AndExpression
-	::= EqualityExpression
-        | AndExpression AMPER EqualityExpression
+	::= EqualityExpression:type {: RESULT = type; :}
+        | AndExpression:type1 AMPER EqualityExpression:type2 {: if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } :}
         ;
 
 ExclusiveOrExpression
-	::= AndExpression
-	| ExclusiveOrExpression XOR AndExpression
+	::= AndExpression:type {: RESULT = type; :}
+	| ExclusiveOrExpression:type1 XOR AndExpression:type2 {: if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } :}
 	;
 
 InclusiveOrExpression
-	::= ExclusiveOrExpression
-	| InclusiveOrExpression SOR ExclusiveOrExpression
+	::= ExclusiveOrExpression:type  {: RESULT = type; :}
+	| InclusiveOrExpression:type1 SOR ExclusiveOrExpression:type2 {: if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } :}
 	;
 
 ConditionalAndExpression
-	::= InclusiveOrExpression:type {: RESULT = type; System.out.println("TESTANDO PRINT"); :}
+	::= InclusiveOrExpression:type {: RESULT = type; :}
 	| ConditionalAndExpression:type1 OP_LAND InclusiveOrExpression:type2 {: if(type1.equals(type2)){
-																				RESULT = type1;} else { 
-																					System.out.println("ERRO SEMANTICO");
-																				} :}
+													RESULT = type1;} else { 
+													System.out.println("ERRO SEMANTICO");
+													} :}
 	;
 	
 
 ConditionalOrExpression
 	::= ConditionalAndExpression:type {: RESULT = type; :}
 	| ConditionalOrExpression:type1 OP_LOR ConditionalAndExpression:type2 {: if(type1.equals(type2)){
-																				RESULT = type1;} else { 
-																					System.out.println("ERRO SEMANTICO");
-																				} :}
+													RESULT = type1;} else { 
+													System.out.println("ERRO SEMANTICO");
+                                                                                                        } :}
 	;
 
 ConditionalExpression
