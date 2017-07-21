@@ -7,6 +7,7 @@ package analisadores;
 
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
+import auxiliares.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -2229,6 +2230,7 @@ public class AnalisadorSintaticoGen extends java_cup.runtime.lr_parser {
 
 
 
+    public Util util = new Util();
     public String resultado = "";
     public static LinkedList<TError> TabelaERSintatico = new  LinkedList<TError>();
 
@@ -4298,7 +4300,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 218: // LogicalUnaryExpression ::= PostfixExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("LogicalUnaryExpression",67, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4307,7 +4309,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 219: // LogicalUnaryExpression ::= LogicalUnaryOperator UnaryExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("LogicalUnaryExpression",67, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4352,7 +4354,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 224: // CastExpression ::= UnaryExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("CastExpression",66, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4361,7 +4363,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 225: // CastExpression ::= OPENPAR PrimitiveTypeExpression CLOSEPAR CastExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("CastExpression",66, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4370,7 +4372,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 226: // CastExpression ::= OPENPAR ClassTypeExpression CLOSEPAR CastExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("CastExpression",66, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4379,7 +4381,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 227: // CastExpression ::= OPENPAR Expression CLOSEPAR LogicalUnaryExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("CastExpression",66, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4388,7 +4390,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 228: // PrimitiveTypeExpression ::= PrimitiveType 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveTypeExpression",68, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4397,7 +4399,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 229: // PrimitiveTypeExpression ::= PrimitiveType Dims 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimitiveTypeExpression",68, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4406,7 +4408,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 230: // ClassTypeExpression ::= QualifiedName Dims 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ClassTypeExpression",69, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4415,8 +4417,11 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 231: // MultiplicativeExpression ::= CastExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MultiplicativeExpression",70, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4424,8 +4429,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 232: // MultiplicativeExpression ::= MultiplicativeExpression MULT CastExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MultiplicativeExpression",70, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4433,8 +4449,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 233: // MultiplicativeExpression ::= MultiplicativeExpression DIV CastExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MultiplicativeExpression",70, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4442,8 +4469,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 234: // MultiplicativeExpression ::= MultiplicativeExpression MOD CastExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MultiplicativeExpression",70, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4451,8 +4489,11 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 235: // AdditiveExpression ::= MultiplicativeExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AdditiveExpression",71, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4460,8 +4501,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 236: // AdditiveExpression ::= AdditiveExpression PLUS MultiplicativeExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AdditiveExpression",71, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4469,8 +4521,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 237: // AdditiveExpression ::= AdditiveExpression MINUS MultiplicativeExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AdditiveExpression",71, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4478,8 +4541,11 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 238: // ShiftExpression ::= AdditiveExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ShiftExpression",72, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4487,7 +4553,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 239: // ShiftExpression ::= ShiftExpression OP_SHL AdditiveExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ShiftExpression",72, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4496,7 +4562,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 240: // ShiftExpression ::= ShiftExpression OP_SHR AdditiveExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ShiftExpression",72, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4505,7 +4571,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 241: // ShiftExpression ::= ShiftExpression OP_SHRR AdditiveExpression 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ShiftExpression",72, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4514,8 +4580,11 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 242: // RelationalExpression ::= ShiftExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4523,8 +4592,20 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 243: // RelationalExpression ::= RelationalExpression LTHEN ShiftExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4532,8 +4613,20 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 244: // RelationalExpression ::= RelationalExpression BTHEN ShiftExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4541,8 +4634,20 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 245: // RelationalExpression ::= RelationalExpression OP_LE ShiftExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4550,8 +4655,20 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 246: // RelationalExpression ::= RelationalExpression OP_GE ShiftExpression 
             {
-              Object RESULT =null;
-
+              String RESULT =null;
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4559,7 +4676,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 247: // RelationalExpression ::= RelationalExpression INSTANCEOF TypeSpecifier 
             {
-              Object RESULT =null;
+              String RESULT =null;
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RelationalExpression",73, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -4569,7 +4686,10 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 248: // EqualityExpression ::= RelationalExpression 
             {
               String RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("EqualityExpression",96, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4578,7 +4698,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 249: // EqualityExpression ::= EqualityExpression OP_EQ RelationalExpression 
             {
               String RESULT =null;
-
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("EqualityExpression",96, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4587,7 +4719,19 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 250: // EqualityExpression ::= EqualityExpression OP_NE RelationalExpression 
             {
               String RESULT =null;
-
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		  if (type1.equals(type2)){ RESULT = type1;}
+                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+                                                                           System.out.println("ERRO SEMANTICO"); 
+                                                                        }else{
+                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                        }
+                                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("EqualityExpression",96, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4596,7 +4740,10 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 251: // AndExpression ::= EqualityExpression 
             {
               String RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AndExpression",97, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4605,7 +4752,16 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 252: // AndExpression ::= AndExpression AMPER EqualityExpression 
             {
               String RESULT =null;
-
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AndExpression",97, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4614,7 +4770,10 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 253: // ExclusiveOrExpression ::= AndExpression 
             {
               String RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ExclusiveOrExpression",98, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4623,7 +4782,16 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 254: // ExclusiveOrExpression ::= ExclusiveOrExpression XOR AndExpression 
             {
               String RESULT =null;
-
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ExclusiveOrExpression",98, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4632,7 +4800,10 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 255: // InclusiveOrExpression ::= ExclusiveOrExpression 
             {
               String RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("InclusiveOrExpression",99, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4641,7 +4812,16 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 256: // InclusiveOrExpression ::= InclusiveOrExpression SOR ExclusiveOrExpression 
             {
               String RESULT =null;
-
+		int type1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
+		int type1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
+		String type1 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
+		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
+		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
+		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
+		 if(type1.equals(type2)){
+										    RESULT = type1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("InclusiveOrExpression",99, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4653,7 +4833,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = type; System.out.println("TESTANDO PRINT"); 
+		 RESULT = type; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalAndExpression",95, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4669,9 +4849,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(type1.equals(type2)){
-																				RESULT = type1;} else { 
-																					System.out.println("ERRO SEMANTICO");
-																				} 
+													RESULT = type1;} else { 
+													System.out.println("ERRO SEMANTICO");
+													} 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalAndExpression",95, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4699,9 +4879,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(type1.equals(type2)){
-																				RESULT = type1;} else { 
-																					System.out.println("ERRO SEMANTICO");
-																				} 
+													RESULT = type1;} else { 
+													System.out.println("ERRO SEMANTICO");
+                                                                                                        } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalOrExpression",93, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;

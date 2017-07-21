@@ -5,64 +5,50 @@
  */
 package auxiliares;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  *
  * @author BigRon
  */
 public class Util {
+	
+	private Map<String, Integer> tiposNumericos;
      
     public Util(){
-       
+       tiposNumericos = new HashMap<String, Integer>();
+       tiposNumericos.put("double", 6);
+       tiposNumericos.put("float", 5);
+       tiposNumericos.put("long", 4);
+       tiposNumericos.put("int", 3);
+       tiposNumericos.put("short", 2);
+       tiposNumericos.put("byte", 1);
     }
     
     public String verificaTiposNumericos(String type1, String type2){
-        if (type1.equals(type2)){ return type1;
-        }else if((type1.equals("int") &&  type2.equals("float"))
-        || (type1.equals("float") &&  type2.equals("int"))){ 
-        return "boolean";
-        }else if((type1.equals("int") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("int"))){
-        return "boolean";
-        }else if((type1.equals("int") &&  type2.equals("long"))
-        || (type1.equals("long") &&  type2.equals("int"))){
-        return "boolean";              
-        }else if((type1.equals("float") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("float"))){
-        return "boolean"; 
-        }else if((type1.equals("float") &&  type2.equals("long"))
-        || (type1.equals("long") &&  type2.equals("float"))){
-        return "boolean";      
-        }else if((type1.equals("long") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("long"))){
-        return "boolean";    
-        }else return "error";
+       Set<String> numerics = tiposNumericos.keySet();
+       if(numerics.contains(type1) && numerics.contains(type2)){
+    	   return "boolean";
+       } else {
+    	   return "error";
+       }
         
     }
     
     public String verificaExpressaoAritimetica(String type1, String type2){
-        if(type1.equals("int") &&  type2.equals("int")){
-            return "int";
-        }else if((type1.equals("int") &&  type2.equals("float"))
-        || (type1.equals("float") &&  type2.equals("int"))
-        || (type1.equals("float") &&  type2.equals("float"))){ 
-        return "float";
-        }else if((type1.equals("int") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("int"))
-        || (type1.equals("double") &&  type2.equals("double"))){
-        return "double";
-        }else if((type1.equals("int") &&  type2.equals("long"))
-        || (type1.equals("long") &&  type2.equals("int"))
-        || (type1.equals("long") &&  type2.equals("long"))){
-        return "long";
-        }else if((type1.equals("float") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("float"))){
-        return "double"; 
-         }else if((type1.equals("float") &&  type2.equals("long"))
-        || (type1.equals("long") &&  type2.equals("float"))){
-        return "float";
-        }else if((type1.equals("long") &&  type2.equals("double"))
-        || (type1.equals("double") &&  type2.equals("long"))){
-        return "double"; 
-        }else return "error";
+        if (verificaTiposNumericos(type1, type2).equals("error")){
+        	return "error";
+        } else {
+        	int valueType1 = tiposNumericos.get(type1);
+        	int valueType2 = tiposNumericos.get(type2);
+        	
+        	if(valueType1 >= valueType2){
+        		return type1;
+        	} else {
+        		return type2;
+        	}
+        }
     }
 }
