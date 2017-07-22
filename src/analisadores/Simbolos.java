@@ -8,104 +8,104 @@ package analisadores;
 /** CUP generated class containing symbol constants. */
 public class Simbolos {
   /* terminals */
-  public static final int LTHEN = 85;
-  public static final int OP_SHL = 95;
+  public static final int LTHEN = 83;
+  public static final int OP_SHL = 93;
   public static final int SHORT = 5;
-  public static final int OP_DEC = 47;
-  public static final int IDENTIFIER = 13;
-  public static final int IMPLEMENTS = 26;
-  public static final int OP_LOR = 54;
-  public static final int ASS_AND = 63;
-  public static final int TIL = 78;
-  public static final int ASS_XOR = 64;
-  public static final int SOR = 87;
-  public static final int CATCH = 92;
-  public static final int COMMA = 66;
-  public static final int THROW = 91;
-  public static final int OP_NE = 52;
-  public static final int EQU = 72;
+  public static final int OP_DEC = 45;
+  public static final int IDENTIFIER = 96;
+  public static final int IMPLEMENTS = 25;
+  public static final int OP_LOR = 52;
+  public static final int ASS_AND = 61;
+  public static final int TIL = 76;
+  public static final int ASS_XOR = 62;
+  public static final int SOR = 85;
+  public static final int CATCH = 90;
+  public static final int COMMA = 64;
+  public static final int THROW = 89;
+  public static final int OP_NE = 50;
+  public static final int EQU = 70;
   public static final int DOUBLE = 9;
-  public static final int TRANSIENT = 20;
-  public static final int PROTECTED = 17;
-  public static final int LITERAL = 41;
-  public static final int QUE = 89;
-  public static final int OP_DIM = 27;
-  public static final int FINAL = 15;
+  public static final int TRANSIENT = 19;
+  public static final int LITERAL = 97;
+  public static final int PROTECTED = 16;
+  public static final int QUE = 87;
+  public static final int OP_DIM = 26;
+  public static final int FINAL = 14;
   public static final int FLOAT = 8;
-  public static final int OP_GE = 49;
+  public static final int OP_GE = 47;
   public static final int PACKAGE = 11;
-  public static final int OP_INC = 46;
-  public static final int ASS_SUB = 59;
-  public static final int MOD = 83;
-  public static final int CLASS = 24;
-  public static final int ASS_SHR = 61;
-  public static final int SUPER = 44;
-  public static final int ABSTRACT = 14;
-  public static final int OP_LAND = 53;
-  public static final int ASS_SHL = 60;
-  public static final int NATIVE = 22;
-  public static final int PLUS = 80;
+  public static final int OP_INC = 44;
+  public static final int ASS_SUB = 57;
+  public static final int MOD = 81;
+  public static final int CLASS = 23;
+  public static final int ASS_SHR = 59;
+  public static final int SUPER = 42;
+  public static final int ABSTRACT = 13;
+  public static final int OP_LAND = 51;
+  public static final int ASS_SHL = 58;
+  public static final int NATIVE = 21;
+  public static final int PLUS = 78;
   public static final int LONG = 7;
-  public static final int WHILE = 35;
-  public static final int EXTENDS = 29;
-  public static final int ASS_OR = 65;
-  public static final int INTERFACE = 25;
+  public static final int WHILE = 34;
+  public static final int EXTENDS = 28;
+  public static final int ASS_OR = 63;
+  public static final int INTERFACE = 24;
   public static final int CHAR = 3;
   public static final int BOOLEAN = 2;
-  public static final int OP_LE = 48;
-  public static final int ASS_MUL = 55;
-  public static final int SWITCH = 33;
-  public static final int SEMIC = 67;
-  public static final int DO = 36;
-  public static final int ASS_MOD = 57;
-  public static final int OPENKEYS = 70;
-  public static final int FOR = 37;
-  public static final int DIV = 82;
+  public static final int OP_LE = 46;
+  public static final int ASS_MUL = 53;
+  public static final int SWITCH = 32;
+  public static final int SEMIC = 65;
+  public static final int DO = 35;
+  public static final int ASS_MOD = 55;
+  public static final int OPENKEYS = 68;
+  public static final int FOR = 36;
+  public static final int DIV = 80;
   public static final int VOID = 10;
-  public static final int PUBLIC = 16;
-  public static final int RETURN = 39;
-  public static final int MULT = 69;
-  public static final int ELSE = 34;
-  public static final int TRY = 40;
-  public static final int CLOSEKEYS = 71;
-  public static final int OP_EQ = 51;
-  public static final int BREAK = 38;
-  public static final int DOT = 68;
+  public static final int PUBLIC = 15;
+  public static final int RETURN = 38;
+  public static final int MULT = 67;
+  public static final int ELSE = 33;
+  public static final int TRY = 39;
+  public static final int OP_EQ = 49;
+  public static final int BREAK = 37;
+  public static final int CLOSEKEYS = 69;
+  public static final int DOT = 66;
   public static final int INT = 6;
-  public static final int THROWS = 28;
-  public static final int AMPER = 88;
+  public static final int THROWS = 27;
+  public static final int AMPER = 86;
   public static final int EOF = 0;
-  public static final int THIS = 43;
-  public static final int DEFAULT = 31;
-  public static final int OP_SHRR = 97;
-  public static final int JNULL = 45;
+  public static final int THIS = 41;
+  public static final int DEFAULT = 30;
+  public static final int OP_SHRR = 95;
+  public static final int JNULL = 43;
   public static final int IMPORT = 12;
-  public static final int ASS_ADD = 58;
-  public static final int ASS_DIV = 56;
-  public static final int MINUS = 81;
-  public static final int ASS_SHRR = 62;
+  public static final int ASS_ADD = 56;
+  public static final int ASS_DIV = 54;
+  public static final int MINUS = 79;
+  public static final int ASS_SHRR = 60;
   public static final int error = 1;
-  public static final int CLOSEPAR = 74;
-  public static final int SYNCHRONIZED = 23;
-  public static final int FINALLY = 93;
-  public static final int CONTINUE = 90;
-  public static final int IF = 32;
-  public static final int INSTANCEOF = 50;
-  public static final int COLON = 75;
-  public static final int VOLATILE = 21;
-  public static final int CASE = 30;
-  public static final int OPENBRAC = 76;
-  public static final int BTHEN = 84;
-  public static final int NEW = 94;
-  public static final int CLOSEBRAC = 77;
+  public static final int CLOSEPAR = 72;
+  public static final int SYNCHRONIZED = 22;
+  public static final int FINALLY = 91;
+  public static final int CONTINUE = 88;
+  public static final int IF = 31;
+  public static final int INSTANCEOF = 48;
+  public static final int COLON = 73;
+  public static final int VOLATILE = 20;
+  public static final int CASE = 29;
+  public static final int OPENBRAC = 74;
+  public static final int BTHEN = 82;
+  public static final int NEW = 92;
+  public static final int CLOSEBRAC = 75;
   public static final int BYTE = 4;
-  public static final int PRIVATE = 18;
-  public static final int STATIC = 19;
-  public static final int OPENPAR = 73;
-  public static final int BOOLLIT = 42;
-  public static final int OP_SHR = 96;
-  public static final int NE = 79;
-  public static final int XOR = 86;
+  public static final int PRIVATE = 17;
+  public static final int STATIC = 18;
+  public static final int OPENPAR = 71;
+  public static final int BOOLLIT = 40;
+  public static final int OP_SHR = 94;
+  public static final int NE = 77;
+  public static final int XOR = 84;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -120,7 +120,6 @@ public class Simbolos {
   "VOID",
   "PACKAGE",
   "IMPORT",
-  "IDENTIFIER",
   "ABSTRACT",
   "FINAL",
   "PUBLIC",
@@ -148,7 +147,6 @@ public class Simbolos {
   "BREAK",
   "RETURN",
   "TRY",
-  "LITERAL",
   "BOOLLIT",
   "THIS",
   "SUPER",
@@ -204,7 +202,9 @@ public class Simbolos {
   "NEW",
   "OP_SHL",
   "OP_SHR",
-  "OP_SHRR"
+  "OP_SHRR",
+  "IDENTIFIER",
+  "LITERAL"
   };
 }
 

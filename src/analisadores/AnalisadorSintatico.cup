@@ -54,39 +54,47 @@ action code {::}
 
     //Terminais
 terminal BOOLEAN, CHAR, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, VOID;
-terminal PACKAGE, IMPORT, IDENTIFIER;
+terminal PACKAGE, IMPORT;
 terminal ABSTRACT, FINAL, PUBLIC, PROTECTED, PRIVATE, STATIC, TRANSIENT, VOLATILE, NATIVE, SYNCHRONIZED;
 terminal CLASS, INTERFACE, IMPLEMENTS, OP_DIM, THROWS, EXTENDS, CASE, DEFAULT, IF, SWITCH, ELSE;
-terminal WHILE, DO, FOR, BREAK, RETURN, TRY, LITERAL, BOOLLIT, THIS, SUPER, JNULL, OP_INC, OP_DEC;
+terminal WHILE, DO, FOR, BREAK, RETURN, TRY, BOOLLIT, THIS, SUPER, JNULL, OP_INC, OP_DEC;
 terminal OP_LE, OP_GE, INSTANCEOF, OP_EQ, OP_NE, OP_LAND, OP_LOR;
 terminal ASS_MUL, ASS_DIV, ASS_MOD, ASS_ADD, ASS_SUB, ASS_SHL, ASS_SHR, ASS_SHRR, ASS_AND, ASS_XOR, ASS_OR;
 terminal COMMA, SEMIC, DOT, MULT, OPENKEYS, CLOSEKEYS, EQU, OPENPAR, CLOSEPAR, COLON;
-terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;  
+terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;
+
+terminal String IDENTIFIER, LITERAL;  
  
 
-non terminal Dims, QualifiedName, ProgramFile;
+non terminal ProgramFile;
 non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
 non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
 non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
 non terminal FieldDeclaration, FieldVariableDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
-non terminal VariableDeclarators, VariableDeclarator, Expression, ArrayInitializers;
+non terminal VariableDeclarators, VariableDeclarator, ArrayInitializers;
 non terminal VariableInitializer, MethodDeclarator, Throws, MethodBody; 
 non terminal ParameterList, Parameter, Block, ConstructorDeclarator;
 non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
 non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
 non terminal IterationStatement, JumpStatement, GuardingStatement, ConstantExpression; 
-non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader, NotJustName;  
-non terminal NewAllocationExpression, ComplexPrimary, ComplexPrimaryNoParenthesis, ArrayAccess, FieldAccess;
-non terminal MethodCall, RealPostfixExpression, ArgumentList, PlainNewAllocationExpression;
-non terminal ArrayAllocationExpression, ClassAllocationExpression;
-non terminal DimExprs, PostfixExpression, UnaryExpression, ArithmeticUnaryOperator;
-non terminal String CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
-non terminal String MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
+non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader;  
+non terminal ArgumentList, SpecialName;
+non terminal ArithmeticUnaryOperator;
 non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
-non terminal ForExpr, ForIncr, ExpressionStatements, Catch, SpecialName, PrimaryExpression, MethodAccess, DimExpr, LogicalUnaryOperator;  
+non terminal ForExpr, ForIncr, ExpressionStatements, Catch, LogicalUnaryOperator;  
 non terminal AssignmentOperator, DeclaratorName; 
+
 non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalOrExpression,  ConditionalExpression, ConditionalAndExpression;
 non terminal String EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
+non terminal String CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
+non terminal String MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
+non terminal String UnaryExpression, PostfixExpression, RealPostfixExpression, PrimaryExpression;
+non terminal String QualifiedName, NotJustName, NewAllocationExpression, PlainNewAllocationExpression;
+non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expression;
+non terminal String DimExprs, Dims, DimExpr;
+non terminal String ComplexPrimary, ComplexPrimaryNoParenthesis;
+non terminal String ArrayAccess, FieldAccess;
+non terminal String MethodCall, MethodAccess;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
@@ -94,9 +102,9 @@ start with CompilationUnit;
 
 /* Gramática */
 
-TypeSpecifier::= TypeName:type {: RESULT = type; :} | TypeName Dims;
+TypeSpecifier::= TypeName:type {: RESULT = type; :} | TypeName:type Dims:val {: RESULT = type + val; :};
 
-TypeName::= PrimitiveType:type {: RESULT = type; :} | QualifiedName; // tem que mecher no qualified name depois pra permitir classe como tipo
+TypeName::= PrimitiveType:type {: RESULT = type; :} | QualifiedName:type {: RESULT = type; :} ; // tem que mecher no qualified name depois pra permitir classe como tipo
 
 ClassNameList ::= QualifiedName | ClassNameList COMMA QualifiedName;
 
@@ -156,8 +164,8 @@ ImportStatement
 	;
 
 QualifiedName
-	::= IDENTIFIER
-	| QualifiedName DOT IDENTIFIER
+	::= IDENTIFIER:lexval {: RESULT = lexval; :}
+	| QualifiedName:val DOT IDENTIFIER:lexval {: RESULT = (val + "." + lexval); :}
 	;
 
 TypeDeclaration
@@ -425,32 +433,40 @@ Finally
 	;
 
 PrimaryExpression
-	::= QualifiedName
-	| NotJustName
+	::= QualifiedName:type {: RESULT = type ; :}
+	| NotJustName:type {: RESULT = type ; :}
 	;
 
 NotJustName
 	::= SpecialName
-	| NewAllocationExpression
-	| ComplexPrimary
+	| NewAllocationExpression:type {: RESULT = type ; :}
+	| ComplexPrimary:type {: RESULT = type ; :}
 	;
 
 ComplexPrimary
-	::= OPENPAR Expression CLOSEPAR
-	| ComplexPrimaryNoParenthesis
+	::= OPENPAR Expression:type CLOSEPAR {: RESULT = type ; :}
+	| ComplexPrimaryNoParenthesis:type {: RESULT = type ; :}
 	;
 
 ComplexPrimaryNoParenthesis
-	::= LITERAL
-	| BOOLLIT
-	| ArrayAccess
+	::= LITERAL:lexval {: if(lexval.contains("'")){
+								RESULT = "char";
+							}else if(lexval.contains("\"")){
+								RESULT = "String";
+							}else if(lexval.contains(".")){
+								RESULT = "double";
+							} else {
+								RESULT = "int";
+							}  :}
+	| BOOLLIT {: RESULT = "boolean"; :}
+	| ArrayAccess:type {: RESULT = type ; :}
 	| FieldAccess
-	| MethodCall
+	| MethodCall:type {: RESULT = type ; :}
 	;
 
 ArrayAccess
-	::= QualifiedName OPENBRAC Expression CLOSEBRAC
-	| ComplexPrimary OPENBRAC Expression CLOSEBRAC
+	::= QualifiedName:type OPENBRAC Expression CLOSEBRAC {: RESULT = type ; :}
+	| ComplexPrimary:type OPENBRAC Expression CLOSEBRAC {: RESULT = type ; :}
 	;
 
 FieldAccess
@@ -462,14 +478,14 @@ FieldAccess
 	;
 
 MethodCall
-	::= DOT MethodAccess OPENPAR ArgumentList CLOSEPAR
-	| DOT MethodAccess OPENPAR CLOSEPAR
+	::= DOT MethodAccess:type OPENPAR ArgumentList CLOSEPAR {: RESULT = type ; :}
+	| DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type ; :}
 	;
 
 MethodAccess
-	::= ComplexPrimaryNoParenthesis
+	::= ComplexPrimaryNoParenthesis:type {: RESULT = type ; :}
 	| SpecialName
-	| QualifiedName
+	| QualifiedName:type {: RESULT = type ; :}
 	;
 
 
@@ -485,64 +501,64 @@ ArgumentList
 	;
 
 NewAllocationExpression
-        ::= PlainNewAllocationExpression
-        | QualifiedName DOT PlainNewAllocationExpression
+        ::= PlainNewAllocationExpression:type {: RESULT = type; :}
+        | QualifiedName DOT PlainNewAllocationExpression:type {: RESULT = type; :}
         ;
 
 PlainNewAllocationExpression
-    	::= ArrayAllocationExpression
-    	| ClassAllocationExpression
-    	| ArrayAllocationExpression OPENKEYS CLOSEKEYS
-    	| ClassAllocationExpression OPENKEYS CLOSEKEYS
-    	| ArrayAllocationExpression OPENKEYS ArrayInitializers CLOSEKEYS
-    	| ClassAllocationExpression OPENKEYS FieldDeclarations CLOSEKEYS
+    	::= ArrayAllocationExpression:type {: RESULT = type; :}
+    	| ClassAllocationExpression:type {: RESULT = type; :}
+    	| ArrayAllocationExpression:type OPENKEYS CLOSEKEYS {: RESULT = type; :}
+    	| ClassAllocationExpression:type OPENKEYS CLOSEKEYS {: RESULT = type; :}
+    	| ArrayAllocationExpression:type OPENKEYS ArrayInitializers CLOSEKEYS {: RESULT = type; :}
+    	| ClassAllocationExpression:type OPENKEYS FieldDeclarations CLOSEKEYS {: RESULT = type; :}
     	;
 
 ClassAllocationExpression
-	::= NEW TypeName OPENPAR ArgumentList CLOSEPAR
-	| NEW TypeName OPENPAR CLOSEPAR
+	::= NEW TypeName:type OPENPAR ArgumentList CLOSEPAR {: RESULT = type; :}
+	| NEW TypeName:type OPENPAR CLOSEPAR {: RESULT = type; :}
         ;
 
 ArrayAllocationExpression
-	::= NEW TypeName DimExprs Dims
-	| NEW TypeName DimExprs
-        | NEW TypeName Dims
+	::= NEW TypeName:t1 DimExprs:t2 Dims:t3 {: RESULT = t1 + t2 + t3; :}
+	| NEW TypeName:t1 DimExprs:t2 {: RESULT = t1 + t2; :}
+        | NEW TypeName:t1 Dims:t2 {: RESULT = t1 + t2; :}
 	;
 
 DimExprs
-	::= DimExpr
-	| DimExprs DimExpr
+	::= DimExpr:val {: RESULT = val ; :}
+	| DimExprs:val1 DimExpr:val2 {: RESULT = val1 + val2 ; :}
 	;
 
 DimExpr
-	::= OPENBRAC Expression CLOSEBRAC
+	::= OPENBRAC Expression:type CLOSEBRAC {: RESULT = "[" + type + "]" ; :}
 	;
 
 Dims
-	::= OP_DIM
-	| Dims OP_DIM
+	::= OP_DIM {: RESULT = "[]"; :}
+	| Dims:val OP_DIM {: RESULT = val + "[]"; :}
 	;
 
 PostfixExpression
-	::= PrimaryExpression
-	| RealPostfixExpression
+	::= PrimaryExpression:type {: RESULT = type; :}
+	| RealPostfixExpression:type {: RESULT = type; :}
 	;
 
 RealPostfixExpression
-	::= PostfixExpression OP_INC
-	| PostfixExpression OP_DEC
+	::= PostfixExpression:type OP_INC {: RESULT = type; :}
+	| PostfixExpression:type OP_DEC {: RESULT = type; :}
 	;
 
 UnaryExpression
 	::= OP_INC UnaryExpression
 	| OP_DEC UnaryExpression
-	| ArithmeticUnaryOperator CastExpression
-	| LogicalUnaryExpression
+	| ArithmeticUnaryOperator CastExpression:type {: RESULT = type; :}
+	| LogicalUnaryExpression:type {: RESULT = type; :}
 	;
 
 LogicalUnaryExpression
-	::= PostfixExpression
-	| LogicalUnaryOperator UnaryExpression
+	::= PostfixExpression:type {: RESULT = type; :}
+	| LogicalUnaryOperator UnaryExpression:type {: RESULT = type; :}
 	;
 
 LogicalUnaryOperator
@@ -556,7 +572,7 @@ ArithmeticUnaryOperator
 	;
 
 CastExpression
-	::= UnaryExpression
+	::= UnaryExpression:type {: RESULT = type; :}
 	| OPENPAR PrimitiveTypeExpression CLOSEPAR CastExpression
 	| OPENPAR ClassTypeExpression CLOSEPAR CastExpression
 	| OPENPAR Expression CLOSEPAR LogicalUnaryExpression
@@ -619,28 +635,28 @@ ShiftExpression
 
 RelationalExpression
 	::= ShiftExpression:type {: RESULT = type; :}
-        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: if (type1.equals(type2)){ RESULT = type1;}
+	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: 
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -718,7 +734,11 @@ ConditionalExpression
 
 AssignmentExpression
 	::= ConditionalExpression:type  {: RESULT = type; :}
-	| UnaryExpression AssignmentOperator AssignmentExpression
+	| UnaryExpression:type1 AssignmentOperator AssignmentExpression:type2 {: if(type1.equals(type2)){
+																					RESULT = type1;
+																				} else {
+																					System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + type1 + " " + type2);
+																				}:}
 	;
 
 AssignmentOperator
@@ -737,7 +757,7 @@ AssignmentOperator
 	;
 
 Expression
-	::= AssignmentExpression
+	::= AssignmentExpression:type {: RESULT = type;:}
         ;
 
 ConstantExpression

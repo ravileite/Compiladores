@@ -93,7 +93,7 @@ StringLiteral =  [\"][a-zA-Z_0-9_.,]*[\"]
 
         "native"      {return new Symbol(Simbolos.NATIVE, yycolumn, yyline, yytext());  }
         "new"         {return new Symbol(Simbolos.NEW, yycolumn, yyline, yytext());  }
-        "jnull"        {return new Symbol(Simbolos.JNULL, yycolumn, yyline, yytext());  }
+        "null"        {return new Symbol(Simbolos.JNULL, yycolumn, yyline, yytext());  }
 
     //P
 
