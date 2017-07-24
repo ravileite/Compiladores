@@ -3746,7 +3746,10 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 142: // ForExpr ::= Expression SEMIC 
             {
               Object RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
+		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
+		 if (!type.equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ForExpr",50, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4720,7 +4723,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+		 if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -4740,7 +4745,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+		 if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -4760,7 +4767,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+		 if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -4792,7 +4801,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+		 if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo(); 
+        																if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -4812,7 +4823,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+		 if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -4883,7 +4896,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		  
+		  	if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -4904,7 +4918,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		  
+		  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -4925,7 +4940,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 
+		 		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -4946,7 +4962,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		  
+		  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -4988,7 +5005,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		  if (type1.equals(type2)){ RESULT = type1;}
+		  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+        																if (type1.equals(type2)){ RESULT = type1;}
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -5009,7 +5028,9 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int type2left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int type2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type2 = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		  if (type1.equals(type2)){ RESULT = type1;}
+		  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+        																if (type1.equals(type2)){ RESULT = type1;}
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{

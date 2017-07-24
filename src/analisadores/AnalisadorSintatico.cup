@@ -426,7 +426,7 @@ ForInit
 	;
 
 ForExpr
-	::= Expression SEMIC
+	::= Expression:type SEMIC {: if (!type.equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); :}
 	| SEMIC
 	;
 
@@ -631,19 +631,25 @@ ClassTypeExpression
 
 MultiplicativeExpression
 	::= CastExpression:type {: RESULT = type; :}
-	| MultiplicativeExpression:type1 MULT CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| MultiplicativeExpression:type1 MULT CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
                                                                         }
                                                                      :} 
-	| MultiplicativeExpression:type1 DIV CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| MultiplicativeExpression:type1 DIV CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
                                                                         }
                                                                      :} 
-	| MultiplicativeExpression:type1 MOD CastExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| MultiplicativeExpression:type1 MOD CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -653,14 +659,18 @@ MultiplicativeExpression
 
 AdditiveExpression
 	::= MultiplicativeExpression:type {: RESULT = type; :}
-        | AdditiveExpression:type1 PLUS MultiplicativeExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+        | AdditiveExpression:type1 PLUS MultiplicativeExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo(); 
+        																if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
                                                                         }
                                                                      :} 
                                                                         
-	| AdditiveExpression:type1 MINUS MultiplicativeExpression:type2 {: if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| AdditiveExpression:type1 MINUS MultiplicativeExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaExpressaoAritimetica(type1,type2);
@@ -677,28 +687,32 @@ ShiftExpression
 
 RelationalExpression
 	::= ShiftExpression:type {: RESULT = type; :}
-        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  
+        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  	if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  
+	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: 
+	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: 		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             RESULT = util.verificaTiposNumericos(type1,type2);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  
+	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -711,7 +725,9 @@ RelationalExpression
 EqualityExpression
 	::= RelationalExpression:type {: RESULT = type; :}
 
-        | EqualityExpression:type1 OP_EQ RelationalExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+        | EqualityExpression:type1 OP_EQ RelationalExpression:type2 {:  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+        																if (type1.equals(type2)){ RESULT = type1;}
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
@@ -719,7 +735,9 @@ EqualityExpression
                                                                         }
                                                                      :}
 
-        | EqualityExpression:type1 OP_NE RelationalExpression:type2 {:  if (type1.equals(type2)){ RESULT = type1;}
+        | EqualityExpression:type1 OP_NE RelationalExpression:type2 {:  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
+        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
+        																if (type1.equals(type2)){ RESULT = type1;}
                                                                         if (util.verificaTiposNumericos(type1,type2).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
