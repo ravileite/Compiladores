@@ -3,10 +3,10 @@ package auxiliares;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Armazenador {
+public class ArmazenadorVariavel {
     private List<Variavel> variaveis;
     
-    public Armazenador() {
+    public ArmazenadorVariavel() {
         this.variaveis = new ArrayList<Variavel>();
     }
     
@@ -26,5 +26,15 @@ public class Armazenador {
         }
         
         return false;
+    }
+    
+    public Variavel getVariavel(String nome){
+    	for (Variavel var : variaveis) {
+            if (var.getNome().equals(nome)) {
+                return var;
+            }
+        }
+    	
+    	return null;
     }
 }

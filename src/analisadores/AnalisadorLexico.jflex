@@ -112,6 +112,7 @@ StringLiteral =  [\"][a-zA-Z_0-9_.,]*[\"]
         "super"       {return new Symbol(Simbolos.SUPER, yycolumn, yyline, yytext());  }
         "switch"      {return new Symbol(Simbolos.SWITCH, yycolumn, yyline, yytext());  }
         "synchronized" {return new Symbol(Simbolos.SYNCHRONIZED, yycolumn, yyline, yytext());  }
+        "String"		{return new Symbol(Simbolos.STRGN, yycolumn, yyline, yytext());}
 
     //T
 

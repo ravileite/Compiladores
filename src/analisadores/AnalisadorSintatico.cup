@@ -47,13 +47,20 @@ parser code
 
     //Ações Gramaticais
 
-action code {::}
+action code {:
+
+	ArmazenadorVariavel armazemVar = new ArmazenadorVariavel();
+
+
+
+
+:}
 
 
 /* Declaracoes */
 
     //Terminais
-terminal BOOLEAN, CHAR, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, VOID;
+terminal BOOLEAN, CHAR, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, VOID, STRGN;
 terminal PACKAGE, IMPORT;
 terminal ABSTRACT, FINAL, PUBLIC, PROTECTED, PRIVATE, STATIC, TRANSIENT, VOLATILE, NATIVE, SYNCHRONIZED;
 terminal CLASS, INTERFACE, IMPLEMENTS, OP_DIM, THROWS, EXTENDS, CASE, DEFAULT, IF, SWITCH, ELSE;
@@ -70,9 +77,9 @@ non terminal ProgramFile;
 non terminal PackageStatement, TypeDeclarations, TypeDeclarationOptSemi;
 non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Modifiers, Modifier;
 non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
-non terminal FieldDeclaration, FieldVariableDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
-non terminal VariableDeclarators, VariableDeclarator, ArrayInitializers;
-non terminal VariableInitializer, MethodDeclarator, Throws, MethodBody; 
+non terminal FieldDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
+non terminal ArrayInitializers;
+non terminal MethodDeclarator, Throws, MethodBody; 
 non terminal ParameterList, Parameter, Block, ConstructorDeclarator;
 non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
 non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
@@ -82,7 +89,7 @@ non terminal ArgumentList, SpecialName;
 non terminal ArithmeticUnaryOperator;
 non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, LogicalUnaryOperator;  
-non terminal AssignmentOperator, DeclaratorName; 
+non terminal AssignmentOperator; 
 
 non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalOrExpression,  ConditionalExpression, ConditionalAndExpression;
 non terminal String EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
@@ -94,7 +101,8 @@ non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expres
 non terminal String DimExprs, Dims, DimExpr;
 non terminal String ComplexPrimary, ComplexPrimaryNoParenthesis;
 non terminal String ArrayAccess, FieldAccess;
-non terminal String MethodCall, MethodAccess;
+non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName;
+non terminal Variavel FieldVariableDeclaration, VariableDeclarators, VariableDeclarator;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
@@ -118,6 +126,7 @@ PrimitiveType
 	| FLOAT:type      {: RESULT = "float"; :}
 	| DOUBLE:type     {: RESULT = "double"; :}
 	| VOID:type       {: RESULT = "void"; :}
+	| STRGN:type	  {: RESULT = "String"; :}
 	;
 
 SemiColons
@@ -231,22 +240,44 @@ FieldDeclaration
 	;
 
 FieldVariableDeclaration
-	::= Modifiers TypeSpecifier VariableDeclarators
-	|           TypeSpecifier VariableDeclarators
+	::= Modifiers TypeSpecifier:type VariableDeclarators:var1 {: if(armazemVar.containsVariavel(var1.getNome())){
+																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
+																	} else {
+																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
+																			Variavel var = new Variavel(var1.getNome(), type);
+																			armazemVar.addVariavel(var);
+																			RESULT = var;
+																		} else {
+																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
+																		}
+																	}
+																 :}
+	|           TypeSpecifier:type VariableDeclarators:var1 {: if(armazemVar.containsVariavel(var1.getNome())){
+																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
+																	} else {
+																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
+																			Variavel var = new Variavel(var1.getNome(), type);
+																			armazemVar.addVariavel(var);
+																			RESULT = var;
+																		} else {
+																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
+																		}
+																	}
+																 :}
 	;
 
 VariableDeclarators
-	::= VariableDeclarator
+	::= VariableDeclarator:var {: RESULT = var; :}
 	| VariableDeclarators COMMA VariableDeclarator
 	;
 
 VariableDeclarator
-	::= DeclaratorName
-	| DeclaratorName EQU VariableInitializer
+	::= DeclaratorName:varname {: RESULT = new Variavel(varname, null); :}
+	| DeclaratorName:varname EQU VariableInitializer:type {: RESULT = new Variavel(varname, type); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
 	;
 
 VariableInitializer
-	::= Expression
+	::= Expression:type {: RESULT = type; :}
 	| OPENKEYS CLOSEKEYS
         | OPENKEYS ArrayInitializers CLOSEKEYS
         ;
@@ -281,8 +312,8 @@ Parameter
 	;
 
 DeclaratorName
-	::= IDENTIFIER:type
-        | DeclaratorName OP_DIM
+	::= IDENTIFIER:name {: RESULT = name; :}
+        | DeclaratorName:name OP_DIM {: RESULT = name; :}
         ;
 
 Throws
@@ -335,7 +366,18 @@ LocalVariableDeclarationOrStatement
 	;
 
 LocalVariableDeclarationStatement
-	::= TypeSpecifier VariableDeclarators SEMIC
+	::= TypeSpecifier:type VariableDeclarators:var1 SEMIC {: if(armazemVar.containsVariavel(var1.getNome())){
+																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
+																	} else {
+																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
+																			Variavel var = new Variavel(var1.getNome(), type);
+																			armazemVar.addVariavel(var);
+																			RESULT = var;
+																		} else {
+																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL: " + type + " " + var1.getTipo());
+																		}
+																	}
+																 :}
         | FINAL TypeSpecifier VariableDeclarators SEMIC
 	;
 
@@ -433,8 +475,8 @@ Finally
 	;
 
 PrimaryExpression
-	::= QualifiedName:type {: RESULT = type ; :}
-	| NotJustName:type {: RESULT = type ; :}
+	::= QualifiedName:name {: RESULT = name; :}
+	| NotJustName:name {: RESULT = name; :}
 	;
 
 NotJustName
@@ -734,11 +776,18 @@ ConditionalExpression
 
 AssignmentExpression
 	::= ConditionalExpression:type  {: RESULT = type; :}
-	| UnaryExpression:type1 AssignmentOperator AssignmentExpression:type2 {: if(type1.equals(type2)){
-																					RESULT = type1;
+	| UnaryExpression:varname AssignmentOperator AssignmentExpression:type2 {: if(armazemVar.containsVariavel(varname)){
+																					String type1 = armazemVar.getVariavel(varname).getTipo();
+																					if(type1.equals(type2)){
+																						RESULT = type1;
+																					} else {
+																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + type1 + " " + type2);
+																					}
 																				} else {
-																					System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + type1 + " " + type2);
-																				}:}
+																					System.out.println("ERRO SEMANTICO, VARIAVEL " + varname + " NAO EXISTE. CRIE ELA ANTES DE USAR");
+																				}
+																																								
+																				:}
 	;
 
 AssignmentOperator
