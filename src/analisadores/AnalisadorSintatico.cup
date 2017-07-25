@@ -1,4 +1,4 @@
-/* C�digo do Usu�rio */
+/* C�digo do Usu�rio */
 
 package analisadores;
 import java_cup.runtime.Symbol;
@@ -45,12 +45,12 @@ parser code
     
 :}
 
-    //A��es Gramaticais
+    //A��es Gramaticais
 
 action code {:
 
 	ArmazenadorVariavel armazemVar = new ArmazenadorVariavel();
-
+        ArmazenadorMetodos armazemMetodos = new ArmazenadorMetodos();
 
 
 
@@ -79,11 +79,10 @@ non terminal TypeDeclaration, ImportStatement, ImportStatements, ClassHeader, Mo
 non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclarationOptSemi, ClassWord;
 non terminal FieldDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
 non terminal ArrayInitializers;
-non terminal MethodDeclarator, Throws, MethodBody; 
-non terminal ParameterList, Parameter, Block, ConstructorDeclarator;
-non terminal LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement;
-non terminal Statement, EmptyStatement, LabelStatement, SelectionStatement;
-non terminal IterationStatement, JumpStatement, GuardingStatement, ConstantExpression; 
+non terminal Throws; 
+non terminal ParameterList, Parameter, ConstructorDeclarator;
+non terminal EmptyStatement, LabelStatement, SelectionStatement;
+non terminal IterationStatement, GuardingStatement, ConstantExpression; 
 non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader;  
 non terminal ArgumentList, SpecialName;
 non terminal ArithmeticUnaryOperator;
@@ -91,6 +90,7 @@ non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, LogicalUnaryOperator;  
 non terminal AssignmentOperator; 
 
+non terminal String Block;
 non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalOrExpression,  ConditionalExpression, ConditionalAndExpression;
 non terminal String EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
 non terminal String CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
@@ -101,14 +101,16 @@ non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expres
 non terminal String DimExprs, Dims, DimExpr;
 non terminal String ComplexPrimary, ComplexPrimaryNoParenthesis;
 non terminal String ArrayAccess, FieldAccess;
-non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName;
+non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName, MethodBody;
+non terminal String LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement, Statement, JumpStatement;
 non terminal Variavel FieldVariableDeclaration, VariableDeclarators, VariableDeclarator;
+non terminal Metodo MethodDeclarator;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
 start with CompilationUnit;
 
-/* Gram�tica */
+/* Gram�tica */
 
 TypeSpecifier::= TypeName:type {: RESULT = type; :} | TypeName:type Dims:val {: RESULT = type + val; :};
 
@@ -289,26 +291,75 @@ ArrayInitializers
 	;
 
 MethodDeclaration
-	::= Modifiers TypeSpecifier MethodDeclarator Throws MethodBody
-	| Modifiers TypeSpecifier MethodDeclarator        MethodBody
-	|           TypeSpecifier MethodDeclarator Throws MethodBody
-	|           TypeSpecifier MethodDeclarator        MethodBody
+	::= Modifiers TypeSpecifier:rtype MethodDeclarator:novoMetodo Throws MethodBody:mtype {:  if (mtype == null) mtype = "void";
+                                                                                                    if (armazemVar.containsVariavel(mtype)) {
+                                                                                                        mtype = armazemVar.getVariavel(mtype).getTipo();
+                                                                                                    }
+                                                                                                  
+if (!rtype.equals(mtype)) {
+                                                                                                       System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
+                                                                                                  }
+                                                                                              :}
+	| Modifiers TypeSpecifier:rtype MethodDeclarator:novoMetodo        MethodBody:mtype {: 
+                                                                                    if (mtype == null) mtype = "void";
+                                                                                    
+                                                                                    if (armazemVar.containsVariavel(mtype)) {
+                                                                                        mtype = armazemVar.getVariavel(mtype).getTipo();
+                                                                                    }
+
+                                                                                    System.out.println("Return type: " + rtype + " Used return type:" + mtype);
+                                                                                    if (!rtype.equals(mtype)) {
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
+                                                                         }
+                                                                     :}
+	|           TypeSpecifier:rtype MethodDeclarator:novoMetodo Throws MethodBody:mtype {: if (mtype == null) mtype = "void";  
+                                                                                    if (armazemVar.containsVariavel(mtype)) {
+                                                                                        mtype = armazemVar.getVariavel(mtype).getTipo();
+                                                                                    }
+                                                                                            if (!rtype.equals(mtype)) {
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
+                                                                         }
+                                                                     :}
+	|           TypeSpecifier:rtype MethodDeclarator:novoMetodo        MethodBody:mtype {:  if (mtype == null) mtype = "void";
+                                                                                                if (armazemVar.containsVariavel(mtype)) {
+                                                                                        mtype = armazemVar.getVariavel(mtype).getTipo();
+                                                                                    }
+                                                                                                 if (!rtype.equals(mtype)) {
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
+                                                                         }
+                                                                     :}
 	;
 
 MethodDeclarator
-	::= DeclaratorName OPENPAR ParameterList CLOSEPAR
-	| DeclaratorName OPENPAR CLOSEPAR
+	::= DeclaratorName:name OPENPAR ParameterList:types CLOSEPAR {: String[] params = types.toString().split(",");
+
+                                                                        if (armazemMetodos.containsMetodo(name, params)){
+                                                                            System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + types + ") " + " JA ESTA SENDO USADO");
+                                                                        } else {
+                                                                            Metodo novoMetodo = new Metodo(name, params);
+                                                                            armazemMetodos.addMetodo(novoMetodo);
+                                                                            RESULT = novoMetodo;    
+                                                                        }
+                                                                     :}
+	| DeclaratorName:name OPENPAR CLOSEPAR {: if (armazemMetodos.containsMetodo(name)){
+                                                System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + ") " + " JA ESTA SENDO USADO");
+                                             } else {
+                                                Metodo novoMetodo = new Metodo(name);
+                                                armazemMetodos.addMetodo(novoMetodo);
+                                                RESULT = novoMetodo;    
+                                             }
+                                          :}
 	| MethodDeclarator OP_DIM
 	;
 
 ParameterList
-	::= Parameter
-	| ParameterList COMMA Parameter
+	::= Parameter:type {: RESULT = type; :}
+	| ParameterList:type1 COMMA Parameter:type2 {: RESULT = type1 + "," + type2; :}
 	;
 
 Parameter
-	::= TypeSpecifier DeclaratorName
-        | FINAL TypeSpecifier DeclaratorName
+	::= TypeSpecifier:type DeclaratorName {: RESULT = type; :} 
+        | FINAL TypeSpecifier:type DeclaratorName {: RESULT = type; :}
 	;
 
 DeclaratorName
@@ -321,7 +372,7 @@ Throws
 	;
 
 MethodBody
-	::= Block
+	::= Block:type {: RESULT = type; :}
 	| SEMIC
 	;
 
@@ -351,18 +402,18 @@ Extends
 	;
 
 Block
-	::= OPENKEYS LocalVariableDeclarationsAndStatements CLOSEKEYS
-	| OPENKEYS CLOSEKEYS
+	::= OPENKEYS LocalVariableDeclarationsAndStatements:type CLOSEKEYS {: RESULT = type; :}
+	| OPENKEYS CLOSEKEYS {: RESULT = "void"; :}
         ;
 
 LocalVariableDeclarationsAndStatements
-	::= LocalVariableDeclarationOrStatement
-	| LocalVariableDeclarationsAndStatements LocalVariableDeclarationOrStatement
+	::= LocalVariableDeclarationOrStatement:type {: RESULT = type; :}
+	| LocalVariableDeclarationsAndStatements LocalVariableDeclarationOrStatement:type {: RESULT = type; :}
 	;
 
 LocalVariableDeclarationOrStatement
 	::= LocalVariableDeclarationStatement
-	| Statement
+	| Statement:type {: RESULT = type; :}
 	;
 
 LocalVariableDeclarationStatement
@@ -387,7 +438,7 @@ Statement
 	| ExpressionStatement SEMIC
         | SelectionStatement
         | IterationStatement
-	| JumpStatement
+	| JumpStatement:type {: RESULT = type; :}
 	| GuardingStatement
 	| Block
 	;
@@ -444,8 +495,8 @@ JumpStatement
 	| BREAK            SEMIC
         | CONTINUE IDENTIFIER SEMIC
 	| CONTINUE            SEMIC
-	| RETURN Expression SEMIC
-	| RETURN            SEMIC
+	| RETURN Expression:type SEMIC {: RESULT = type; :}
+	| RETURN            SEMIC {: RESULT = "void"; :}
 	| THROW Expression SEMIC
 	;
 
@@ -520,14 +571,14 @@ FieldAccess
 	;
 
 MethodCall
-	::= DOT MethodAccess:type OPENPAR ArgumentList CLOSEPAR {: RESULT = type ; :}
-	| DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type ; :}
+	::= DOT MethodAccess:type OPENPAR ArgumentList CLOSEPAR {: RESULT = type; :}
+	| DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type; :}
 	;
 
 MethodAccess
-	::= ComplexPrimaryNoParenthesis:type {: RESULT = type ; :}
+	::= ComplexPrimaryNoParenthesis:name {: RESULT = name; :}
 	| SpecialName
-	| QualifiedName:type {: RESULT = type ; :}
+	| QualifiedName:name {: RESULT = name; :}
 	;
 
 
@@ -795,6 +846,7 @@ ConditionalExpression
 AssignmentExpression
 	::= ConditionalExpression:type  {: RESULT = type; :}
 	| UnaryExpression:varname AssignmentOperator AssignmentExpression:type2 {: if(armazemVar.containsVariavel(varname)){
+                                                                                        if (armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
 																					String type1 = armazemVar.getVariavel(varname).getTipo();
 																					if(type1.equals(type2)){
 																						RESULT = type1;
@@ -824,7 +876,7 @@ AssignmentOperator
 	;
 
 Expression
-	::= AssignmentExpression:type {: RESULT = type;:}
+	::= AssignmentExpression:type {: RESULT = type; :}
         ;
 
 ConstantExpression
