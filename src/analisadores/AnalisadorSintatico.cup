@@ -2,6 +2,7 @@
 
 package analisadores;
 import java_cup.runtime.Symbol;
+import java.util.Arrays;
 import java.util.LinkedList;
 import auxiliares.*;
 
@@ -80,11 +81,11 @@ non terminal Extends, Interfaces, FieldDeclarations, ClassNameList, FieldDeclara
 non terminal FieldDeclaration, MethodDeclaration, ConstructorDeclaration, StaticInitializer;
 non terminal ArrayInitializers;
 non terminal Throws; 
-non terminal ParameterList, Parameter, ConstructorDeclarator;
+non terminal ConstructorDeclarator;
 non terminal EmptyStatement, LabelStatement, SelectionStatement;
 non terminal IterationStatement, GuardingStatement, ConstantExpression; 
 non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader;  
-non terminal ArgumentList, SpecialName;
+non terminal SpecialName;
 non terminal ArithmeticUnaryOperator;
 non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, LogicalUnaryOperator;  
@@ -101,8 +102,8 @@ non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expres
 non terminal String DimExprs, Dims, DimExpr;
 non terminal String ComplexPrimary, ComplexPrimaryNoParenthesis;
 non terminal String ArrayAccess, FieldAccess;
-non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName, MethodBody;
-non terminal String LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement, Statement, JumpStatement;
+non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName, MethodBody, ArgumentList, Parameter;
+non terminal String LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement, Statement, JumpStatement, ParameterList;
 non terminal Variavel FieldVariableDeclaration, VariableDeclarators, VariableDeclarator;
 non terminal Metodo MethodDeclarator;
 
@@ -331,13 +332,26 @@ if (!rtype.equals(mtype)) {
 	;
 
 MethodDeclarator
-	::= DeclaratorName:name OPENPAR ParameterList:types CLOSEPAR {: String[] params = types.toString().split(",");
+	::= DeclaratorName:name OPENPAR ParameterList:types CLOSEPAR {: 
+                                                                        String[] paramsAndNames = types.toString().split(",");
+                                                                        String[] params = new String[paramsAndNames.length];
 
+                                                                        for (int i = 0; i < paramsAndNames.length; i++) {
+                                                                            String[] paramAndName = paramsAndNames[i].split(":");
+                                                                            params[i] = paramAndName[0];
+                                                                            
+                                                                        }
+                                                                        
                                                                         if (armazemMetodos.containsMetodo(name, params)){
                                                                             System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + types + ") " + " JA ESTA SENDO USADO");
                                                                         } else {
                                                                             Metodo novoMetodo = new Metodo(name, params);
                                                                             armazemMetodos.addMetodo(novoMetodo);
+                                                                            for (int i = 0; i < paramsAndNames.length; i++) {
+                                                                                String[] paramAndName = paramsAndNames[i].split(":");
+                                                                                armazemVar.addVariavel(paramAndName[1], paramAndName[0]);
+                                                                            }
+                                                                            
                                                                             RESULT = novoMetodo;    
                                                                         }
                                                                      :}
@@ -358,8 +372,8 @@ ParameterList
 	;
 
 Parameter
-	::= TypeSpecifier:type DeclaratorName {: RESULT = type; :} 
-        | FINAL TypeSpecifier:type DeclaratorName {: RESULT = type; :}
+	::= TypeSpecifier:type DeclaratorName:name {: RESULT = type + ":" + name; :} 
+        | FINAL TypeSpecifier:type DeclaratorName:name {: RESULT = type + ":" + name; :}
 	;
 
 DeclaratorName
@@ -571,7 +585,28 @@ FieldAccess
 	;
 
 MethodCall
-	::= DOT MethodAccess:type OPENPAR ArgumentList CLOSEPAR {: RESULT = type; :}
+	::= DOT MethodAccess:name OPENPAR ArgumentList:names CLOSEPAR {: String[] argsName = names.split(",");
+                                                                         String[] argsType = new String[argsName.length];
+
+                                                                         for (int i = 0; i < argsName.length; i++) {
+                                                                            if (armazemVar.containsVariavel(argsName[i])) {
+                                                                                argsType[i] = armazemVar.getVariavel(argsName[i]).getTipo();
+                                                                            } else {
+                                                                                throw new RuntimeException("O argumento: |" + argsName[i] + "| não existe.");
+                                                                            }
+                                                                         }
+                                                                         
+                                                                         if (!armazemMetodos.containsMetodo(name, argsType)) {
+                                                                            String strTypes = "";
+                                                                            for (int i = 0; i < argsType.length - 1; i++) {
+                                                                                strTypes += argsType[i];
+                                                                            }
+                                                                            strTypes += argsType[argsType.length - 1];
+                                                                            throw new RuntimeException("O método |" + name + "(" + strTypes + ")|" + " não existe.");
+                                                                         }
+
+                                                                         System.out.println("Acesso a metodo. " + Arrays.toString(argsType)); :}   
+                                                                         
 	| DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type; :}
 	;
 
@@ -589,8 +624,8 @@ SpecialName
 	;
 
 ArgumentList
-	::= Expression
-	| ArgumentList COMMA Expression
+	::= Expression:type {: RESULT = type; :}
+	| ArgumentList:type1 COMMA Expression:type2 {: RESULT = type1 + "," + type2; :}
 	;
 
 NewAllocationExpression
