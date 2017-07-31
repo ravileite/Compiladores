@@ -275,8 +275,9 @@ VariableDeclarators
 	;
 
 VariableDeclarator
-	::= DeclaratorName:varname {: RESULT = new Variavel(varname, null); :}
-	| DeclaratorName:varname EQU VariableInitializer:type {: RESULT = new Variavel(varname, type); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
+	::= DeclaratorName:varname {: RESULT = new Variavel(varname, null);  :}
+	| DeclaratorName:varname EQU VariableInitializer:type {: if(armazemVar.containsVariavel(type)) type = armazemVar.getVariavel(type).getTipo();
+															RESULT = new Variavel(varname, type); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
 	;
 
 VariableInitializer
@@ -431,10 +432,10 @@ LocalVariableDeclarationOrStatement
 	;
 
 LocalVariableDeclarationStatement
-	::= TypeSpecifier:type VariableDeclarators:var1 SEMIC {: if(armazemVar.containsVariavel(var1.getNome())){
+	::= TypeSpecifier:type VariableDeclarators:var1 SEMIC {: 		if(armazemVar.containsVariavel(var1.getNome())){
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
-																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
+																		if(var1.getTipo() == null || var1.getTipo().equals(type) || !util.verificaExpressaoAritimetica(var1.getTipo(), type).equals("error")){
 																			Variavel var = new Variavel(var1.getNome(), type);
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
@@ -585,7 +586,7 @@ FieldAccess
 	;
 
 MethodCall
-	::= DOT MethodAccess:name OPENPAR ArgumentList:names CLOSEPAR {: String[] argsName = names.split(",");
+	::=  DOT MethodAccess:name OPENPAR ArgumentList:names CLOSEPAR {: String[] argsName = names.split(",");
                                                                          String[] argsType = new String[argsName.length];
 
                                                                          for (int i = 0; i < argsName.length; i++) {
@@ -607,7 +608,7 @@ MethodCall
 
                                                                          System.out.println("Acesso a metodo. " + Arrays.toString(argsType)); :}   
                                                                          
-	| DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type; :}
+	|  DOT MethodAccess:type OPENPAR CLOSEPAR {: RESULT = type; :}
 	;
 
 MethodAccess

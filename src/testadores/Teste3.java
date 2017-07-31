@@ -14,19 +14,19 @@ public class Teste3 {
 		boolean x;
 		double y;
 		
-		for(int i = 0; i < .t3.test1(); i++){
+		for(int i = 0; i < .test1(); i++){
 			
 		}
 		
-		.t3.test2(a,b);
-		.t3.test3(c,d);
-		.t3.test4(c,d);
-		.t3.test5(c,b);
+		.test2(a,b);
+		.test3(c,d);
+		.test4(c,d);
+		.test5(c,b);
 		a = 8;
 		b = 9.0;
-		y = .t3.test6(a,b);
+		y = .test6(a,b);
 		b = 7.5;
-		f = .t3.test6(a,b);
+		f = .test6(a,b);
 	}
 	
 	public int test1(){
@@ -54,7 +54,7 @@ public class Teste3 {
 	}
 	
 	public double test6(int a, double b){
-		if(test7(a,b)) return 5;
+		if(test5(a,b)) return 5;
 		return 5.0;
 	}
 	

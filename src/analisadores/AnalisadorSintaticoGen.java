@@ -3130,7 +3130,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int varnameleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int varnameright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String varname = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = new Variavel(varname, null); 
+		 RESULT = new Variavel(varname, null);  
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("VariableDeclarator",98, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3145,7 +3145,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = new Variavel(varname, type); 
+		 if(armazemVar.containsVariavel(type)) type = armazemVar.getVariavel(type).getTipo();
+															RESULT = new Variavel(varname, type); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("VariableDeclarator",98, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3654,10 +3655,10 @@ if (!rtype.equals(mtype)) {
 		int var1left = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
 		int var1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		Variavel var1 = (Variavel)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
-		 if(armazemVar.containsVariavel(var1.getNome())){
+		 		if(armazemVar.containsVariavel(var1.getNome())){
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
-																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
+																		if(var1.getTipo() == null || var1.getTipo().equals(type) || !util.verificaExpressaoAritimetica(var1.getTipo(), type).equals("error")){
 																			Variavel var = new Variavel(var1.getNome(), type);
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
