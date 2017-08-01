@@ -2308,7 +2308,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 
 
 	ArmazenadorVariavel armazemVar = new ArmazenadorVariavel();
-        ArmazenadorMetodos armazemMetodos = new ArmazenadorMetodos();
+    ArmazenadorMetodos armazemMetodos = new ArmazenadorMetodos();
+    ArmazenadorCodigoAssembly armazemCodigo = new ArmazenadorCodigoAssembly();
 
 
 
@@ -3227,7 +3228,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                                     }
                                                                                                   
 if (!rtype.equals(mtype)) {
-                                                                                                       System.out.println("ERRO SEMÃ‚NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÃ‡ÃƒO" + "."); 
+                                                                                                       System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
                                                                                                   }
                                                                                               
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodDeclaration",17, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-4)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -3256,7 +3257,7 @@ if (!rtype.equals(mtype)) {
 
                                                                                     System.out.println("Return type: " + rtype + " Used return type:" + mtype);
                                                                                     if (!rtype.equals(mtype)) {
-                                                                            System.out.println("ERRO SEMÃ‚NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÃ‡ÃƒO" + "."); 
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
                                                                          }
                                                                      
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodDeclaration",17, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -3281,7 +3282,7 @@ if (!rtype.equals(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                             if (!rtype.equals(mtype)) {
-                                                                            System.out.println("ERRO SEMÃ‚NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÃ‡ÃƒO" + "."); 
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
                                                                          }
                                                                      
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodDeclaration",17, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -3306,7 +3307,7 @@ if (!rtype.equals(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                                  if (!rtype.equals(mtype)) {
-                                                                            System.out.println("ERRO SEMÃ‚NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÃ‡ÃƒO" + "."); 
+                                                                            System.out.println("ERRO SEMÂNTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARAÇÃO" + "."); 
                                                                          }
                                                                      
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodDeclaration",17, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -4323,7 +4324,7 @@ if (!rtype.equals(mtype)) {
                                                                             if (armazemVar.containsVariavel(argsName[i])) {
                                                                                 argsType[i] = armazemVar.getVariavel(argsName[i]).getTipo();
                                                                             } else {
-                                                                                throw new RuntimeException("O argumento: |" + argsName[i] + "| nÃ£o existe.");
+                                                                                throw new RuntimeException("O argumento: |" + argsName[i] + "| não existe.");
                                                                             }
                                                                          }
                                                                          
@@ -4333,7 +4334,7 @@ if (!rtype.equals(mtype)) {
                                                                                 strTypes += argsType[i];
                                                                             }
                                                                             strTypes += argsType[argsType.length - 1];
-                                                                            throw new RuntimeException("O mÃ©todo |" + name + "(" + strTypes + ")|" + " nÃ£o existe.");
+                                                                            throw new RuntimeException("O método |" + name + "(" + strTypes + ")|" + " não existe.");
                                                                          }
 
                                                                          System.out.println("Acesso a metodo. " + Arrays.toString(argsType)); 
