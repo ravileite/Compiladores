@@ -6,9 +6,16 @@ import java.util.Objects;
 public class Metodo {
     private String nome;
     private String[] tiposDeEntrada;
+    private String tipoRetorno;
 	
     public Metodo(String nome, String[] tiposDeEntrada) {
         this.nome = nome;
+        this.tiposDeEntrada = tiposDeEntrada;
+    }
+    
+    public Metodo(String nome, String tipoRetorno, String[] tiposDeEntrada) {
+        this.nome = nome;
+        this.tipoRetorno = tipoRetorno;
         this.tiposDeEntrada = tiposDeEntrada;
     }
     
@@ -23,6 +30,19 @@ public class Metodo {
 	
     public String getNome() {
         return nome;
+    }
+    
+    public String getTipoRetorno() {
+        return tipoRetorno;
+    }
+    
+    public void setTipoRetorno(String tipoRetorno) {
+        this.tipoRetorno = tipoRetorno;
+    }
+
+    @Override
+    public String toString() {
+        return "Metodo{" + "nome=" + nome + ", tiposDeEntrada=" + tiposDeEntrada + ", tipoRetorno=" + tipoRetorno + '}';
     }
         
     @Override

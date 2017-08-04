@@ -2,7 +2,41 @@ package testadores;
 
 public class Teste3 {
 	
-	public static void main(String[] args) {
+	public int test1(){
+		return 5;
+	}
+	
+	public boolean test2(int a1, double b1){
+		if(a1 == b1) return true;
+		return false;
+	}
+	
+	public boolean test3(float a2, double b2){
+		if (a2 > b2) return true;
+		return false;
+	}
+	
+	public boolean test4(float a3, double b3){
+		if(a3 < b3) return true;
+		return false;
+	}
+	
+	public boolean test5(float a4, double b4){
+		if(a4 != b4)return true;
+		return false;
+	}
+	
+	public double test6(float a5, double b5){
+		if(.test5(a5,b5)) return 5;
+		return 5.0;
+	}
+	
+	public boolean test7(int a6, double b6){
+		if(a6 < b6) return true;
+		return false;
+	}
+        
+        public static void main(String[] args) {
 		
 		Teste3 t3 = new Teste3();
 		int a = 5;
@@ -17,7 +51,7 @@ public class Teste3 {
 		for(int i = 0; i < .test1(); i++){
 			
 		}
-		
+                
 		.test2(a,b);
 		.test3(c,d);
 		.test4(c,d);
@@ -27,39 +61,5 @@ public class Teste3 {
 		y = .test6(a,b);
 		b = 7.5;
 		f = .test6(a,b);
-	}
-	
-	public int test1(){
-		return 5;
-	}
-	
-	public boolean test2(int a, double b){
-		if(a == b) return true;
-		return false;
-	}
-	
-	public boolean test3(float a, double b){
-		if (a > b) return true;
-		return false;
-	}
-	
-	public boolean test4(float a, double b){
-		if(a < b) return true;
-		return false;
-	}
-	
-	public boolean test5(float a, double b){
-		if(a != b)return true;
-		return false;
-	}
-	
-	public double test6(int a, double b){
-		if(test5(a,b)) return 5;
-		return 5.0;
-	}
-	
-	public boolean test7(int a, double b){
-		if(a < b) return true;
-		return false;
 	}
 }

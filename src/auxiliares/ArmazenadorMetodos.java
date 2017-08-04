@@ -71,4 +71,37 @@ public class ArmazenadorMetodos {
     	
     	return null;
     }
+    
+    public Metodo getMetodoPossivel(String nome, String[] tiposDeEntrada) {
+        for (Metodo metodo : metodos) {
+            if (metodo.getNome().equals(nome)) {
+                boolean result = true;
+                
+                if (tiposDeEntrada.length != metodo.getTipos().length) {
+                    result = false;
+                } else {
+                    for (int i = 0; i < tiposDeEntrada.length; i++) {
+                        Util util = new Util();
+                        System.out.println("Entrou aqui por2 : " + metodo.getTipos()[i]);
+                        if (!util.verificaExpressaoAritimeticaSimples(metodo.getTipos()[i], tiposDeEntrada[i])) {
+                            System.out.println("Entrou aqui por: " + metodo.getTipos()[i]);
+                                result = false;
+                                break;
+                        }
+                    }
+                    
+                    if (result) return metodo;
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "ArmazenadorMetodos{" + "metodos=" + metodos + '}';
+    }
+    
+    
 }

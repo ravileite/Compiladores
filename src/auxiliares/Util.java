@@ -51,4 +51,19 @@ public class Util {
         	}
         }
     }
+    
+    public boolean verificaExpressaoAritimeticaSimples(String type1, String type2){
+        if (verificaTiposNumericos(type1, type2).equals("error")){
+        	return false;
+        } else {
+        	int valueType1 = tiposNumericos.get(type1);
+        	int valueType2 = tiposNumericos.get(type2);
+        	
+        	if(valueType1 >= valueType2){
+        		return true;
+        	} else {
+        		return false;
+        	}
+        }
+    }
 }
