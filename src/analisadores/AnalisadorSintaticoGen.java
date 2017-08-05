@@ -4366,7 +4366,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int nameright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
 		 if (!armazemMetodos.containsMetodo(name)) {
-                                                        throw new RuntimeException("O m�todo |" + name + "(" + strTypes + ")|" + " n�o existe.");
+                                                        throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
                                                      
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); 

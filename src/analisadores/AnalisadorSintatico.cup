@@ -626,7 +626,7 @@ MethodCall
 :}   
                                                                          
 	|  DOT MethodAccess:name OPENPAR CLOSEPAR {: if (!armazemMetodos.containsMetodo(name)) {
-                                                        throw new RuntimeException("O m�todo |" + name + "(" + strTypes + ")|" + " n�o existe.");
+                                                        throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
                                                      
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); :}
