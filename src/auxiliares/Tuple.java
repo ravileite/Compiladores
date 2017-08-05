@@ -4,10 +4,12 @@ public class Tuple {
 	
 	private String typeOrName;
 	private String code;
+	private String operator;
 	
 	public Tuple(String typeOrName, String code){
 		this.typeOrName = typeOrName;
 		this.code = code;
+		this.operator = "";
 	}
 
 	public String getTypeOrName() {
@@ -24,6 +26,10 @@ public class Tuple {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	public void setOperator(String op){
+		this.operator = op;
 	}
 	
 	

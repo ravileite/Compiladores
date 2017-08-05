@@ -66,13 +66,13 @@ terminal BOOLEAN, CHAR, BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, VOID, STRGN;
 terminal PACKAGE, IMPORT;
 terminal ABSTRACT, FINAL, PUBLIC, PROTECTED, PRIVATE, STATIC, TRANSIENT, VOLATILE, NATIVE, SYNCHRONIZED;
 terminal CLASS, INTERFACE, IMPLEMENTS, OP_DIM, THROWS, EXTENDS, CASE, DEFAULT, IF, SWITCH, ELSE;
-terminal WHILE, DO, FOR, BREAK, RETURN, TRY, BOOLLIT, THIS, SUPER, JNULL, OP_INC, OP_DEC;
+terminal WHILE, DO, FOR, BREAK, RETURN, TRY, THIS, SUPER, JNULL, OP_INC, OP_DEC;
 terminal OP_LE, OP_GE, INSTANCEOF, OP_EQ, OP_NE, OP_LAND, OP_LOR;
 terminal ASS_MUL, ASS_DIV, ASS_MOD, ASS_ADD, ASS_SUB, ASS_SHL, ASS_SHR, ASS_SHRR, ASS_AND, ASS_XOR, ASS_OR;
 terminal COMMA, SEMIC, DOT, MULT, OPENKEYS, CLOSEKEYS, EQU, OPENPAR, CLOSEPAR, COLON;
 terminal OPENBRAC, CLOSEBRAC, TIL, NE, PLUS, MINUS, DIV, MOD, BTHEN, LTHEN, XOR, SOR, AMPER, QUE, CONTINUE, THROW, CATCH, FINALLY, NEW, OP_SHL, OP_SHR, OP_SHRR;
 
-terminal String IDENTIFIER, LITERAL;  
+terminal String IDENTIFIER, LITERAL, BOOLLIT;  
  
 
 non terminal ProgramFile;
@@ -87,26 +87,27 @@ non terminal EmptyStatement, LabelStatement, SelectionStatement;
 non terminal IterationStatement, GuardingStatement, ConstantExpression; 
 non terminal ForInit, ExpressionStatement, Catches, Finally, CatchHeader;  
 non terminal SpecialName;
-non terminal ArithmeticUnaryOperator;
 non terminal SemiColons, NonStaticInitializer, LocalVariableDeclarationStatement, CompilationUnit;  
 non terminal ForExpr, ForIncr, ExpressionStatements, Catch, LogicalUnaryOperator;  
 non terminal AssignmentOperator; 
 
+non terminal String ArithmeticUnaryOperator;
 non terminal String Block;
-non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalOrExpression,  ConditionalExpression, ConditionalAndExpression;
-non terminal String EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
-non terminal String CastExpression, LogicalUnaryExpression, PrimitiveTypeExpression, ClassTypeExpression;
-non terminal String MultiplicativeExpression, AdditiveExpression, ShiftExpression, RelationalExpression;
-non terminal String UnaryExpression, PostfixExpression, RealPostfixExpression, PrimaryExpression;
-non terminal String QualifiedName, NotJustName, NewAllocationExpression, PlainNewAllocationExpression;
+non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalExpression;
+non terminal String PrimitiveTypeExpression, ClassTypeExpression;
+non terminal String QualifiedName, NewAllocationExpression, PlainNewAllocationExpression;
 non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expression;
 non terminal String DimExprs, Dims, DimExpr;
-non terminal String ComplexPrimary, ComplexPrimaryNoParenthesis;
 non terminal String ArrayAccess, FieldAccess;
 non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName, MethodBody, ArgumentList, Parameter;
 non terminal String LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement, Statement, JumpStatement, ParameterList;
 non terminal Variavel FieldVariableDeclaration, VariableDeclarators, VariableDeclarator;
 non terminal Metodo MethodDeclarator;
+non terminal Tuple ComplexPrimaryNoParenthesis, ComplexPrimary, NotJustName, PrimaryExpression;
+non terminal Tuple PostfixExpression, RealPostfixExpression, LogicalUnaryExpression;
+non terminal Tuple UnaryExpression, CastExpression, MultiplicativeExpression, AdditiveExpression;
+non terminal Tuple ShiftExpression, RelationalExpression, ConditionalOrExpression, ConditionalAndExpression;
+non terminal Tuple EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
@@ -550,40 +551,40 @@ Finally
 	;
 
 PrimaryExpression
-	::= QualifiedName:name {: RESULT = name; :}
-	| NotJustName:name {: RESULT = name; :}
+	::= QualifiedName:name {: RESULT = new Tuple(name, ""); :}
+	| NotJustName:tuple {: RESULT = tuple; :}
 	;
 
 NotJustName
 	::= SpecialName
-	| NewAllocationExpression:type {: RESULT = type ; :}
-	| ComplexPrimary:type {: RESULT = type ; :}
+	| NewAllocationExpression:type {: RESULT = new Tuple(type, "") ; :}
+	| ComplexPrimary:tuple {: RESULT = tuple ; :}
 	;
 
 ComplexPrimary
-	::= OPENPAR Expression:type CLOSEPAR {: RESULT = type ; :}
-	| ComplexPrimaryNoParenthesis:type {: RESULT = type ; :}
+	::= OPENPAR Expression:type CLOSEPAR {: RESULT = new Tuple(type, "") ; :}
+	| ComplexPrimaryNoParenthesis:tuple {: RESULT = tuple ; :}
 	;
 
 ComplexPrimaryNoParenthesis
 	::= LITERAL:lexval {: if(lexval.contains("'")){
-								RESULT = "char";
+								RESULT = new Tuple("char", lexval);
 							}else if(lexval.contains("\"")){
-								RESULT = "String";
+								RESULT = new Tuple("String", lexval);
 							}else if(lexval.contains(".")){
-								RESULT = "double";
+								RESULT = new Tuple("double", lexval);
 							} else {
-								RESULT = "int";
+								RESULT = new Tuple("int", lexval);
 							}  :}
-	| BOOLLIT {: RESULT = "boolean"; :}
-	| ArrayAccess:type {: RESULT = type ; :}
+	| BOOLLIT:lexval {: RESULT = new Tuple("boolean", lexval); :}
+	| ArrayAccess:type {: RESULT = new Tuple(type, "") ; :}
 	| FieldAccess
-	| MethodCall:type {: System.out.println("Type method call:" + type); RESULT = type ; :}
+	| MethodCall:type {: System.out.println("Type method call:" + type); RESULT = new Tuple(type, "") ; :}
 	;
 
 ArrayAccess
 	::= QualifiedName:type OPENBRAC Expression CLOSEBRAC {: RESULT = type ; :}
-	| ComplexPrimary:type OPENBRAC Expression CLOSEBRAC {: RESULT = type ; :}
+	| ComplexPrimary:tuple OPENBRAC Expression CLOSEBRAC {: RESULT = tuple.getTypeOrName() ; :}
 	;
 
 FieldAccess
@@ -633,7 +634,7 @@ MethodCall
 	;
 
 MethodAccess
-	::= ComplexPrimaryNoParenthesis:name {: RESULT = name; :}
+	::= ComplexPrimaryNoParenthesis:tuple {: RESULT = tuple.getTypeOrName(); :}
 	| SpecialName
 	| QualifiedName:name {: RESULT = name; :}
 	;
@@ -690,25 +691,33 @@ Dims
 	;
 
 PostfixExpression
-	::= PrimaryExpression:type {: RESULT = type; :}
-	| RealPostfixExpression:type {: RESULT = type; :}
+	::= PrimaryExpression:tuple {: RESULT = tuple; :}
+	| RealPostfixExpression:tuple {: RESULT = tuple; :}
 	;
 
 RealPostfixExpression
-	::= PostfixExpression:type OP_INC {: RESULT = type; :}
-	| PostfixExpression:type OP_DEC {: RESULT = type; :}
+	::= PostfixExpression:tuple OP_INC {: RESULT = tuple;
+										 String temp = armazemCodigo.nextRegister();
+										 armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
+										 armazemCodigo.addCode("ADD " + temp + " , " + temp + " , " + "#1"); 
+										 armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); :}
+	| PostfixExpression:tuple OP_DEC {: RESULT = tuple; 
+										String temp = armazemCodigo.nextRegister();
+										armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
+										armazemCodigo.addCode("SUB " + temp + " , " + temp + " , " + "#1"); 
+										armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); :}
 	;
 
 UnaryExpression
 	::= OP_INC UnaryExpression
 	| OP_DEC UnaryExpression
-	| ArithmeticUnaryOperator CastExpression:type {: RESULT = type; :}
-	| LogicalUnaryExpression:type {: RESULT = type; :}
+	| ArithmeticUnaryOperator:op CastExpression:tuple {: tuple.setOperator(op); RESULT = tuple; :}
+	| LogicalUnaryExpression:tuple {: RESULT = tuple; :}
 	;
 
 LogicalUnaryExpression
-	::= PostfixExpression:type {: RESULT = type; :}
-	| LogicalUnaryOperator UnaryExpression:type {: RESULT = type; :}
+	::= PostfixExpression:tuple {: RESULT = tuple; :}
+	| LogicalUnaryOperator UnaryExpression:tuple {: RESULT = tuple; :}
 	;
 
 LogicalUnaryOperator
@@ -717,12 +726,12 @@ LogicalUnaryOperator
 	;
 
 ArithmeticUnaryOperator
-	::= PLUS
-	| MINUS
+	::= PLUS {: RESULT = "ADD"; :}
+	| MINUS {: RESULT = "SUB"; :}
 	;
 
 CastExpression
-	::= UnaryExpression:type {: RESULT = type; :}
+	::= UnaryExpression:tuple {: RESULT = tuple; :}
 	| OPENPAR PrimitiveTypeExpression CLOSEPAR CastExpression
 	| OPENPAR ClassTypeExpression CLOSEPAR CastExpression
 	| OPENPAR Expression CLOSEPAR LogicalUnaryExpression
@@ -738,181 +747,212 @@ ClassTypeExpression
         ;
 
 MultiplicativeExpression
-	::= CastExpression:type {: RESULT = type; :}
-	| MultiplicativeExpression:type1 MULT CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	::= CastExpression:tuple {: RESULT = tuple; :}
+	| MultiplicativeExpression:tuple1 MULT CastExpression:tuple2 {: 	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("MUL " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :} 
-	| MultiplicativeExpression:type1 DIV CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| MultiplicativeExpression:tuple1 DIV CastExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("DIV " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :} 
-	| MultiplicativeExpression:type1 MOD CastExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| MultiplicativeExpression:tuple1 MOD CastExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("MOD " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :} 
 	;
 
 AdditiveExpression
 	::= MultiplicativeExpression:type {: RESULT = type; :}
-        | AdditiveExpression:type1 PLUS MultiplicativeExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo(); 
-        																if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+        | AdditiveExpression:tuple1 PLUS MultiplicativeExpression:tuple2 {: if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("ADD " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :} 
                                                                         
-	| AdditiveExpression:type1 MINUS MultiplicativeExpression:type2 {: if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																		if (util.verificaExpressaoAritimetica(type1,type2).equals("error")){
+	| AdditiveExpression:tuple1 MINUS MultiplicativeExpression:tuple2 {: if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaExpressaoAritimetica(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("SUB " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :} 
         ;
 
 ShiftExpression
-	::= AdditiveExpression:type {: RESULT = type; :}
+	::= AdditiveExpression:tuple {: RESULT = tuple; :}
         | ShiftExpression OP_SHL AdditiveExpression
         | ShiftExpression OP_SHR AdditiveExpression
         | ShiftExpression OP_SHRR AdditiveExpression
 	;
 
 RelationalExpression
-	::= ShiftExpression:type {: RESULT = type; :}
-        | RelationalExpression:type1 LTHEN ShiftExpression:type2 {:  	System.out.println(type2); if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+	::= ShiftExpression:tuple {: RESULT = tuple; :}
+        | RelationalExpression:tuple1 LTHEN ShiftExpression:tuple2 {:  	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 BTHEN ShiftExpression:type2 {:  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+	| RelationalExpression:tuple1 BTHEN ShiftExpression:tuple2 {:  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_LE ShiftExpression:type2 {: 		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+	| RelationalExpression:tuple1 OP_LE ShiftExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
-	| RelationalExpression:type1 OP_GE ShiftExpression:type2 {:  		if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+	| RelationalExpression:tuple1 OP_GE ShiftExpression:tuple2 {:  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
 	| RelationalExpression INSTANCEOF TypeSpecifier
 	;
 
 EqualityExpression
-	::= RelationalExpression:type {: RESULT = type; :}
+	::= RelationalExpression:tuple {: RESULT = tuple; :}
 
-        | EqualityExpression:type1 OP_EQ RelationalExpression:type2 {:  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-        																if (type1.equals(type2)){ RESULT = type1;}
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+        | EqualityExpression:tuple1 OP_EQ RelationalExpression:tuple2 {:  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("EQ " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
 
-        | EqualityExpression:type1 OP_NE RelationalExpression:type2 {:  if(armazemVar.containsVariavel(type1)) type1 = armazemVar.getVariavel(type1).getTipo();
-        																if(armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-        																if (type1.equals(type2)){ RESULT = type1;}
-                                                                        if (util.verificaTiposNumericos(type1,type2).equals("error")){
+        | EqualityExpression:tuple1 OP_NE RelationalExpression:tuple2 {:  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+        																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            RESULT = util.verificaTiposNumericos(type1,type2);
+                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String temp = armazemCodigo.nextRegister();
+                                                                            armazemCodigo.addCode("NE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
         ;
 
 AndExpression
-	::= EqualityExpression:type {: RESULT = type; :}
-        | AndExpression:type1 AMPER EqualityExpression:type2 {: if(type1.equals(type2)){
-										    RESULT = type1;} else { 
+	::= EqualityExpression:tuple {: RESULT = tuple; :}
+        | AndExpression:tuple1 AMPER EqualityExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
+										    RESULT = tuple1;} else { 
 										    System.out.println("ERRO SEMANTICO");
 										     } :}
         ;
 
 ExclusiveOrExpression
-	::= AndExpression:type {: RESULT = type; :}
-	| ExclusiveOrExpression:type1 XOR AndExpression:type2 {: if(type1.equals(type2)){
-										    RESULT = type1;} else { 
+	::= AndExpression:tuple {: RESULT = tuple; :}
+	| ExclusiveOrExpression:tuple1 XOR AndExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
+										    RESULT = tuple1;} else { 
 										    System.out.println("ERRO SEMANTICO");
-										     } :}
+										     }  :}
 	;
 
 InclusiveOrExpression
-	::= ExclusiveOrExpression:type  {: RESULT = type; :}
-	| InclusiveOrExpression:type1 SOR ExclusiveOrExpression:type2 {: if(type1.equals(type2)){
-										    RESULT = type1;} else { 
+	::= ExclusiveOrExpression:tuple  {: RESULT = tuple; :}
+	| InclusiveOrExpression:tuple1 SOR ExclusiveOrExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
+										    RESULT = tuple1;} else { 
 										    System.out.println("ERRO SEMANTICO");
-										     } :}
+										     }  :}
 	;
 
 ConditionalAndExpression
-	::= InclusiveOrExpression:type {: RESULT = type; :}
-	| ConditionalAndExpression:type1 OP_LAND InclusiveOrExpression:type2 {: if(type1.equals(type2)){
-													RESULT = type1;} else { 
-													System.out.println("ERRO SEMANTICO");
-													} :}
+	::= InclusiveOrExpression:tuple {: RESULT = tuple; :}
+	| ConditionalAndExpression:tuple1 OP_LAND InclusiveOrExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
+										    RESULT = tuple1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } :}
 	;
 	
 
 ConditionalOrExpression
-	::= ConditionalAndExpression:type {: RESULT = type; :}
-	| ConditionalOrExpression:type1 OP_LOR ConditionalAndExpression:type2 {: if(type1.equals(type2)){
-													RESULT = type1;} else { 
-													System.out.println("ERRO SEMANTICO");
-                                                                                                        } :}
+	::= ConditionalAndExpression:tuple {: RESULT = tuple; :}
+	| ConditionalOrExpression:tuple1 OP_LOR ConditionalAndExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
+										    RESULT = tuple1;} else { 
+										    System.out.println("ERRO SEMANTICO");
+										     } :}
 	;
 
 ConditionalExpression
-	::= ConditionalOrExpression:type {: RESULT = type; :}
+	::= ConditionalOrExpression:type {: RESULT = type.getTypeOrName(); :}
 	| ConditionalOrExpression QUE Expression COLON ConditionalExpression
 	;
 
 AssignmentExpression
 	::= ConditionalExpression:type  {: RESULT = type; :}
-	| UnaryExpression:varname AssignmentOperator AssignmentExpression:type2 {:  
-                                                                                    if(armazemVar.containsVariavel(varname)){
+	| UnaryExpression:tuple AssignmentOperator AssignmentExpression:type2 {:  
+                                                                                    if(armazemVar.containsVariavel(tuple.getTypeOrName())){
                                                                                         if (armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																					String type1 = armazemVar.getVariavel(varname).getTipo();
+																					String type1 = armazemVar.getVariavel(tuple.getTypeOrName()).getTipo();
 																					if(type1.equals(type2)){
 																						RESULT = type1;
 																					} else {
 																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + type1 + " " + type2);
 																					}
 																				} else {
-																					System.out.println("ERRO SEMANTICO, VARIAVEL " + varname + " NAO EXISTE. CRIE ELA ANTES DE USAR");
+																					System.out.println("ERRO SEMANTICO, VARIAVEL " + tuple.getTypeOrName() + " NAO EXISTE. CRIE ELA ANTES DE USAR");
 																				}
 																																								
 																				:}
