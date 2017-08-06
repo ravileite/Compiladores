@@ -555,7 +555,11 @@ Finally
 	;
 
 PrimaryExpression
-	::= QualifiedName:name {: RESULT = new Tuple(name, ""); :}
+	::= QualifiedName:name {:   String temp = armazemCodigo.nextRegister();
+								armazemCodigo.addCode("LD " + temp + " , " +  name);
+								Tuple t = new Tuple(name, temp);
+								t.setExtra(name);
+								RESULT = t; :}
 	| NotJustName:tuple {: RESULT = tuple; :}
 	;
 
@@ -704,18 +708,18 @@ RealPostfixExpression
 										 String temp = armazemCodigo.nextRegister();
 										 armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
 										 armazemCodigo.addCode("ADD " + temp + " , " + temp + " , " + "#1"); 
-										 armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); :}
+										 armazemCodigo.addCode("ST " + tuple.getExtra() + " , " + temp); :}
 	| PostfixExpression:tuple OP_DEC {: RESULT = tuple; 
 										String temp = armazemCodigo.nextRegister();
 										armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
 										armazemCodigo.addCode("SUB " + temp + " , " + temp + " , " + "#1"); 
-										armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); :}
+										armazemCodigo.addCode("ST " + tuple.getExtra() + " , " + temp); :}
 	;
 
 UnaryExpression
 	::= OP_INC UnaryExpression
 	| OP_DEC UnaryExpression
-	| ArithmeticUnaryOperator:op CastExpression:tuple {: tuple.setOperator(op); RESULT = tuple; :}
+	| ArithmeticUnaryOperator:op CastExpression:tuple {: tuple.setExtra(op); RESULT = tuple; :}
 	| LogicalUnaryExpression:tuple {: RESULT = tuple; :}
 	;
 
@@ -953,8 +957,7 @@ AssignmentExpression
 																					
 																					if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName()) ||
 																					 util.verificaExpressaoAritimetica(tuple1.getTypeOrName(), tuple2.getTypeOrName()).equals(tuple1.getTypeOrName())){
-																					 
-																						armazemCodigo.addCode("ST " + tuple1.getCode() + " , " + tuple2.getCode());
+																						armazemCodigo.addCode("ST " + tuple1.getExtra() + " , " + tuple2.getCode());
 																						RESULT = tuple1;
 																					} else {
 																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + tuple1.getTypeOrName() + " " + tuple2.getTypeOrName());

@@ -4113,7 +4113,11 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int nameleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 RESULT = new Tuple(name, ""); 
+		   String temp = armazemCodigo.nextRegister();
+								armazemCodigo.addCode("LD " + temp + " , " +  name);
+								Tuple t = new Tuple(name, temp);
+								t.setExtra(name);
+								RESULT = t; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("PrimaryExpression",80, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4730,7 +4734,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 										 String temp = armazemCodigo.nextRegister();
 										 armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
 										 armazemCodigo.addCode("ADD " + temp + " , " + temp + " , " + "#1"); 
-										 armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); 
+										 armazemCodigo.addCode("ST " + tuple.getExtra() + " , " + temp); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RealPostfixExpression",82, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4746,7 +4750,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 										String temp = armazemCodigo.nextRegister();
 										armazemCodigo.addCode("LD " + temp + " , " + tuple.getCode());
 										armazemCodigo.addCode("SUB " + temp + " , " + temp + " , " + "#1"); 
-										armazemCodigo.addCode("ST " + tuple.getCode() + " , " + temp); 
+										armazemCodigo.addCode("ST " + tuple.getExtra() + " , " + temp); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("RealPostfixExpression",82, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4779,7 +4783,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int tupleleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int tupleright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Tuple tuple = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 tuple.setOperator(op); RESULT = tuple; 
+		 tuple.setExtra(op); RESULT = tuple; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("UnaryExpression",84, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -5493,8 +5497,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																					
 																					if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName()) ||
 																					 util.verificaExpressaoAritimetica(tuple1.getTypeOrName(), tuple2.getTypeOrName()).equals(tuple1.getTypeOrName())){
-																					 
-																						armazemCodigo.addCode("ST " + tuple1.getCode() + " , " + tuple2.getCode());
+																						armazemCodigo.addCode("ST " + tuple1.getExtra() + " , " + tuple2.getCode());
 																						RESULT = tuple1;
 																					} else {
 																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + tuple1.getTypeOrName() + " " + tuple2.getTypeOrName());
