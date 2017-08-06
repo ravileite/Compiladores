@@ -40,6 +40,10 @@ public class ArmazenadorCodigoAssembly {
 		ativado = false;
 	}
 	
+	public boolean isActive(){
+		return ativado;
+	}
+	
 	
 
 }

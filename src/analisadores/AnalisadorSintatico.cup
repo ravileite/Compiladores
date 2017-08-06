@@ -9,6 +9,7 @@ import auxiliares.*;
 parser code
 {:
     public Util util = new Util();
+    public ArmazenadorCodigoAssembly armazemCodigo = new ArmazenadorCodigoAssembly();
     public String resultado = "";
     public static LinkedList<TError> TabelaERSintatico = new  LinkedList<TError>();
 
@@ -52,7 +53,8 @@ action code {:
 
 	ArmazenadorVariavel armazemVar = new ArmazenadorVariavel();
     ArmazenadorMetodos armazemMetodos = new ArmazenadorMetodos();
-    ArmazenadorCodigoAssembly armazemCodigo = new ArmazenadorCodigoAssembly();
+    
+    
 
 
 
@@ -93,13 +95,13 @@ non terminal AssignmentOperator;
 
 non terminal String ArithmeticUnaryOperator;
 non terminal String Block;
-non terminal String PrimitiveType, TypeName, TypeSpecifier, AssignmentExpression, ConditionalExpression;
+non terminal String PrimitiveType, TypeName, TypeSpecifier;
 non terminal String PrimitiveTypeExpression, ClassTypeExpression;
 non terminal String QualifiedName, NewAllocationExpression, PlainNewAllocationExpression;
-non terminal String ArrayAllocationExpression, ClassAllocationExpression, Expression;
+non terminal String ArrayAllocationExpression, ClassAllocationExpression;
 non terminal String DimExprs, Dims, DimExpr;
 non terminal String ArrayAccess, FieldAccess;
-non terminal String MethodCall, MethodAccess, VariableInitializer, DeclaratorName, MethodBody, ArgumentList, Parameter;
+non terminal String MethodCall, MethodAccess, DeclaratorName, MethodBody, ArgumentList, Parameter;
 non terminal String LocalVariableDeclarationsAndStatements, LocalVariableDeclarationOrStatement, Statement, JumpStatement, ParameterList;
 non terminal Variavel FieldVariableDeclaration, VariableDeclarators, VariableDeclarator;
 non terminal Metodo MethodDeclarator;
@@ -108,6 +110,7 @@ non terminal Tuple PostfixExpression, RealPostfixExpression, LogicalUnaryExpress
 non terminal Tuple UnaryExpression, CastExpression, MultiplicativeExpression, AdditiveExpression;
 non terminal Tuple ShiftExpression, RelationalExpression, ConditionalOrExpression, ConditionalAndExpression;
 non terminal Tuple EqualityExpression, AndExpression, ExclusiveOrExpression, InclusiveOrExpression;
+non terminal Tuple ConditionalExpression, AssignmentExpression, Expression, VariableInitializer;
 
 precedence nonassoc ELSE, DOT, OPENPAR, OPENBRAC; //eh bom conferir se eh isso mesmo
 
@@ -278,12 +281,13 @@ VariableDeclarators
 
 VariableDeclarator
 	::= DeclaratorName:varname {: RESULT = new Variavel(varname, null);  :}
-	| DeclaratorName:varname EQU VariableInitializer:type {: if(armazemVar.containsVariavel(type)) type = armazemVar.getVariavel(type).getTipo();
-															RESULT = new Variavel(varname, type); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
+	| DeclaratorName:varname EQU VariableInitializer:tuple2 {: if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName(armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																armazemCodigo.addCode("ST " + varname + " , " + tuple2.getCode());
+															RESULT = new Variavel(varname, tuple2.getTypeOrName()); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
 	;
 
 VariableInitializer
-	::= Expression:type {: RESULT = type; :}
+	::= Expression:tuple {: RESULT = tuple; :}
 	| OPENKEYS CLOSEKEYS
         | OPENKEYS ArrayInitializers CLOSEKEYS
         ;
@@ -502,7 +506,7 @@ ForInit
 	;
 
 ForExpr
-	::= Expression:type SEMIC {: if (!type.equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); :}
+	::= Expression:tuple SEMIC {: if (!tuple.getTypeOrName().equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); :}
 	| SEMIC
 	;
 
@@ -520,7 +524,7 @@ JumpStatement
 	| BREAK            SEMIC
         | CONTINUE IDENTIFIER SEMIC
 	| CONTINUE            SEMIC
-	| RETURN Expression:type SEMIC {: RESULT = type; :}
+	| RETURN Expression:tuple SEMIC {: RESULT = tuple.getTypeOrName(); :}
 	| RETURN            SEMIC {: RESULT = "void"; :}
 	| THROW Expression SEMIC
 	;
@@ -562,7 +566,7 @@ NotJustName
 	;
 
 ComplexPrimary
-	::= OPENPAR Expression:type CLOSEPAR {: RESULT = new Tuple(type, "") ; :}
+	::= OPENPAR Expression:tuple CLOSEPAR {: RESULT = tuple ; :}
 	| ComplexPrimaryNoParenthesis:tuple {: RESULT = tuple ; :}
 	;
 
@@ -647,8 +651,8 @@ SpecialName
 	;
 
 ArgumentList
-	::= Expression:type {: RESULT = type; :}
-	| ArgumentList:type1 COMMA Expression:type2 {: RESULT = type1 + "," + type2; :}
+	::= Expression:tuple {: RESULT = tuple.getTypeOrName(); :}
+	| ArgumentList:type1 COMMA Expression:tuple2 {: RESULT = type1 + "," + tuple2.getTypeOrName(); :}
 	;
 
 NewAllocationExpression
@@ -682,7 +686,7 @@ DimExprs
 	;
 
 DimExpr
-	::= OPENBRAC Expression:type CLOSEBRAC {: RESULT = "[" + type + "]" ; :}
+	::= OPENBRAC Expression:tuple CLOSEBRAC {: RESULT = "[" + tuple.getTypeOrName() + "]" ; :}
 	;
 
 Dims
@@ -936,23 +940,27 @@ ConditionalOrExpression
 	;
 
 ConditionalExpression
-	::= ConditionalOrExpression:type {: RESULT = type.getTypeOrName(); :}
+	::= ConditionalOrExpression:tuple {: RESULT = tuple; :}
 	| ConditionalOrExpression QUE Expression COLON ConditionalExpression
 	;
 
 AssignmentExpression
-	::= ConditionalExpression:type  {: RESULT = type; :}
-	| UnaryExpression:tuple AssignmentOperator AssignmentExpression:type2 {:  
-                                                                                    if(armazemVar.containsVariavel(tuple.getTypeOrName())){
-                                                                                        if (armazemVar.containsVariavel(type2)) type2 = armazemVar.getVariavel(type2).getTipo();
-																					String type1 = armazemVar.getVariavel(tuple.getTypeOrName()).getTipo();
-																					if(type1.equals(type2)){
-																						RESULT = type1;
+	::= ConditionalExpression:tuple {: RESULT = tuple; :}
+	| UnaryExpression:tuple1 AssignmentOperator AssignmentExpression:tuple2 {:  
+                                                                                if(armazemVar.containsVariavel(tuple1.getTypeOrName())){
+                                                                                	tuple1.setTypeOrName(armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
+                                                                                    if (armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName(armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
+																					
+																					if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName()) ||
+																					 util.verificaExpressaoAritimetica(tuple1.getTypeOrName(), tuple2.getTypeOrName()).equals(tuple1.getTypeOrName())){
+																					 
+																						armazemCodigo.addCode("ST " + tuple1.getCode() + " , " + tuple2.getCode());
+																						RESULT = tuple1;
 																					} else {
-																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + type1 + " " + type2);
+																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + tuple1.getTypeOrName() + " " + tuple2.getTypeOrName());
 																					}
 																				} else {
-																					System.out.println("ERRO SEMANTICO, VARIAVEL " + tuple.getTypeOrName() + " NAO EXISTE. CRIE ELA ANTES DE USAR");
+																					System.out.println("ERRO SEMANTICO, VARIAVEL " + tuple1.getTypeOrName() + " NAO EXISTE. CRIE ELA ANTES DE USAR");
 																				}
 																																								
 																				:}
@@ -974,7 +982,7 @@ AssignmentOperator
 	;
 
 Expression
-	::= AssignmentExpression:type {: RESULT = type; :}
+	::= AssignmentExpression:tuple {: RESULT = tuple; :}
         ;
 
 ConstantExpression
