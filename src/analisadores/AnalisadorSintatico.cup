@@ -249,6 +249,7 @@ FieldDeclaration
 
 FieldVariableDeclaration
 	::= Modifiers TypeSpecifier:type VariableDeclarators:var1 {: if(armazemVar.containsVariavel(var1.getNome())){
+	 																	armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
@@ -256,11 +257,13 @@ FieldVariableDeclaration
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																		    armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
 																		}
 																	}
 																 :}
 	|           TypeSpecifier:type VariableDeclarators:var1 {: if(armazemVar.containsVariavel(var1.getNome())){
+	            														armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
@@ -268,6 +271,7 @@ FieldVariableDeclaration
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																			armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
 																		}
 																	}
@@ -305,6 +309,7 @@ MethodDeclaration
                                                                                                   }
                                                                                                   
                                                                                                   if (!rtype.equals(mtype)) {
+                                                                                                  	   armazemCodigo.desativa();
                                                                                                        System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                                                   } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -319,16 +324,18 @@ MethodDeclaration
 
                                                                                     System.out.println("Return type: " + rtype + " Used return type:" + mtype);
                                                                                     if (!rtype.equals(mtype)) {
-                                                                            System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
-                                                                         } else {
-                                                                                                       novoMetodo.setTipoRetorno(rtype);
-                                                                                                  }
+                                                                                    	armazemCodigo.desativa();
+                                                                            			System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
+                                                                        			} else {
+                                                                                        novoMetodo.setTipoRetorno(rtype);
+                                                                                    }
                                                                      :}
 	|           TypeSpecifier:rtype MethodDeclarator:novoMetodo Throws MethodBody:mtype {: if (mtype == null) mtype = "void";  
                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                             if (!rtype.equals(mtype)) {
+                                                                            armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -339,6 +346,7 @@ MethodDeclaration
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                                  if (!rtype.equals(mtype)) {
+                                                                            armazemCodigo.desativa();                     
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -358,6 +366,7 @@ MethodDeclarator
                                                                         }
                                                                         
                                                                         if (armazemMetodos.containsMetodo(name, params)){
+                                                                        	armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + types + ") " + " JA ESTA SENDO USADO");
                                                                         } else {
                                                                             Metodo novoMetodo = new Metodo(name, params);
@@ -371,6 +380,7 @@ MethodDeclarator
                                                                         }
                                                                      :}
 	| DeclaratorName:name OPENPAR CLOSEPAR {: if (armazemMetodos.containsMetodo(name)){
+												armazemCodigo.desativa();
                                                 System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + ") " + " JA ESTA SENDO USADO");
                                              } else {
                                                 Metodo novoMetodo = new Metodo(name);
@@ -447,6 +457,7 @@ LocalVariableDeclarationOrStatement
 
 LocalVariableDeclarationStatement
 	::= TypeSpecifier:type VariableDeclarators:var1 SEMIC {: 		if(armazemVar.containsVariavel(var1.getNome())){
+																		armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type) || !util.verificaExpressaoAritimetica(var1.getTipo(), type).equals("error")){
@@ -454,6 +465,7 @@ LocalVariableDeclarationStatement
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																			armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL: " + type + " " + var1.getTipo());
 																		}
 																	}
@@ -506,7 +518,11 @@ ForInit
 	;
 
 ForExpr
-	::= Expression:tuple SEMIC {: if (!tuple.getTypeOrName().equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); :}
+	::= Expression:tuple SEMIC {: if (!tuple.getTypeOrName().equals("boolean")){
+									  armazemCodigo.desativa();
+									  System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN");
+									  }
+							   :}
 	| SEMIC
 	;
 
@@ -759,6 +775,7 @@ MultiplicativeExpression
 	| MultiplicativeExpression:tuple1 MULT CastExpression:tuple2 {: 	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -770,6 +787,7 @@ MultiplicativeExpression
 	| MultiplicativeExpression:tuple1 DIV CastExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -781,6 +799,7 @@ MultiplicativeExpression
 	| MultiplicativeExpression:tuple1 MOD CastExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -796,6 +815,7 @@ AdditiveExpression
         | AdditiveExpression:tuple1 PLUS MultiplicativeExpression:tuple2 {: if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -808,6 +828,7 @@ AdditiveExpression
 	| AdditiveExpression:tuple1 MINUS MultiplicativeExpression:tuple2 {: if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -830,6 +851,7 @@ RelationalExpression
         | RelationalExpression:tuple1 LTHEN ShiftExpression:tuple2 {:  	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -841,6 +863,7 @@ RelationalExpression
 	| RelationalExpression:tuple1 BTHEN ShiftExpression:tuple2 {:  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -852,6 +875,7 @@ RelationalExpression
 	| RelationalExpression:tuple1 OP_LE ShiftExpression:tuple2 {: 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -863,6 +887,7 @@ RelationalExpression
 	| RelationalExpression:tuple1 OP_GE ShiftExpression:tuple2 {:  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -880,6 +905,7 @@ EqualityExpression
         | EqualityExpression:tuple1 OP_EQ RelationalExpression:tuple2 {:  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -892,6 +918,7 @@ EqualityExpression
         | EqualityExpression:tuple1 OP_NE RelationalExpression:tuple2 {:  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -906,6 +933,7 @@ AndExpression
 	::= EqualityExpression:tuple {: RESULT = tuple; :}
         | AndExpression:tuple1 AMPER EqualityExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } :}
         ;
@@ -914,6 +942,7 @@ ExclusiveOrExpression
 	::= AndExpression:tuple {: RESULT = tuple; :}
 	| ExclusiveOrExpression:tuple1 XOR AndExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     }  :}
 	;
@@ -922,6 +951,7 @@ InclusiveOrExpression
 	::= ExclusiveOrExpression:tuple  {: RESULT = tuple; :}
 	| InclusiveOrExpression:tuple1 SOR ExclusiveOrExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     }  :}
 	;
@@ -930,6 +960,7 @@ ConditionalAndExpression
 	::= InclusiveOrExpression:tuple {: RESULT = tuple; :}
 	| ConditionalAndExpression:tuple1 OP_LAND InclusiveOrExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } :}
 	;
@@ -939,6 +970,7 @@ ConditionalOrExpression
 	::= ConditionalAndExpression:tuple {: RESULT = tuple; :}
 	| ConditionalOrExpression:tuple1 OP_LOR ConditionalAndExpression:tuple2 {: if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } :}
 	;
@@ -960,9 +992,11 @@ AssignmentExpression
 																						armazemCodigo.addCode("ST " + tuple1.getExtra() + " , " + tuple2.getCode());
 																						RESULT = tuple1;
 																					} else {
+																					    armazemCodigo.desativa();
 																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + tuple1.getTypeOrName() + " " + tuple2.getTypeOrName());
 																					}
 																				} else {
+																				    armazemCodigo.desativa();
 																					System.out.println("ERRO SEMANTICO, VARIAVEL " + tuple1.getTypeOrName() + " NAO EXISTE. CRIE ELA ANTES DE USAR");
 																				}
 																																								
