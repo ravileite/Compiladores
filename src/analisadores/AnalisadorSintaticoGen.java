@@ -5169,7 +5169,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             if(armazemCodigo.ehFor()){ 
                                                                             	String temp0 = armazemCodigo.nextRegister();
@@ -5205,7 +5205,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             if(armazemCodigo.ehFor()){
                                                                             	String temp0 = armazemCodigo.nextRegister();
@@ -5241,7 +5241,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             if(armazemCodigo.ehFor()){
                                                                             	String temp0 = armazemCodigo.nextRegister();
@@ -5277,7 +5277,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             if(armazemCodigo.ehFor()){
                                                                             	String temp0 = armazemCodigo.nextRegister();
@@ -5334,7 +5334,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             armazemCodigo.addCode("EQ " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             RESULT = new Tuple(type, temp);
@@ -5360,7 +5360,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
-                                                                            String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
+                                                                            String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
                                                                             armazemCodigo.addCode("NE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             RESULT = new Tuple(type, temp);
