@@ -3064,6 +3064,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int var1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Variavel var1 = (Variavel)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(armazemVar.containsVariavel(var1.getNome())){
+	 																	armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
@@ -3071,6 +3072,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																		    armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
 																		}
 																	}
@@ -3090,6 +3092,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int var1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Variavel var1 = (Variavel)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(armazemVar.containsVariavel(var1.getNome())){
+	            														armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type)){
@@ -3097,6 +3100,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																			armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL");
 																		}
 																	}
@@ -3231,6 +3235,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                                   }
                                                                                                   
                                                                                                   if (!rtype.equals(mtype)) {
+                                                                                                  	   armazemCodigo.desativa();
                                                                                                        System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                                                   } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -3262,10 +3267,11 @@ class CUP$AnalisadorSintaticoGen$actions {
 
                                                                                     System.out.println("Return type: " + rtype + " Used return type:" + mtype);
                                                                                     if (!rtype.equals(mtype)) {
-                                                                            System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
-                                                                         } else {
-                                                                                                       novoMetodo.setTipoRetorno(rtype);
-                                                                                                  }
+                                                                                    	armazemCodigo.desativa();
+                                                                            			System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
+                                                                        			} else {
+                                                                                        novoMetodo.setTipoRetorno(rtype);
+                                                                                    }
                                                                      
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodDeclaration",17, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
@@ -3289,6 +3295,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                             if (!rtype.equals(mtype)) {
+                                                                            armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -3316,6 +3323,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
                                                                                                  if (!rtype.equals(mtype)) {
+                                                                            armazemCodigo.desativa();                     
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
                                                                                                        novoMetodo.setTipoRetorno(rtype);
@@ -3346,6 +3354,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                         }
                                                                         
                                                                         if (armazemMetodos.containsMetodo(name, params)){
+                                                                        	armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + types + ") " + " JA ESTA SENDO USADO");
                                                                         } else {
                                                                             Metodo novoMetodo = new Metodo(name, params);
@@ -3370,6 +3379,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int nameright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
 		 if (armazemMetodos.containsMetodo(name)){
+												armazemCodigo.desativa();
                                                 System.out.println("ERRO SEMANTICO, O METODO " + name + "(" + ") " + " JA ESTA SENDO USADO");
                                              } else {
                                                 Metodo novoMetodo = new Metodo(name);
@@ -3668,6 +3678,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int var1right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		Variavel var1 = (Variavel)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
 		 		if(armazemVar.containsVariavel(var1.getNome())){
+																		armazemCodigo.desativa();
 																		System.out.println("ERRO SEMANTICO, O NOME DE VARIAVEL " + var1.getNome() + " JA ESTA SENDO USADO");
 																	} else {
 																		if(var1.getTipo() == null || var1.getTipo().equals(type) || !util.verificaExpressaoAritimetica(var1.getTipo(), type).equals("error")){
@@ -3675,6 +3686,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 																			armazemVar.addVariavel(var);
 																			RESULT = var;
 																		} else {
+																			armazemCodigo.desativa();
 																			System.out.println("ERRO SEMANTICO, O TIPO DA EXPRESSAO EH DIFERENTE DO TIPO DA VARIAVEL: " + type + " " + var1.getTipo());
 																		}
 																	}
@@ -3861,7 +3873,13 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 137: // IterationStatement ::= FOR OPENPAR ForInit ForExpr ForIncr CLOSEPAR Statement 
             {
               Object RESULT =null;
-
+		 	
+																	int label = armazemCodigo.getUltimoLabel();
+																	LinkedList<String> codigos = armazemCodigo.getCodigoRelacional(label);
+																	for(int i = 0; i < codigos.size() ; i++){
+																		armazemCodigo.addCode(codigos.get(i));																	}																	
+																
+															  
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("IterationStatement",26, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-6)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3888,7 +3906,7 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 140: // ForInit ::= LocalVariableDeclarationStatement 
             {
               Object RESULT =null;
-
+		 armazemCodigo.addCode("flag"); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ForInit",29, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3909,7 +3927,11 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int tupleleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
 		int tupleright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		Tuple tuple = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
-		 if (!tuple.getTypeOrName().equals("boolean")) System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN"); 
+		 if (!tuple.getTypeOrName().equals("int")){
+									  armazemCodigo.desativa();
+									  System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN");
+									  }
+							   
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ForExpr",39, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4951,6 +4973,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -4976,6 +4999,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5001,6 +5025,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5038,6 +5063,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5063,6 +5089,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5139,11 +5166,22 @@ class CUP$AnalisadorSintaticoGen$actions {
 		  	if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){ 
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      
@@ -5164,11 +5202,22 @@ class CUP$AnalisadorSintaticoGen$actions {
 		  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{                                     
+                                                                           		armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      
@@ -5189,11 +5238,22 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{	
+                                                                            	armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      
@@ -5214,11 +5274,22 @@ class CUP$AnalisadorSintaticoGen$actions {
 		  		if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      
@@ -5260,6 +5331,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5285,6 +5357,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		  if(armazemVar.containsVariavel(tuple1.getTypeOrName())) tuple1.setTypeOrName( armazemVar.getVariavel(tuple1.getTypeOrName()).getTipo());
         																if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName( armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
 																		if (util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName()).equals("error")){
+																		   armazemCodigo.desativa();
                                                                            System.out.println("ERRO SEMANTICO"); 
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
@@ -5321,6 +5394,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("AndExpression",93, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -5351,6 +5425,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     }  
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ExclusiveOrExpression",94, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -5381,6 +5456,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     }  
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("InclusiveOrExpression",95, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -5411,6 +5487,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalAndExpression",91, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -5441,6 +5518,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(tuple1.getTypeOrName().equals(tuple2.getTypeOrName())){
 										    RESULT = tuple1;} else { 
+										    armazemCodigo.desativa();
 										    System.out.println("ERRO SEMANTICO");
 										     } 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ConditionalOrExpression",90, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -5500,9 +5578,11 @@ class CUP$AnalisadorSintaticoGen$actions {
 																						armazemCodigo.addCode("ST " + tuple1.getExtra() + " , " + tuple2.getCode());
 																						RESULT = tuple1;
 																					} else {
+																					    armazemCodigo.desativa();
 																						System.out.println("ERRO SEMANTICO NA ATRIBUICAO. OS DOIS VALORES TEM QUE SER DO MESMO TIPO: " + tuple1.getTypeOrName() + " " + tuple2.getTypeOrName());
 																					}
 																				} else {
+																				    armazemCodigo.desativa();
 																					System.out.println("ERRO SEMANTICO, VARIAVEL " + tuple1.getTypeOrName() + " NAO EXISTE. CRIE ELA ANTES DE USAR");
 																				}
 																																								

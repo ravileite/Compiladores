@@ -1,18 +1,25 @@
 package auxiliares;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ArmazenadorCodigoAssembly {
 	
 	private boolean ativado;
 	private int currentRegister;
 	private List<String> codeList;
+	private List<Integer> labels;
+	private Map<Integer, LinkedList<String>> codigosRelacionais;
 	
 	public ArmazenadorCodigoAssembly(){
 		ativado = true;
 		currentRegister = 0;
 		codeList = new ArrayList<String>();
+		labels = new ArrayList<Integer>();
+		codigosRelacionais = new HashMap<Integer, LinkedList<String>>();
 	}
 	
 	public String nextRegister(){
@@ -34,6 +41,45 @@ public class ArmazenadorCodigoAssembly {
 			return l;
 		}
 		
+	}
+	
+	public boolean ehFor(){
+		if(codeList.get(codeList.size()-2).equals("flag")){
+			codeList.remove(codeList.size()-2);
+			if(labels.isEmpty()){
+				labels.add(1);
+			}else{
+				labels.add(labels.get(labels.size()-1) + 1);
+			}
+			codeList.add(labels.get(labels.size()-1) + ":");
+			return true;
+		}
+		return false;
+	}
+	
+	public void addCodigosRelacionais(String code){
+		if(!codigosRelacionais.containsKey(labels.get(labels.size()-1))){
+			codigosRelacionais.put(labels.get(labels.size()-1), new LinkedList<String>());
+		}
+		codigosRelacionais.get(labels.get(labels.size()-1)).add(code);
+	}
+	
+	public LinkedList<String> getCodigoRelacional(int i){
+		return codigosRelacionais.get(i);
+	}
+	
+	public int getUltimoLabel(){
+		return labels.get(labels.size()-1);
+	}
+	
+	public int removeUltimoLabel(){
+		int label = labels.get(labels.size()-1);
+		labels.remove(labels.size()-1);
+		return label;
+	}
+	
+	public void removeCodigoRelacional(int label){
+		codigosRelacionais.remove(label);
 	}
 	
 	public void desativa(){

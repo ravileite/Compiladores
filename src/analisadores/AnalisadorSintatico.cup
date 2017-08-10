@@ -507,18 +507,24 @@ SelectionStatement
 IterationStatement
 	::= WHILE OPENPAR Expression CLOSEPAR Statement
 	| DO Statement WHILE OPENPAR Expression CLOSEPAR SEMIC
-	| FOR OPENPAR ForInit ForExpr ForIncr CLOSEPAR Statement
+	| FOR OPENPAR ForInit ForExpr ForIncr CLOSEPAR Statement  {: 	
+																	int label = armazemCodigo.getUltimoLabel();
+																	LinkedList<String> codigos = armazemCodigo.getCodigoRelacional(label);
+																	for(int i = 0; i < codigos.size() ; i++){
+																		armazemCodigo.addCode(codigos.get(i));																	}																	
+																
+															  :}
 	| FOR OPENPAR ForInit ForExpr         CLOSEPAR Statement
 	;
 
 ForInit
-	::= ExpressionStatements SEMIC
-	| LocalVariableDeclarationStatement
+	::= ExpressionStatements SEMIC 
+	| LocalVariableDeclarationStatement {: armazemCodigo.addCode("flag"); :}
 	| SEMIC
 	;
 
 ForExpr
-	::= Expression:tuple SEMIC {: if (!tuple.getTypeOrName().equals("boolean")){
+	::= Expression:tuple SEMIC {: if (!tuple.getTypeOrName().equals("int")){
 									  armazemCodigo.desativa();
 									  System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN");
 									  }
@@ -856,7 +862,17 @@ RelationalExpression
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){ 
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
@@ -868,7 +884,17 @@ RelationalExpression
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{                                     
+                                                                           		armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
@@ -880,7 +906,17 @@ RelationalExpression
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{	
+                                                                            	armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
@@ -892,7 +928,17 @@ RelationalExpression
                                                                         }else{
                                                                             String type = util.verificaExpressaoAritimetica(tuple1.getTypeOrName(),tuple2.getTypeOrName());
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      :}
