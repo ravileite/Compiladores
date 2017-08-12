@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		args = new String[1];
-		args[0] = new File("").getAbsolutePath() + "/src/testadores/Teste6.java";
+		args[0] = new File("").getAbsolutePath() + "/src/testadores/Teste5.java";
                 
 		try {
 			AnalisadorLexicoGen lex = new AnalisadorLexicoGen(new FileReader(args[0]));

@@ -286,8 +286,8 @@ VariableDeclarators
 VariableDeclarator
 	::= DeclaratorName:varname {: RESULT = new Variavel(varname, null);  :}
 	| DeclaratorName:varname EQU VariableInitializer:tuple2 {: if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName(armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
-																armazemCodigo.addCode("ST " + varname + " , " + tuple2.getCode());
-															RESULT = new Variavel(varname, tuple2.getTypeOrName()); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
+                                                                                                                           armazemCodigo.addCode("ST " + varname + " , " + tuple2.getCode());
+                                                                                                                           RESULT = new Variavel(varname, tuple2.getTypeOrName()); :} //isso eh uma gambiarra pra guardar o nome de uma variavel e o suposto tipo a ser passado pra cima
 	;
 
 VariableInitializer
@@ -375,6 +375,9 @@ MethodDeclarator
                                                                                 String[] paramAndName = paramsAndNames[i].split(":");
                                                                                 armazemVar.addVariavel(paramAndName[1], paramAndName[0]);
                                                                             }
+
+                                                                            armazemCodigo.addMetodo(novoMetodo.getNome());
+                                                                            armazemCodigo.addCode(novoMetodo.getNome());
                                                                             
                                                                             RESULT = novoMetodo;    
                                                                         }
@@ -385,6 +388,10 @@ MethodDeclarator
                                              } else {
                                                 Metodo novoMetodo = new Metodo(name);
                                                 armazemMetodos.addMetodo(novoMetodo);
+                                                
+                                                armazemCodigo.addMetodo(novoMetodo.getNome());
+                                                armazemCodigo.addCode(novoMetodo.getNome());
+
                                                 RESULT = novoMetodo;    
                                              }
                                           :}
@@ -546,8 +553,10 @@ JumpStatement
 	| BREAK            SEMIC
         | CONTINUE IDENTIFIER SEMIC
 	| CONTINUE            SEMIC
-	| RETURN Expression:tuple SEMIC {: RESULT = tuple.getTypeOrName(); :}
-	| RETURN            SEMIC {: RESULT = "void"; :}
+	| RETURN Expression:tuple SEMIC {: armazemCodigo.addCode("BR *0(SP)");
+                                           RESULT = tuple.getTypeOrName(); :}
+	| RETURN            SEMIC {: armazemCodigo.addCode("BR *0(SP)");
+                                     RESULT = "void"; :}
 	| THROW Expression SEMIC
 	;
 
@@ -653,13 +662,23 @@ MethodCall
                                                                          if (m == null) {
                                                                             m = possivel;
                                                                          }
+
+                                                                         armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                                         armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
+                                                                         armazemCodigo.addCode("BR " + m.getNome());
+                                                                         armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
                                                                          RESULT = m.getTipoRetorno();
 :}   
                                                                          
 	|  DOT MethodAccess:name OPENPAR CLOSEPAR {: if (!armazemMetodos.containsMetodo(name)) {
                                                         throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
-                                                     
+
+                                                     armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                     armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
+                                                     armazemCodigo.addCode("BR " + armazemCodigo.getMethodLine(name));
+                                                     armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
+
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); :}
 	;
 

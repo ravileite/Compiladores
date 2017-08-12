@@ -3153,8 +3153,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int tuple2right = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		Tuple tuple2 = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
 		 if(armazemVar.containsVariavel(tuple2.getTypeOrName())) tuple2.setTypeOrName(armazemVar.getVariavel(tuple2.getTypeOrName()).getTipo());
-																armazemCodigo.addCode("ST " + varname + " , " + tuple2.getCode());
-															RESULT = new Variavel(varname, tuple2.getTypeOrName()); 
+                                                                                                                           armazemCodigo.addCode("ST " + varname + " , " + tuple2.getCode());
+                                                                                                                           RESULT = new Variavel(varname, tuple2.getTypeOrName()); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("VariableDeclarator",75, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3363,6 +3363,9 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                 String[] paramAndName = paramsAndNames[i].split(":");
                                                                                 armazemVar.addVariavel(paramAndName[1], paramAndName[0]);
                                                                             }
+
+                                                                            armazemCodigo.addMetodo(novoMetodo.getNome());
+                                                                            armazemCodigo.addCode(novoMetodo.getNome());
                                                                             
                                                                             RESULT = novoMetodo;    
                                                                         }
@@ -3384,6 +3387,10 @@ class CUP$AnalisadorSintaticoGen$actions {
                                              } else {
                                                 Metodo novoMetodo = new Metodo(name);
                                                 armazemMetodos.addMetodo(novoMetodo);
+                                                
+                                                armazemCodigo.addMetodo(novoMetodo.getNome());
+                                                armazemCodigo.addCode(novoMetodo.getNome());
+
                                                 RESULT = novoMetodo;    
                                              }
                                           
@@ -4015,7 +4022,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int tupleleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
 		int tupleright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		Tuple tuple = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
-		 RESULT = tuple.getTypeOrName(); 
+		 armazemCodigo.addCode("BR *0(SP)");
+                                           RESULT = tuple.getTypeOrName(); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("JumpStatement",71, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4024,7 +4032,8 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 152: // JumpStatement ::= RETURN SEMIC 
             {
               String RESULT =null;
-		 RESULT = "void"; 
+		 armazemCodigo.addCode("BR *0(SP)");
+                                     RESULT = "void"; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("JumpStatement",71, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4384,6 +4393,11 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                          if (m == null) {
                                                                             m = possivel;
                                                                          }
+
+                                                                         armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                                         armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
+                                                                         armazemCodigo.addCode("BR " + m.getNome());
+                                                                         armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
                                                                          RESULT = m.getTipoRetorno();
 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodCall",62, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-4)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
@@ -4400,7 +4414,12 @@ class CUP$AnalisadorSintaticoGen$actions {
 		 if (!armazemMetodos.containsMetodo(name)) {
                                                         throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
-                                                     
+
+                                                     armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                     armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
+                                                     armazemCodigo.addCode("BR " + armazemCodigo.getMethodLine(name));
+                                                     armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
+
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodCall",62, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
