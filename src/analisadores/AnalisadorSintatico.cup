@@ -618,7 +618,7 @@ ComplexPrimaryNoParenthesis
 	| BOOLLIT:lexval {: RESULT = new Tuple("boolean", lexval); :}
 	| ArrayAccess:type {: RESULT = new Tuple(type, "") ; :}
 	| FieldAccess
-	| MethodCall:type {: System.out.println("Type method call:" + type); RESULT = new Tuple(type, "") ; :}
+	| MethodCall:type {: System.out.println("Type method call:" + type); RESULT = new Tuple(type, "5") ; :}
 	;
 
 ArrayAccess

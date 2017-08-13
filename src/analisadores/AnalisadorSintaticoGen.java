@@ -4282,7 +4282,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 System.out.println("Type method call:" + type); RESULT = new Tuple(type, "") ; 
+		 System.out.println("Type method call:" + type); RESULT = new Tuple(type, "5") ; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ComplexPrimaryNoParenthesis",77, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
