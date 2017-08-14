@@ -3895,7 +3895,13 @@ class CUP$AnalisadorSintaticoGen$actions {
           case 138: // IterationStatement ::= FOR OPENPAR ForInit ForExpr CLOSEPAR Statement 
             {
               Object RESULT =null;
-
+		 	
+																	int label = armazemCodigo.getUltimoLabel();
+																	LinkedList<String> codigos = armazemCodigo.getCodigoRelacional(label);
+																	for(int i = 0; i < codigos.size() ; i++){
+																		armazemCodigo.addCode(codigos.get(i));																	}																	
+																
+															  
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("IterationStatement",26, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-5)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -3934,7 +3940,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int tupleleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
 		int tupleright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		Tuple tuple = (Tuple)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
-		 if (!tuple.getTypeOrName().equals("int")){
+		 if (!tuple.getTypeOrName().equals("boolean")){
 									  armazemCodigo.desativa();
 									  System.out.println("ERRO SEMANTICO, A EXPRESSAO DO MEIO DO FOR TEM QUE SER BOOLEAN");
 									  }
@@ -5194,10 +5200,19 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             	String temp0 = armazemCodigo.nextRegister();
                                                                             	String temp1 = armazemCodigo.nextRegister();     
                                                                             	String temp2 = armazemCodigo.nextRegister();
-                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BBTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
                                                                             	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
                                                                             	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
-                                                                            	armazemCodigo.addCodigosRelacionais("BLTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
+                                                                            	
                                                                             }else{
                                                                             	armazemCodigo.addCode("LTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             }
@@ -5230,10 +5245,18 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             	String temp0 = armazemCodigo.nextRegister();
                                                                             	String temp1 = armazemCodigo.nextRegister();     
                                                                             	String temp2 = armazemCodigo.nextRegister();
-                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BLTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
                                                                             	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
                                                                             	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
-                                                                            	armazemCodigo.addCodigosRelacionais("BBTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
                                                                             }else{                                     
                                                                            		armazemCodigo.addCode("BTHEN " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             }
@@ -5266,10 +5289,18 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             	String temp0 = armazemCodigo.nextRegister();
                                                                             	String temp1 = armazemCodigo.nextRegister();     
                                                                             	String temp2 = armazemCodigo.nextRegister();
-                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BBTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
                                                                             	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
                                                                             	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
-                                                                            	armazemCodigo.addCodigosRelacionais("BLTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais("BLTEZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
                                                                             }else{	
                                                                             	armazemCodigo.addCode("LE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             }
@@ -5302,12 +5333,20 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             	String temp0 = armazemCodigo.nextRegister();
                                                                             	String temp1 = armazemCodigo.nextRegister();     
                                                                             	String temp2 = armazemCodigo.nextRegister();
-                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getCode());                                                                     	
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BLTZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
                                                                             	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
                                                                             	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
-                                                                            	armazemCodigo.addCodigosRelacionais("BBTEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais("BBTEZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
                                                                             }else{
-                                                                            	armazemCodigo.addCode("GE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("BE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
                                                                             }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
@@ -5355,7 +5394,25 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                         }else{
                                                                             String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("EQ " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BDZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BEZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("EQ " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      
@@ -5381,7 +5438,25 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                         }else{
                                                                             String type = "boolean";
                                                                             String temp = armazemCodigo.nextRegister();
-                                                                            armazemCodigo.addCode("NE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            if(armazemCodigo.ehFor()){
+                                                                            	String temp0 = armazemCodigo.nextRegister();
+                                                                            	String temp1 = armazemCodigo.nextRegister();     
+                                                                            	String temp2 = armazemCodigo.nextRegister();
+                                                                            	
+                                                                                armazemCodigo.addCode("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCode("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCode("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCode("BEZ " + temp2 + " , " + armazemCodigo.getUltimoLabel());
+                                                                            	armazemCodigo.addCode(armazemCodigo.getPenultimoLabel() + ": ");
+                                                                   	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp0 + " , " + tuple1.getExtra());                                                                     	
+                                                                            	armazemCodigo.addCodigosRelacionais("LD " + temp1 + " , " + tuple2.getCode());
+                                                                            	armazemCodigo.addCodigosRelacionais("SUB " + temp2 + " , " + temp0 + " , " + temp1);
+                                                                            	armazemCodigo.addCodigosRelacionais("BDZ " + temp2 + " , " + armazemCodigo.getPenultimoLabel());
+                                                                            	armazemCodigo.addCodigosRelacionais(armazemCodigo.getUltimoLabel() + ": ");
+                                                                            }else{
+                                                                            	armazemCodigo.addCode("NE " + temp + " , " + tuple1.getCode() + " , " + tuple2.getCode());
+                                                                            }
                                                                             RESULT = new Tuple(type, temp);
                                                                         }
                                                                      

@@ -60,10 +60,11 @@ public class ArmazenadorCodigoAssembly {
 			codeList.remove(codeList.size()-2);
 			if(labels.isEmpty()){
 				labels.add(1);
+				labels.add(2);
 			}else{
 				labels.add(labels.get(labels.size()-1) + 1);
+				labels.add(labels.get(labels.size()-1) + 1);
 			}
-			codeList.add(labels.get(labels.size()-1) + ":");
 			return true;
 		}
 		return false;
@@ -82,6 +83,10 @@ public class ArmazenadorCodigoAssembly {
 	
 	public int getUltimoLabel(){
 		return labels.get(labels.size()-1);
+	}
+	
+	public int getPenultimoLabel(){
+		return labels.get(labels.size()-2);
 	}
 	
 	public int removeUltimoLabel(){
