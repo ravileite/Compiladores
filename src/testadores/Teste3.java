@@ -2,36 +2,36 @@ package testadores;
 
 public class Teste3 {
 	
-	public int test1(){
+	public static int test1(){
 		return 5;
 	}
 	
-	public boolean test2(int a1, double b1){
+	public static boolean test2(int a1, double b1){
 		if(a1 == b1) return true;
 		return false;
 	}
 	
-	public boolean test3(float a2, double b2){
+	public static boolean test3(float a2, double b2){
 		if (a2 > b2) return true;
 		return false;
 	}
 	
-	public boolean test4(float a3, double b3){
+	public static boolean test4(float a3, double b3){
 		if(a3 < b3) return true;
 		return false;
 	}
 	
-	public boolean test5(float a4, double b4){
+	public static boolean test5(float a4, double b4){
 		if(a4 != b4)return true;
 		return false;
 	}
 	
-	public double test6(float a5, double b5){
+	public static double test6(float a5, double b5){
 		if(.test5(a5,b5)) return 5;
 		return 5.0;
 	}
 	
-	public boolean test7(int a6, double b6){
+	public static boolean test7(int a6, double b6){
 		if(a6 < b6) return true;
 		return false;
 	}

@@ -3233,8 +3233,8 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                                   }
-                                                                                                  
-                                                                                                  if (!rtype.equals(mtype)) {
+                                                                                                  Util util = new Util();
+                                                                                                  if (!util.verificaExpressaoAritimeticaSimples(rtype, mtype) && (!rtype.equals(mtype))) {
                                                                                                   	   armazemCodigo.desativa();
                                                                                                        System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                                                   } else {
@@ -3264,8 +3264,9 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-
-                                                                                    if (!rtype.equals(mtype)) {
+                                                                                    
+																					Util util = new Util();
+                                                                                    if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) && (!rtype.equals(mtype))) {
                                                                                     	armazemCodigo.desativa();
                                                                             			System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                         			} else {
@@ -3293,7 +3294,9 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-                                                                                            if (!rtype.equals(mtype)) {
+                                                                                    
+                                                                                    Util util = new Util();
+                                                                                            if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) && (!rtype.equals(mtype))) {
                                                                             armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
@@ -3321,7 +3324,9 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                                                 if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-                                                                                                 if (!rtype.equals(mtype)) {
+                                                                                    Util util = new Util();
+                                                                                    
+                                                                                                 if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) || (!rtype.equals(mtype))) {
                                                                             armazemCodigo.desativa();                     
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
@@ -4297,7 +4302,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int typeleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).left;
 		int typeright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()).right;
 		String type = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.peek()).value;
-		 System.out.println("Type method call:" + type); RESULT = new Tuple(type, "5") ; 
+		 RESULT = new Tuple(type, "5") ; 
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("ComplexPrimaryNoParenthesis",77, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;
@@ -4392,7 +4397,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             }
                                                                          }
                                                                          Metodo possivel = armazemMetodos.getMetodoPossivel(name, argsType);
-                                                                         System.out.println("Metodos possiveis:" + possivel); 
+                                                                         
                                                                          if (!armazemMetodos.containsMetodo(name, argsType) && possivel == null) {
                                                                             String strTypes = "";
                                                                             for (int i = 0; i < argsType.length - 1; i++) {
@@ -4403,7 +4408,7 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                                             throw new RuntimeException("O m�todo |" + name + "(" + strTypes + ")|" + " n�o existe.");
                                                                          }
                                                                          
-                                                                         System.out.println("Acesso a metodo. " + Arrays.toString(argsType)); 
+                                                                          
                                                                          Metodo m = armazemMetodos.getMetodo(name,argsType);
                                                                          if (m == null) {
                                                                             m = possivel;

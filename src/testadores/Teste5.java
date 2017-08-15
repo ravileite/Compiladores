@@ -14,6 +14,7 @@ public class Teste5 {
 		int z;
 		z = x + y;
 		z = z + 3;
+		.test1();
                 
 	}
 }

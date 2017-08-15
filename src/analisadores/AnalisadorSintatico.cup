@@ -307,8 +307,8 @@ MethodDeclaration
                                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                                   }
-                                                                                                  
-                                                                                                  if (!rtype.equals(mtype)) {
+                                                                                                  Util util = new Util();
+                                                                                                  if (!util.verificaExpressaoAritimeticaSimples(rtype, mtype) && (!rtype.equals(mtype))) {
                                                                                                   	   armazemCodigo.desativa();
                                                                                                        System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                                                   } else {
@@ -321,8 +321,9 @@ MethodDeclaration
                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-
-                                                                                    if (!rtype.equals(mtype)) {
+                                                                                    
+																					Util util = new Util();
+                                                                                    if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) && (!rtype.equals(mtype))) {
                                                                                     	armazemCodigo.desativa();
                                                                             			System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                         			} else {
@@ -333,7 +334,9 @@ MethodDeclaration
                                                                                     if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-                                                                                            if (!rtype.equals(mtype)) {
+                                                                                    
+                                                                                    Util util = new Util();
+                                                                                            if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) && (!rtype.equals(mtype))) {
                                                                             armazemCodigo.desativa();
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
@@ -344,7 +347,9 @@ MethodDeclaration
                                                                                                 if (armazemVar.containsVariavel(mtype)) {
                                                                                         mtype = armazemVar.getVariavel(mtype).getTipo();
                                                                                     }
-                                                                                                 if (!rtype.equals(mtype)) {
+                                                                                    Util util = new Util();
+                                                                                    
+                                                                                                 if ((!util.verificaExpressaoAritimeticaSimples(rtype, mtype)) || (!rtype.equals(mtype))) {
                                                                             armazemCodigo.desativa();                     
                                                                             System.out.println("ERRO SEM�NTICO, O RETORNO DO METODO: " + novoMetodo.getNome() + " DEVE SER DO MESMO TIPO DA DECLARA��O" + "."); 
                                                                          } else {
@@ -634,7 +639,7 @@ ComplexPrimaryNoParenthesis
 	| BOOLLIT:lexval {: RESULT = new Tuple("boolean", lexval); :}
 	| ArrayAccess:type {: RESULT = new Tuple(type, "") ; :}
 	| FieldAccess
-	| MethodCall:type {: System.out.println("Type method call:" + type); RESULT = new Tuple(type, "5") ; :}
+	| MethodCall:type {: RESULT = new Tuple(type, "5") ; :}
 	;
 
 ArrayAccess
@@ -662,7 +667,7 @@ MethodCall
                                                                             }
                                                                          }
                                                                          Metodo possivel = armazemMetodos.getMetodoPossivel(name, argsType);
-                                                                         System.out.println("Metodos possiveis:" + possivel); 
+                                                                         
                                                                          if (!armazemMetodos.containsMetodo(name, argsType) && possivel == null) {
                                                                             String strTypes = "";
                                                                             for (int i = 0; i < argsType.length - 1; i++) {
@@ -673,7 +678,7 @@ MethodCall
                                                                             throw new RuntimeException("O m�todo |" + name + "(" + strTypes + ")|" + " n�o existe.");
                                                                          }
                                                                          
-                                                                         System.out.println("Acesso a metodo. " + Arrays.toString(argsType)); 
+                                                                          
                                                                          Metodo m = armazemMetodos.getMetodo(name,argsType);
                                                                          if (m == null) {
                                                                             m = possivel;
@@ -686,7 +691,7 @@ MethodCall
                                                                          RESULT = m.getTipoRetorno();
 :}   
                                                                          
-	|  DOT MethodAccess:name OPENPAR CLOSEPAR {: if (!armazemMetodos.containsMetodo(name)) {
+	| DOT MethodAccess:name OPENPAR CLOSEPAR {: if (!armazemMetodos.containsMetodo(name)) {
                                                         throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
                                                      

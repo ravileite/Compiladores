@@ -82,9 +82,9 @@ public class ArmazenadorMetodos {
                 } else {
                     for (int i = 0; i < tiposDeEntrada.length; i++) {
                         Util util = new Util();
-                        System.out.println("Entrou aqui por2 : " + metodo.getTipos()[i]);
+                        
                         if (!util.verificaExpressaoAritimeticaSimples(metodo.getTipos()[i], tiposDeEntrada[i])) {
-                            System.out.println("Entrou aqui por: " + metodo.getTipos()[i]);
+                            
                                 result = false;
                                 break;
                         }

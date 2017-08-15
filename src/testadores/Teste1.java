@@ -1,35 +1,15 @@
 package testadores;
 
 public class Teste1{
-    public static void main( String[] args) {
-        int x;
-        int x1 = 20;
-        int y;
-        int y1 = 109;
-        
-        x = 10;
-        y = 20;
-        x1 = 15;
-        
-        Teste1 t = new Teste1();
-        .t.hello9(5,15);
-        
-        .hello1();
-        .hello2();
-        .hello3();
-        .hello8(10);
-        .hello9(5, 15);
-    }
-    
-    public void hello1(){
+    public static void hello1(){
         
     }
     
-    private int hello2() {
+    private static int hello2() {
         return 0;
     }
     
-    protected double hello3(){
+    protected static double hello3(){
         return 0;
     }
     
@@ -45,36 +25,41 @@ public class Teste1{
         return 100;
     }
     
-    public static int hello7( int k ) {
-        return k;
+    public static int hello7( int k1 ) {
+        return k1;
     }
     
-    private static double hello8( int x ) {
-        return (double) x;
-    }
-    
-    protected int hello9 (int x, int k) {
-        return x + k;
-    }
-    
-    protected int hello10 (int x, int k) {
-        return x = new Integer(k);
-    }
-    
-    protected char hello11 (int x, int k) {
+    protected static char hello8 (int x4, int k4) {
         char b = 'a';
         return b;
     }
     
-    private String hello12(){
-    	String x = "deucert";
-    	return x;
+    private static String hello9(){
+    	String x5 = "deucert";
+    	return x5;
     }
     
-    private void hello13(){
-    	double x = 0.1;
+    private static void hello10(){
+    	double x6 = 0.1;
     	for(int i = 0; i < 10; i++){
-    		x = 1 + (x * 2);
+    		x6 = 1 + (x6 * 2);
     	}
+    }
+    
+    public static void main( String[] args) {
+        int x7;
+        int x8 = 20;
+        int y;
+        int y1 = 109;
+        
+        x7 = 10;
+        y = 20;
+        x8 = 15;
+        
+        Teste1 t = new Teste1();
+        
+        .hello1();
+        .hello2();
+        .hello3();
     }
 }
