@@ -4386,7 +4386,8 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int namesleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).left;
 		int namesright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).right;
 		String names = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-1)).value;
-		 String[] argsName = names.split(",");
+		
+																		String[] argsName = names.split(",");
                                                                          String[] argsType = new String[argsName.length];
 
                                                                          for (int i = 0; i < argsName.length; i++) {
@@ -4431,10 +4432,7 @@ class CUP$AnalisadorSintaticoGen$actions {
 		int nameleft = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).left;
 		int nameright = ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).right;
 		String name = (String)((java_cup.runtime.Symbol) CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-2)).value;
-		 if (!armazemMetodos.containsMetodo(name)) {
-                                                        throw new RuntimeException("O mï¿½todo |" + name + "()|" + " nï¿½o existe.");
-                                                     }
-                                                     
+		 if (armazemMetodos.containsMetodo(name)) {
                                                      armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext().replace("//Código para ", "") + "size");
                                                      
                                                      armazemCodigo.addCode("ST " + " *SP" + ", " + (armazemCodigo.getReturnPoint()));
@@ -4442,6 +4440,10 @@ class CUP$AnalisadorSintaticoGen$actions {
                                                      armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext().replace("//Código para ", "") + "size");
 
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); 
+                                                 } else {
+                                                 	System.out.println("O metodo |" + name + "()|" + " nao existe.");
+                                                 }
+                                                     
               CUP$AnalisadorSintaticoGen$result = parser.getSymbolFactory().newSymbol("MethodCall",62, ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.elementAt(CUP$AnalisadorSintaticoGen$top-3)), ((java_cup.runtime.Symbol)CUP$AnalisadorSintaticoGen$stack.peek()), RESULT);
             }
           return CUP$AnalisadorSintaticoGen$result;

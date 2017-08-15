@@ -656,7 +656,8 @@ FieldAccess
 	;
 
 MethodCall
-	::=  DOT MethodAccess:name OPENPAR ArgumentList:names CLOSEPAR {: String[] argsName = names.split(",");
+	::=  DOT MethodAccess:name OPENPAR ArgumentList:names CLOSEPAR {:
+																		String[] argsName = names.split(",");
                                                                          String[] argsType = new String[argsName.length];
 
                                                                          for (int i = 0; i < argsName.length; i++) {
@@ -691,17 +692,19 @@ MethodCall
                                                                          RESULT = m.getTipoRetorno();
 :}   
                                                                          
-	| DOT MethodAccess:name OPENPAR CLOSEPAR {: if (!armazemMetodos.containsMetodo(name)) {
-                                                        throw new RuntimeException("O mï¿½todo |" + name + "()|" + " nï¿½o existe.");
-                                                     }
-                                                     
+	| DOT MethodAccess:name OPENPAR CLOSEPAR {: if (armazemMetodos.containsMetodo(name)) {
                                                      armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext().replace("//Código para ", "") + "size");
                                                      
                                                      armazemCodigo.addCode("ST " + " *SP" + ", " + (armazemCodigo.getReturnPoint()));
                                                      armazemCodigo.addCode("BR " + armazemCodigo.getMethodLine("//Código para " + name));
                                                      armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext().replace("//Código para ", "") + "size");
 
-                                                     RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); :}
+                                                     RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); 
+                                                 } else {
+                                                 	System.out.println("O metodo |" + name + "()|" + " nao existe.");
+                                                 }
+                                                     :}
+                                                   
 	;
 
 MethodAccess
