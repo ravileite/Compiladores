@@ -378,6 +378,9 @@ MethodDeclarator
 
                                                                             armazemCodigo.addMetodo(novoMetodo.getNome());
                                                                             armazemCodigo.addCode(novoMetodo.getNome());
+                                                                            if (novoMetodo.getNome.equals("main")) {
+                                                                                armazemCodigo.addCode("halt");
+                                                                            }
                                                                             
                                                                             RESULT = novoMetodo;    
                                                                         }
