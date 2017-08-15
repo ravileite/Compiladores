@@ -44,16 +44,34 @@ public class ArmazenadorCodigoAssembly {
 		}
 		
 	}
+	
+	public int getReturnPoint() {
+		int offset = 0; 
+		
+		for (int i = 0; i < codeList.size(); i++) {
+			if (codeList.get(i).startsWith("//")) {
+				offset++;
+			}
+		}
+		
+		return ((codeList.size() - offset) * 8) + 16;
+	}
         
-        public int getMethodLine(String nome) {
-            for (int i = 0; i < codeList.size(); i++) {
-                if (codeList.get(i).equals(nome)) {
-                    return i * 8;
-                }
-            }
+	public int getMethodLine(String nome) {
+		int offset = 0;
+		
+		for (int i = 0; i < codeList.size(); i++) {
+			if (codeList.get(i).startsWith("//")) {
+				offset++;
+			}
+			
+			if (codeList.get(i).equals(nome)) {
+				return (i - offset + 1) * 8;
+			}
+		}
             
-            return -1;
-        }
+		return -1;
+	}
 	
 	public boolean ehFor(){
 		if(codeList.get(codeList.size()-2).equals("flag")){

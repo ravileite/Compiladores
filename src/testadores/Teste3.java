@@ -48,7 +48,7 @@ public class Teste3 {
 		boolean x;
 		double y;
 		
-		for(int i = 0; i < .test1(); i++){
+		for(int i = 0; i < 10; i++){
 			
 		}
                 
