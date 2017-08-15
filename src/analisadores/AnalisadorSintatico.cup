@@ -669,11 +669,11 @@ MethodCall
                                                                          if (m == null) {
                                                                             m = possivel;
                                                                          }
-
-                                                                         armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                                         
+                                                                         armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext() + "size");
                                                                          armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
                                                                          armazemCodigo.addCode("BR " + m.getNome());
-                                                                         armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
+                                                                         armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext() + "size");
                                                                          RESULT = m.getTipoRetorno();
 :}   
                                                                          
@@ -681,10 +681,10 @@ MethodCall
                                                         throw new RuntimeException("O m�todo |" + name + "()|" + " n�o existe.");
                                                      }
 
-                                                     armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #size");
+                                                     armazemCodigo.addCode("ADD " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext() + "size");
                                                      armazemCodigo.addCode("ST " + " *SP" + ", " + armazemCodigo.getCodeList().size() * 8);
                                                      armazemCodigo.addCode("BR " + armazemCodigo.getMethodLine(name));
-                                                     armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #size");
+                                                     armazemCodigo.addCode("SUB " + " SP" + ", SP" + ", #" + armazemCodigo.getCurrentContext() + "size");
 
                                                      RESULT = armazemMetodos.getMetodo(name, new String[]{}).getTipoRetorno(); :}
 	;

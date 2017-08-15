@@ -76,6 +76,16 @@ public class ArmazenadorCodigoAssembly {
 		}
 		codigosRelacionais.get(labels.get(labels.size()-1)).add(code);
 	}
+        
+        public String getCurrentContext() {
+            for (int i = codeList.size() - 1; i >= 0; i--) {
+                if (metodos.contains(codeList.get(i))) {
+                    return codeList.get(i);
+                }
+            }
+            
+            return null;
+        }
 	
 	public LinkedList<String> getCodigoRelacional(int i){
 		return codigosRelacionais.get(i);
